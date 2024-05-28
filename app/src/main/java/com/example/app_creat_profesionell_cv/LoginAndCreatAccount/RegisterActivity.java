@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.app_creat_profesionell_cv.DataBase.LoginAndRegister;
 import com.example.app_creat_profesionell_cv.OtherClasses.ClassForFunction;
 import com.example.app_creat_profesionell_cv.R;
 import com.github.dhaval2404.imagepicker.ImagePicker;
@@ -27,6 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ImageView imageUser;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
     private Uri selectedImage;
+    LoginAndRegister db;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -42,11 +44,18 @@ public class RegisterActivity extends AppCompatActivity {
         confirmPassword = findViewById(R.id.confirmPassword);
         create = findViewById(R.id.creat); // Corrected ID reference
         login = findViewById(R.id.loginFromHere);
+        db  = new LoginAndRegister(this);
 
-        // Setup image picker
+        create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // db.add(nameOfUser.getText().toString(),email.getText().toString(),password.getText().toString());
+                db.getAll();
+            }
+        });
+
         setupImagePicker();
 
-        // Set onClickListener for login TextView
         login.setOnClickListener(v -> startActivity(new Intent(RegisterActivity.this, LoginActivity.class)));
     }
 
