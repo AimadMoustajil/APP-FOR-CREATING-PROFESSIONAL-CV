@@ -6,8 +6,8 @@
         android:title="HOME"/>
     <item
         android:id="@+id/user"
-        android:icon="@drawable/user"
-        android:title="HOME"/>
+        android:icon="@drawable/baseline_account_circle_24"
+        android:title="ACCOUNT"/>
     <item
         android:id="@+id/about"
         android:icon="@drawable/about"
