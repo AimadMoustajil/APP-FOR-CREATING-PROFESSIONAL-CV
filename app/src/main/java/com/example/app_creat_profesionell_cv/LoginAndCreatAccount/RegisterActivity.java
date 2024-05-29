@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.app_creat_profesionell_cv.DashBoardActivity;
 import com.example.app_creat_profesionell_cv.DataBase.LoginAndRegister;
 import com.example.app_creat_profesionell_cv.OtherClasses.ClassForFunction;
 import com.example.app_creat_profesionell_cv.R;
@@ -29,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ActivityResultLauncher<Intent> imagePickerLauncher;
     private Uri selectedImage;
     LoginAndRegister db;
+    static  SharedPreferences sharedPreferences;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -36,7 +39,6 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Initialize views
         imageUser = findViewById(R.id.imageUser);
         nameOfUser = findViewById(R.id.nameOfUser);
         email = findViewById(R.id.email);
@@ -45,12 +47,25 @@ public class RegisterActivity extends AppCompatActivity {
         create = findViewById(R.id.creat); // Corrected ID reference
         login = findViewById(R.id.loginFromHere);
         db  = new LoginAndRegister(this);
+        sharedPreferences = getSharedPreferences("myInfo",MODE_PRIVATE);
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // db.add(nameOfUser.getText().toString(),email.getText().toString(),password.getText().toString());
-                db.getAll();
+                String name = nameOfUser.getText().toString();
+                String emailText = email.getText().toString();
+                String passwordText = password.getText().toString();
+                if (selectedImage != null && !name.isEmpty() && !emailText.isEmpty() && !passwordText.isEmpty()) {
+                    db.add(name, emailText, passwordText, selectedImage.toString());
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("name",nameOfUser.getText().toString());
+                    editor.putString("password",passwordText.toString());
+                    editor.commit();
+                    startActivity(new Intent(RegisterActivity.this, DashBoardActivity.class));
+                } else {
+                    db.add(name, emailText, passwordText, null);
+                }
+                //db.getAll();
             }
         });
 
@@ -71,12 +86,11 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 });
 
-        // Set onClickListener for imageUser ImageView
         imageUser.setOnClickListener(v -> pickImage());
     }
 
     private void pickImage() {
-        ImagePicker.with(this) // Assuming ImagePiker is correctly implemented and imported
+        ImagePicker.with(this)
                 .cropSquare()
                 .compress(512)
                 .maxResultSize(512, 512)
@@ -88,5 +102,17 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void setProfileImage(Uri imageUri) {
         ClassForFunction.setProfileTic(getApplicationContext(), imageUri, imageUser);
+    }
+
+    public String getName(){
+        SharedPreferences sharedPreferences = getSharedPreferences("myInfo", MODE_PRIVATE);
+        String name = sharedPreferences.getString("name","");
+        return name;
+    }
+
+    public String getPassword(){
+        SharedPreferences sharedPreferences = getSharedPreferences("myInfo", MODE_PRIVATE);
+        String password = sharedPreferences.getString("password","");
+        return password;
     }
 }
