@@ -56,6 +56,8 @@ public class DashBoardActivity extends AppCompatActivity {
                     startActivity(new Intent(DashBoardActivity.this,AboutActivity.class));
                 }else if (itemId == R.id.logout){
                     startActivity(new Intent(DashBoardActivity.this, LoginActivity.class));
+                }else if (itemId == R.id.user){
+                    startActivity(new Intent(DashBoardActivity.this, SettingActivity.class));
                 }
                 return false;
             }
