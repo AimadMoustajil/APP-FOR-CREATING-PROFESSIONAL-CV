@@ -73,6 +73,7 @@ public class DashBoardActivity extends AppCompatActivity {
         rec.setAdapter(adapter);
 
 
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
