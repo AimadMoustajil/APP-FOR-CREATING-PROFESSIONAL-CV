@@ -13,6 +13,9 @@
         android:theme="@style/Theme.App_creat_profesionell_cv"
         tools:targetApi="31">
         <activity
+            android:name=".QuestionForEnterviewActivity"
+            android:exported="false" />
+        <activity
             android:name=".ModelsOfCV.ModelsActivity"
             android:exported="false" />
         <activity

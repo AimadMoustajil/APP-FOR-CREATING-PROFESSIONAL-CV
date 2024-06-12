@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app_creat_profesionell_cv.Classes.Shapes;
 import com.example.app_creat_profesionell_cv.ModelsOfCV.ModelsActivity;
+import com.example.app_creat_profesionell_cv.QuestionForEnterviewActivity;
 import com.example.app_creat_profesionell_cv.R;
 
 import java.util.ArrayList;
@@ -61,6 +62,18 @@ public class AdapterForShapeOnDashBoard extends RecyclerView.Adapter<AdapterForS
                 public void onClick(View v) {
                     if (txt.getText().toString().equals("creat cv")) {
                         Intent intent = new Intent(v.getContext(), ModelsActivity.class);
+                        v.getContext().startActivity(intent);
+                    } else {
+                        Toast.makeText(v.getContext(), "Not Done", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (txt.getText().toString().equals("Question d'entrevue")) {
+                        Intent intent = new Intent(v.getContext(), QuestionForEnterviewActivity.class);
                         v.getContext().startActivity(intent);
                     } else {
                         Toast.makeText(v.getContext(), "Not Done", Toast.LENGTH_SHORT).show();
