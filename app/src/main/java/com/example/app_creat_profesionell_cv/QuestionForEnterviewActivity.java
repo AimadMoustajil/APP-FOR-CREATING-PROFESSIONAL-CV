@@ -29,7 +29,7 @@ public class QuestionForEnterviewActivity extends AppCompatActivity {
         questionArrayList = new ArrayList<>();
 
         // Add items to the questionArrayList
-        String[] titleOfPost = {"Python", "Java", "C++", "C#", "Kotlin"};
+        String[] titleOfPost = {"Gineral Question","Python", "Java", "C++", "C#", "Flutter"};
         for (String title : titleOfPost) {
             questionArrayList.add(new TitleQuestion(title));
         }
