@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.app_creat_profesionell_cv.Adapters.AdapterForShapeOnDashBoard;
 import com.example.app_creat_profesionell_cv.Classes.Shapes;
+import com.example.app_creat_profesionell_cv.DataBase.LoginAndRegister;
 import com.example.app_creat_profesionell_cv.LoginAndCreatAccount.LoginActivity;
 import com.google.android.material.navigation.NavigationView;
 
@@ -32,6 +34,7 @@ public class DashBoardActivity extends AppCompatActivity {
     NavigationView navigationView;
     RecyclerView rec;
     AdapterForShapeOnDashBoard adapter;
+    LoginAndRegister db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +43,7 @@ public class DashBoardActivity extends AppCompatActivity {
         buttonDrawelToggle = findViewById(R.id.buttonDrawelToggle);
         navigationView = findViewById(R.id.navigationView);
         rec = findViewById(R.id.rec);
+        db  = new LoginAndRegister(this);
 
         buttonDrawelToggle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,12 +59,17 @@ public class DashBoardActivity extends AppCompatActivity {
         TextView emailOfUser = view.findViewById(R.id.emailOfUser);
 
 
+        imageOfuse.setImageURI(Uri.parse(db.getImageUrl(getName(),getPassword())));
+        nameOfUser.setText(db.getUserName(getName(),getPassword()));
+        emailOfUser.setText(db.getEmail(getName(),getPassword()));
+
+
         //RecycleView with Adapter
         ArrayList<Shapes> myShapesInDashBoard = new ArrayList<>();
         myShapesInDashBoard.add(new Shapes("cv","creat cv"));
         myShapesInDashBoard.add(new Shapes("note","creat letter de motivation"));
         myShapesInDashBoard.add(new Shapes("resign","creat letter de dimission"));
-        myShapesInDashBoard.add(new Shapes("promotion","creat letter e promotion"));
+        myShapesInDashBoard.add(new Shapes("promotion","creat letter de promotion"));
         myShapesInDashBoard.add(new Shapes("ask","Question d'entrevue"));
 
         // Initialize and set adapter
@@ -94,4 +103,14 @@ public class DashBoardActivity extends AppCompatActivity {
 
     }
 
+
+    public String getName() {
+        SharedPreferences sharedPreferences = getSharedPreferences("myInfo", MODE_PRIVATE);
+        return sharedPreferences.getString("name", "");
+    }
+
+    public String getPassword() {
+        SharedPreferences sharedPreferences = getSharedPreferences("myInfo", MODE_PRIVATE);
+        return sharedPreferences.getString("password", "");
+    }
 }

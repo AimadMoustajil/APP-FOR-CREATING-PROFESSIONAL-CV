@@ -13,11 +13,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app_creat_profesionell_cv.Classes.Shapes;
+import com.example.app_creat_profesionell_cv.Letters.LetterDeDimidion;
+import com.example.app_creat_profesionell_cv.Letters.LetterDePromotion;
+import com.example.app_creat_profesionell_cv.Letters.letterDeMotivation;
 import com.example.app_creat_profesionell_cv.ModelsOfCV.ModelsActivity;
 import com.example.app_creat_profesionell_cv.QuestionForEnterviewActivity;
 import com.example.app_creat_profesionell_cv.R;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AdapterForShapeOnDashBoard extends RecyclerView.Adapter<AdapterForShapeOnDashBoard.ShapeViewHolder> {
     ArrayList<Shapes> myShapes;
@@ -41,6 +45,23 @@ public class AdapterForShapeOnDashBoard extends RecyclerView.Adapter<AdapterForS
         int resourceId = context.getResources().getIdentifier(shape.getImage(), "drawable", context.getPackageName());
         holder.img.setImageResource(resourceId);
         holder.txt.setText(shape.getDesc());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Objects.equals(shape.getDesc(), "creat cv")){
+                    v.getContext().startActivity(new Intent(v.getContext(),ModelsActivity.class));
+                } else if (Objects.equals(shape.getDesc(), "creat letter de motivation")){
+                    v.getContext().startActivity(new Intent(v.getContext(), letterDeMotivation.class));
+                }else if (Objects.equals(shape.getDesc(), "creat letter de dimission")){
+                    v.getContext().startActivity(new Intent(v.getContext(), LetterDeDimidion.class));
+                }else if (Objects.equals(shape.getDesc(), "creat letter de promotion")){
+                    v.getContext().startActivity(new Intent(v.getContext(), LetterDePromotion.class));
+                } else if (Objects.equals(shape.getDesc(), "Question d'entrevue")){
+                    v.getContext().startActivity(new Intent(v.getContext(),QuestionForEnterviewActivity.class));
+                }
+            }
+        });
     }
 
     @Override
@@ -57,7 +78,7 @@ public class AdapterForShapeOnDashBoard extends RecyclerView.Adapter<AdapterForS
             super(itemView);
             img = itemView.findViewById(R.id.imageOfLogo);
             txt = itemView.findViewById(R.id.description);
-            itemView.setOnClickListener(new View.OnClickListener() {
+            /*itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (txt.getText().toString().equals("creat cv")) {
@@ -79,7 +100,7 @@ public class AdapterForShapeOnDashBoard extends RecyclerView.Adapter<AdapterForS
                         Toast.makeText(v.getContext(), "Not Done", Toast.LENGTH_SHORT).show();
                     }
                 }
-            });
+            });*/
         }
     }
 }

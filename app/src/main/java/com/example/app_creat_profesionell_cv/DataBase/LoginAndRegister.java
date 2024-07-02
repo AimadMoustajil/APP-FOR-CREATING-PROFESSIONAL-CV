@@ -115,7 +115,76 @@ public class LoginAndRegister extends SQLiteOpenHelper {
             cursor.close();
         }
         db.close();
-        return isUserExists;
+        return !isUserExists;
+    }
+
+    // Function to get URL image
+    public String getImageUrl(String username, String password) {
+        if (checkUserCredentials(username, password)) {
+            SQLiteDatabase db = this.getReadableDatabase();
+            String[] projection = { COLUMN_IMAGE };
+            String selection = COLUMN_USER_NAME + " = ?";
+            String[] selectionArgs = { username };
+            Cursor cursor = db.query(
+                    TABLE_NAME, projection, selection, selectionArgs, null, null, null
+            );
+
+            if (cursor != null && cursor.moveToFirst()) {
+                String imageUrl = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_IMAGE));
+                cursor.close();
+                db.close();
+                return imageUrl;
+            }
+            if (cursor != null) cursor.close();
+            db.close();
+        }
+        return null;
+    }
+
+    // Function to get user name
+    public String getUserName(String username, String password) {
+        if (checkUserCredentials(username, password)) {
+            SQLiteDatabase db = this.getReadableDatabase();
+            String[] projection = { COLUMN_USER_NAME };
+            String selection = COLUMN_USER_NAME + " = ?";
+            String[] selectionArgs = { username };
+            Cursor cursor = db.query(
+                    TABLE_NAME, projection, selection, selectionArgs, null, null, null
+            );
+
+            if (cursor != null && cursor.moveToFirst()) {
+                String userName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_USER_NAME));
+                cursor.close();
+                db.close();
+                return userName;
+            }
+            if (cursor != null) cursor.close();
+            db.close();
+        }
+        return null;
+    }
+
+    // Function to get email
+    public String getEmail(String username, String password) {
+        if (checkUserCredentials(username, password)) {
+            SQLiteDatabase db = this.getReadableDatabase();
+            String[] projection = { COLUMN_NUMBER_PHONE };
+            String selection = COLUMN_USER_NAME + " = ?";
+            String[] selectionArgs = { username };
+            Cursor cursor = db.query(
+                    TABLE_NAME, projection, selection, selectionArgs, null, null, null
+            );
+
+            if (cursor != null && cursor.moveToFirst()) {
+                String email = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NUMBER_PHONE));
+                cursor.close();
+                db.close();
+                return email;
+            }
+            if (cursor != null) cursor.close();
+            db.close();
+        }
+        return null;
     }
 
 }
