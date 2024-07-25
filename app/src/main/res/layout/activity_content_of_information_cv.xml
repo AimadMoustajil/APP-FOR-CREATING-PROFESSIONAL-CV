@@ -15,65 +15,75 @@
         tools:ignore="MissingConstraints" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="15dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar5"
-        android:orientation="vertical">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar5">
 
         <TextView
             android:id="@+id/infoPersonnel"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textSize="20dp"
-            android:gravity="center_vertical"
+            android:layout_margin="15dp"
             android:background="@drawable/rounded_textview"
+            android:gravity="center_vertical"
             android:text="Information personnelles"
-            android:layout_margin="15dp" />
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/éducation"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textSize="20dp"
-            android:gravity="center_vertical"
-            android:background="@drawable/rounded_textview"
-            android:text="Education"
             android:layout_margin="15dp"
- />
+            android:background="@drawable/rounded_textview"
+            android:gravity="center_vertical"
+            android:text="Education"
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/exDeTravaille"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textSize="20dp"
-            android:gravity="center_vertical"
+            android:layout_margin="15dp"
             android:background="@drawable/rounded_textview"
+            android:gravity="center_vertical"
             android:text="Expérience de travail"
-            android:layout_margin="15dp" />
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/projet"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textSize="20dp"
-            android:gravity="center_vertical"
+            android:layout_margin="15dp"
             android:background="@drawable/rounded_textview"
+            android:gravity="center_vertical"
             android:text="Projet"
-            android:layout_margin="15dp" />
+            android:textSize="20dp" />
+
         <TextView
             android:id="@+id/infoAdditionnelle"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:textSize="20dp"
-            android:gravity="center_vertical"
-            android:background="@drawable/rounded_textview"
-            android:text="Information additionnelle"
             android:layout_margin="15dp"
-         />
+            android:background="@drawable/rounded_textview"
+            android:gravity="center_vertical"
+            android:text="Information additionnelle"
+            android:textSize="20dp" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/generateCV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Generate CV"
+        android:layout_margin="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
