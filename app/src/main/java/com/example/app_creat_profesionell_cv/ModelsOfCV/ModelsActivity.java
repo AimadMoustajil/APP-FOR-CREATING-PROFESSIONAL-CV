@@ -27,7 +27,13 @@ public class ModelsActivity extends AppCompatActivity {
 
         ArrayList<Integer> images = new ArrayList<>();
         images.add(R.drawable.cv);
-        images.add(R.drawable.m1);
+        images.add(R.drawable.cv);
+        images.add(R.drawable.cv);
+        images.add(R.drawable.cv);
+        images.add(R.drawable.cv);
+        images.add(R.drawable.cv);
+        images.add(R.drawable.cv);
+
 
         rec.setLayoutManager(new GridLayoutManager(this, 2));
 
