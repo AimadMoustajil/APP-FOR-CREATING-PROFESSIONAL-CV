@@ -7,12 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.app_creat_profesionell_cv.ContentOfCV.ContentOfInformationCv;
 import com.example.app_creat_profesionell_cv.R;
 
@@ -24,7 +22,7 @@ public class AdapterOfImageCV extends RecyclerView.Adapter<AdapterOfImageCV.Imag
 
     public AdapterOfImageCV(ArrayList<Integer> images, Context context) {
         this.images = images;
-        this.context = context;
+        this.context = context.getApplicationContext(); // Use application context to avoid potential leaks
     }
 
     @NonNull
@@ -42,11 +40,12 @@ public class AdapterOfImageCV extends RecyclerView.Adapter<AdapterOfImageCV.Imag
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(context, ""+position, Toast.LENGTH_SHORT).show();
-                context.startActivity(new Intent(context, ContentOfInformationCv.class));
+                // Navigate to ContentOfInformationCv activity when an image is clicked
+                Intent intent = new Intent(context, ContentOfInformationCv.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // Necessary since we use application context
+                context.startActivity(intent);
             }
         });
-
     }
 
     @Override

@@ -16,6 +16,7 @@ public class ContentOfInformationCv extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_of_information_cv);
+        generateCv = findViewById(R.id.generateCv);
         generateCv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
