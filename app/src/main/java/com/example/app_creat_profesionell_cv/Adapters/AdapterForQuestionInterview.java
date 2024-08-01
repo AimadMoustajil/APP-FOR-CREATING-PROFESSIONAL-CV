@@ -90,6 +90,66 @@ public class AdapterForQuestionInterview extends RecyclerView.Adapter<AdapterFor
                         intent.putExtra("interview","Flutter");
                         context.startActivity(intent);
                     }
+                    if (title.getText().toString() == "C"){
+                        Context context = v.getContext();
+                        Intent intent = new Intent(context, ReadQuestionsInterviewsActivity.class);
+                        intent.putExtra("interview","C");
+                        context.startActivity(intent);
+                    }
+                    if (title.getText().toString() == "Perl"){
+                        Context context = v.getContext();
+                        Intent intent = new Intent(context, ReadQuestionsInterviewsActivity.class);
+                        intent.putExtra("interview","Perl");
+                        context.startActivity(intent);
+                    }
+                    if (title.getText().toString() == "Data Analyst"){
+                        Context context = v.getContext();
+                        Intent intent = new Intent(context, ReadQuestionsInterviewsActivity.class);
+                        intent.putExtra("interview","Data Analyst");
+                        context.startActivity(intent);
+                    }
+                    if (title.getText().toString() == "Data Science"){
+                        Context context = v.getContext();
+                        Intent intent = new Intent(context, ReadQuestionsInterviewsActivity.class);
+                        intent.putExtra("interview","Data Science");
+                        context.startActivity(intent);
+                    }
+                    if (title.getText().toString() == "DBMS"){
+                        Context context = v.getContext();
+                        Intent intent = new Intent(context, ReadQuestionsInterviewsActivity.class);
+                        intent.putExtra("interview","DBMS");
+                        context.startActivity(intent);
+                    }
+                    if (title.getText().toString() == "Machine Learning"){
+                        Context context = v.getContext();
+                        Intent intent = new Intent(context, ReadQuestionsInterviewsActivity.class);
+                        intent.putExtra("interview","Machine Learning");
+                        context.startActivity(intent);
+                    }
+                    if (title.getText().toString() == "Computer Engineer"){
+                        Context context = v.getContext();
+                        Intent intent = new Intent(context, ReadQuestionsInterviewsActivity.class);
+                        intent.putExtra("interview","Computer Engineer");
+                        context.startActivity(intent);
+                    }
+                    if (title.getText().toString() == "Compatibility"){
+                        Context context = v.getContext();
+                        Intent intent = new Intent(context, ReadQuestionsInterviewsActivity.class);
+                        intent.putExtra("interview","Compatibility");
+                        context.startActivity(intent);
+                    }
+                    if (title.getText().toString() == "Full Stack"){
+                        Context context = v.getContext();
+                        Intent intent = new Intent(context, ReadQuestionsInterviewsActivity.class);
+                        intent.putExtra("interview","Full Stack");
+                        context.startActivity(intent);
+                    }
+                    if (title.getText().toString() == "Android"){
+                        Context context = v.getContext();
+                        Intent intent = new Intent(context, ReadQuestionsInterviewsActivity.class);
+                        intent.putExtra("interview","Android");
+                        context.startActivity(intent);
+                    }
                 }
             });
         }
