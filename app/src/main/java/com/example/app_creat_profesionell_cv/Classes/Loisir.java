@@ -11,6 +11,9 @@ public class Loisir {
         return loisir;
     }
 
+    public Loisir() {
+    }
+
     public void setLoisir(String loisir) {
         this.loisir = loisir;
     }

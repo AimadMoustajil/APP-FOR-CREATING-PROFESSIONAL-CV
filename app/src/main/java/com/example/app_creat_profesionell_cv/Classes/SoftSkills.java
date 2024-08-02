@@ -7,6 +7,9 @@ public class SoftSkills {
         this.softSkills = softSkills;
     }
 
+    public SoftSkills() {
+    }
+
     public String getSoftSkills() {
         return softSkills;
     }

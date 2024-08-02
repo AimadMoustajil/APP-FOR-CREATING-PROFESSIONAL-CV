@@ -7,6 +7,9 @@ public class Competance {
         this.comptenace = comptenace;
     }
 
+    public Competance() {
+    }
+
     public String getComptenace() {
         return comptenace;
     }

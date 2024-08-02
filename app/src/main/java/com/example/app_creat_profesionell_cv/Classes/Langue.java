@@ -11,6 +11,9 @@ public class Langue {
         return langue;
     }
 
+    public Langue() {
+    }
+
     public void setLangue(String langue) {
         this.langue = langue;
     }
