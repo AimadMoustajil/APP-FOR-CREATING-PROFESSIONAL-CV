@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/Aquamarine"
-        app:title="Letter de motivation"
+        app:title="Letter de Promotion"
         tools:ignore="MissingConstraints" />
 
     <ImageView
@@ -95,6 +95,7 @@
                     android:id="@+id/basDePage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:text="Alan Walker" />
             </com.google.android.material.textfield.TextInputLayout>
 
