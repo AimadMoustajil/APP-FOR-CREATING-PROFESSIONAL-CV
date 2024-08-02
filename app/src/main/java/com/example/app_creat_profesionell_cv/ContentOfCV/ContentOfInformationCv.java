@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.app_creat_profesionell_cv.Classes.InfoProjet;
@@ -21,6 +22,9 @@ public class ContentOfInformationCv extends AppCompatActivity {
 
     TextView infoPersonnel,éducation,exDeTravaille,projet,infoAdditionnelle;
     Button generateCV;
+    //Image Of Checks
+    ImageView checkInfoPersonnel,checkEucation,checkExDeTravaille,checkProjet,checkInfoAdditionnelle;
+    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +36,11 @@ public class ContentOfInformationCv extends AppCompatActivity {
         infoAdditionnelle = findViewById(R.id.infoAdditionnelle);
         generateCV = findViewById(R.id.generateCV);
 
+        checkInfoPersonnel = findViewById(R.id.checkInfoPersonnelles);
+        checkEucation = findViewById(R.id.checkEducation);
+        checkExDeTravaille = findViewById(R.id.checkExDeTravaile);
+        checkProjet = findViewById(R.id.checkProjet);
+        checkInfoAdditionnelle = findViewById(R.id.checkInfoAdditionnelle);
 
         infoPersonnel.setOnClickListener(new View.OnClickListener() {
             @Override
