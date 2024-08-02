@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.app_creat_profesionell_cv.Classes.InfoProjet;
+import com.example.app_creat_profesionell_cv.DB.InfoPersonnel;
 import com.example.app_creat_profesionell_cv.R;
 import com.example.app_creat_profesionell_cv.SectionOfCV.ExperinceActivity;
 import com.example.app_creat_profesionell_cv.SectionOfCV.InfoEducationActivity;
@@ -25,6 +26,10 @@ public class ContentOfInformationCv extends AppCompatActivity {
     //Image Of Checks
     ImageView checkInfoPersonnel,checkEucation,checkExDeTravaille,checkProjet,checkInfoAdditionnelle;
     //
+
+    //DB
+    InfoPersonnel dbInfoPersonnelle;
+    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,12 +40,23 @@ public class ContentOfInformationCv extends AppCompatActivity {
         projet = findViewById(R.id.projet);
         infoAdditionnelle = findViewById(R.id.infoAdditionnelle);
         generateCV = findViewById(R.id.generateCV);
+        //DB
+        dbInfoPersonnelle = new InfoPersonnel(this);
+        //
+
+
 
         checkInfoPersonnel = findViewById(R.id.checkInfoPersonnelles);
         checkEucation = findViewById(R.id.checkEducation);
         checkExDeTravaille = findViewById(R.id.checkExDeTravaile);
         checkProjet = findViewById(R.id.checkProjet);
         checkInfoAdditionnelle = findViewById(R.id.checkInfoAdditionnelle);
+
+        //check DB
+        if (!dbInfoPersonnelle.isDatabaseEmpty()){
+            checkInfoPersonnel.setVisibility(View.VISIBLE);
+        }
+        //
 
         infoPersonnel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,5 +90,12 @@ public class ContentOfInformationCv extends AppCompatActivity {
                 startActivity(new Intent(ContentOfInformationCv.this, InformationAdditionnelleActivity.class));
             }
         });
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        dbInfoPersonnelle.clearAllData();
     }
 }
