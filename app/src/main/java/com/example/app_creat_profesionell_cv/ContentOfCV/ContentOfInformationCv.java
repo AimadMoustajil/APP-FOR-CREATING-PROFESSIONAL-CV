@@ -9,10 +9,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.app_creat_profesionell_cv.Classes.InfoProjet;
 import com.example.app_creat_profesionell_cv.R;
 import com.example.app_creat_profesionell_cv.SectionOfCV.ExperinceActivity;
 import com.example.app_creat_profesionell_cv.SectionOfCV.InfoEducationActivity;
 import com.example.app_creat_profesionell_cv.SectionOfCV.InfoPersonnelleActivity;
+import com.example.app_creat_profesionell_cv.SectionOfCV.InfoProjetActivity;
 
 public class ContentOfInformationCv extends AppCompatActivity {
 
@@ -47,6 +49,12 @@ public class ContentOfInformationCv extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ContentOfInformationCv.this, ExperinceActivity.class));
+            }
+        });
+        projet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ContentOfInformationCv.this, InfoProjetActivity.class));
             }
         });
 
