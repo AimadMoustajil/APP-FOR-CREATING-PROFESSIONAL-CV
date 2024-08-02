@@ -15,6 +15,7 @@ import com.example.app_creat_profesionell_cv.SectionOfCV.ExperinceActivity;
 import com.example.app_creat_profesionell_cv.SectionOfCV.InfoEducationActivity;
 import com.example.app_creat_profesionell_cv.SectionOfCV.InfoPersonnelleActivity;
 import com.example.app_creat_profesionell_cv.SectionOfCV.InfoProjetActivity;
+import com.example.app_creat_profesionell_cv.SectionOfCV.InformationAdditionnelleActivity;
 
 public class ContentOfInformationCv extends AppCompatActivity {
 
@@ -58,5 +59,11 @@ public class ContentOfInformationCv extends AppCompatActivity {
             }
         });
 
+        infoAdditionnelle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ContentOfInformationCv.this, InformationAdditionnelleActivity.class));
+            }
+        });
     }
 }
