@@ -2,6 +2,7 @@ package com.example.app_creat_profesionell_cv.ContentOfCV;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.companion.CompanionDeviceService;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.app_creat_profesionell_cv.R;
+import com.example.app_creat_profesionell_cv.SectionOfCV.ExperinceActivity;
 import com.example.app_creat_profesionell_cv.SectionOfCV.InfoEducationActivity;
 import com.example.app_creat_profesionell_cv.SectionOfCV.InfoPersonnelleActivity;
 
@@ -39,6 +41,12 @@ public class ContentOfInformationCv extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ContentOfInformationCv.this, InfoEducationActivity.class));
+            }
+        });
+        exDeTravaille.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ContentOfInformationCv.this, ExperinceActivity.class));
             }
         });
 

@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SectionOfCV.InfoEducationActivity">
+    tools:context=".SectionOfCV.ExperinceActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/Aquamarine"
-        app:title="Info Education" />
+        app:title="Info Experince" />
 
 
     <ScrollView

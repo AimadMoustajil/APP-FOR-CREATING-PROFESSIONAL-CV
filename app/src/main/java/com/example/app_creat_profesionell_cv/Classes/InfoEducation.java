@@ -13,6 +13,9 @@ public class InfoEducation {
         this.endYier = endYier;
     }
 
+    public InfoEducation() {
+    }
+
     public String getShool() {
         return shool;
     }

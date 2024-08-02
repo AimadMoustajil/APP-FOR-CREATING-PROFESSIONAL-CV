@@ -44,39 +44,45 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="5dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
                 android:hint="From">
 
                 <TextView
                     android:id="@+id/start"
                     android:layout_width="match_parent"
-                    android:hint="From"
+                    android:layout_height="50dp"
                     android:layout_gravity="start"
                     android:gravity="center"
-                    android:background="@color/WhiteSmoke"
-                    android:layout_height="50dp" />
+                    android:hint="From" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
+                android:layout_weight="1"
                 android:hint="To">
 
                 <TextView
                     android:id="@+id/Finich"
                     android:layout_width="match_parent"
-                    android:hint="To"
+                    android:layout_height="50dp"
                     android:layout_gravity="start"
                     android:gravity="center"
-                    android:background="@color/WhiteSmoke"
-                    android:layout_height="50dp" />
+                    android:hint="To" />
             </com.google.android.material.textfield.TextInputLayout>
-
         </LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/rs"
+                android:layout_width="match_parent"
+                android:hint="Résumé"
+                android:layout_height="100dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
