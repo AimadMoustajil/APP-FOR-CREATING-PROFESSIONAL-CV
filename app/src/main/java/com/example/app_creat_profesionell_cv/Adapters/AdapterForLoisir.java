@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 public class AdapterForLoisir extends RecyclerView.Adapter<AdapterForLoisir.ViewHolder> {
 
-    ArrayList<Loisir> loisirArrayList;
+    ArrayList<String> loisirArrayList;
 
-    public AdapterForLoisir(ArrayList<Loisir> loisirArrayList) {
+    public AdapterForLoisir(ArrayList<String> loisirArrayList) {
         this.loisirArrayList = loisirArrayList;
     }
 
@@ -30,8 +30,8 @@ public class AdapterForLoisir extends RecyclerView.Adapter<AdapterForLoisir.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Loisir loisir = loisirArrayList.get(position);
-        holder.loisir.setText(loisir.getLoisir()); // Assuming Loisir has a method getName()
+        String loisir = loisirArrayList.get(position);
+        holder.loisir.setText(loisir); // Assuming Loisir has a method getName()
     }
 
     @Override

@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 public class AdapterForSoftSkills extends RecyclerView.Adapter<AdapterForSoftSkills.ViewHolder> {
 
-    ArrayList<SoftSkills> softSkillsArrayList;
+    ArrayList<String> softSkillsArrayList;
 
-    public AdapterForSoftSkills(ArrayList<SoftSkills> softSkillsArrayList) {
+    public AdapterForSoftSkills(ArrayList<String > softSkillsArrayList) {
         this.softSkillsArrayList = softSkillsArrayList;
     }
 
@@ -30,8 +30,8 @@ public class AdapterForSoftSkills extends RecyclerView.Adapter<AdapterForSoftSki
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        SoftSkills softSkills = softSkillsArrayList.get(position);
-        holder.softSkills.setText(softSkills.getSoftSkills()); // Assuming SoftSkills has a method getSkillName()
+        String softSkills = softSkillsArrayList.get(position);
+        holder.softSkills.setText(softSkills); // Assuming SoftSkills has a method getSkillName()
     }
 
     @Override

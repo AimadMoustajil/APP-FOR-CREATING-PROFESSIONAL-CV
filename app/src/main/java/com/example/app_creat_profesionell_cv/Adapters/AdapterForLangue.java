@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 public class AdapterForLangue extends RecyclerView.Adapter<AdapterForLangue.ViewHolder> {
 
-    ArrayList<Langue> langueArrayList;
+    ArrayList<String> langueArrayList;
 
-    public AdapterForLangue(ArrayList<Langue> langueArrayList) {
+    public AdapterForLangue(ArrayList<String> langueArrayList) {
         this.langueArrayList = langueArrayList;
     }
 
@@ -30,8 +30,8 @@ public class AdapterForLangue extends RecyclerView.Adapter<AdapterForLangue.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Langue langue = langueArrayList.get(position);
-        holder.newLanguage.setText(langue.getLangue()); // Assuming Langue has a method getName()
+        String langue = langueArrayList.get(position);
+        holder.newLanguage.setText(langue); // Assuming Langue has a method getName()
     }
 
     @Override

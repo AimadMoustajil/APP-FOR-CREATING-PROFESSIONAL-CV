@@ -14,9 +14,9 @@ import com.example.app_creat_profesionell_cv.R;
 import java.util.ArrayList;
 
 public class AdapterForCompetance extends RecyclerView.Adapter<AdapterForCompetance.ViewHolder> {
-    ArrayList<Competance> competanceArrayList;
+    ArrayList<String> competanceArrayList;
 
-    public AdapterForCompetance(ArrayList<Competance> competanceArrayList) {
+    public AdapterForCompetance(ArrayList<String> competanceArrayList) {
         this.competanceArrayList = competanceArrayList;
     }
 
@@ -29,8 +29,8 @@ public class AdapterForCompetance extends RecyclerView.Adapter<AdapterForCompeta
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Competance competance = competanceArrayList.get(position);
-        holder.competnace.setText(competance.getComptenace()); // Assuming Competance has a method getComptenace()
+        String competance = competanceArrayList.get(position);
+        holder.competnace.setText(competance); // Assuming Competance has a method getComptenace()
     }
 
     @Override
