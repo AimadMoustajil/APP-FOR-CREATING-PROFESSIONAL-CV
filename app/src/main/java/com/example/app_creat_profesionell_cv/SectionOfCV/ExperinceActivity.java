@@ -4,12 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.app_creat_profesionell_cv.Adapters.AdapterForExperience;
 import com.example.app_creat_profesionell_cv.Classes.InfoExperience;
+import com.example.app_creat_profesionell_cv.ContentOfCV.ContentOfInformationCv;
+import com.example.app_creat_profesionell_cv.DB.ExperinceDeTravaile;
 import com.example.app_creat_profesionell_cv.R;
 
 import java.util.ArrayList;
@@ -20,6 +24,9 @@ public class ExperinceActivity extends AppCompatActivity {
     AdapterForExperience adapterForExperience;
     RecyclerView recyclerView;
     ImageView addExperience,removeExperience,check;
+    //DB
+    ExperinceDeTravaile db;
+    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +41,7 @@ public class ExperinceActivity extends AppCompatActivity {
         addExperience = findViewById(R.id.addEducation);
         removeExperience = findViewById(R.id.removeEducation);
         check = findViewById(R.id.checkInfo);
+        db = new ExperinceDeTravaile(this);
 
         addExperience.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +66,17 @@ public class ExperinceActivity extends AppCompatActivity {
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //infoExperienceArrayList
+                if (!infoExperienceArrayList.isEmpty()){
+                    for (InfoExperience i:infoExperienceArrayList){
+                        db.addInfoExperience(i);
+                    }
+                    Toast.makeText(ExperinceActivity.this, "DONE", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(ExperinceActivity.this, ContentOfInformationCv.class));
+                }else {
+                    startActivity(new Intent(ExperinceActivity.this, ContentOfInformationCv.class));
 
+                }
             }
         });
     }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.app_creat_profesionell_cv.Classes.InfoEducation;
 import com.example.app_creat_profesionell_cv.Classes.InfoProjet;
 import com.example.app_creat_profesionell_cv.DB.Education;
+import com.example.app_creat_profesionell_cv.DB.ExperinceDeTravaile;
 import com.example.app_creat_profesionell_cv.DB.InfoPersonnel;
 import com.example.app_creat_profesionell_cv.R;
 import com.example.app_creat_profesionell_cv.SectionOfCV.ExperinceActivity;
@@ -32,6 +33,7 @@ public class ContentOfInformationCv extends AppCompatActivity {
     //DB
     InfoPersonnel dbInfoPersonnelle;
     Education dbInfoEducation;
+    ExperinceDeTravaile dbExperienceDeTravaille;
     //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class ContentOfInformationCv extends AppCompatActivity {
         //DB
         dbInfoPersonnelle = new InfoPersonnel(this);
         dbInfoEducation = new Education(this);
+        dbExperienceDeTravaille = new ExperinceDeTravaile(this);
         //
 
 
@@ -63,6 +66,10 @@ public class ContentOfInformationCv extends AppCompatActivity {
 
         if (!dbInfoEducation.isDatabaseEmpty()){
             checkEucation.setVisibility(View.VISIBLE);
+        }
+
+        if (!dbExperienceDeTravaille.isDatabaseEmpty()){
+            checkExDeTravaille.setVisibility(View.VISIBLE);
         }
         //
 
