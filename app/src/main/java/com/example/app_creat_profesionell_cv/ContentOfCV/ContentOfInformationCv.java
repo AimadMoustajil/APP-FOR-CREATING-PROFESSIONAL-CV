@@ -10,7 +10,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.app_creat_profesionell_cv.Classes.InfoEducation;
 import com.example.app_creat_profesionell_cv.Classes.InfoProjet;
+import com.example.app_creat_profesionell_cv.DB.Education;
 import com.example.app_creat_profesionell_cv.DB.InfoPersonnel;
 import com.example.app_creat_profesionell_cv.R;
 import com.example.app_creat_profesionell_cv.SectionOfCV.ExperinceActivity;
@@ -29,6 +31,7 @@ public class ContentOfInformationCv extends AppCompatActivity {
 
     //DB
     InfoPersonnel dbInfoPersonnelle;
+    Education dbInfoEducation;
     //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class ContentOfInformationCv extends AppCompatActivity {
         generateCV = findViewById(R.id.generateCV);
         //DB
         dbInfoPersonnelle = new InfoPersonnel(this);
+        dbInfoEducation = new Education(this);
         //
 
 
@@ -55,6 +59,10 @@ public class ContentOfInformationCv extends AppCompatActivity {
         //check DB
         if (!dbInfoPersonnelle.isDatabaseEmpty()){
             checkInfoPersonnel.setVisibility(View.VISIBLE);
+        }
+
+        if (!dbInfoEducation.isDatabaseEmpty()){
+            checkEucation.setVisibility(View.VISIBLE);
         }
         //
 
@@ -97,5 +105,6 @@ public class ContentOfInformationCv extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         dbInfoPersonnelle.clearAllData();
+        dbInfoEducation.clearAllData();
     }
 }
