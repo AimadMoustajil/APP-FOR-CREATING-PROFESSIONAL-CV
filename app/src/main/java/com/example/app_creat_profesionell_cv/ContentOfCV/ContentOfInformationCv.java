@@ -15,6 +15,7 @@ import com.example.app_creat_profesionell_cv.Classes.InfoProjet;
 import com.example.app_creat_profesionell_cv.DB.Education;
 import com.example.app_creat_profesionell_cv.DB.ExperinceDeTravaile;
 import com.example.app_creat_profesionell_cv.DB.InfoPersonnel;
+import com.example.app_creat_profesionell_cv.DB.Projet;
 import com.example.app_creat_profesionell_cv.R;
 import com.example.app_creat_profesionell_cv.SectionOfCV.ExperinceActivity;
 import com.example.app_creat_profesionell_cv.SectionOfCV.InfoEducationActivity;
@@ -34,6 +35,7 @@ public class ContentOfInformationCv extends AppCompatActivity {
     InfoPersonnel dbInfoPersonnelle;
     Education dbInfoEducation;
     ExperinceDeTravaile dbExperienceDeTravaille;
+    Projet dbProjet;
     //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,7 @@ public class ContentOfInformationCv extends AppCompatActivity {
         dbInfoPersonnelle = new InfoPersonnel(this);
         dbInfoEducation = new Education(this);
         dbExperienceDeTravaille = new ExperinceDeTravaile(this);
+        dbProjet = new Projet(this);
         //
 
 
@@ -70,6 +73,10 @@ public class ContentOfInformationCv extends AppCompatActivity {
 
         if (!dbExperienceDeTravaille.isDatabaseEmpty()){
             checkExDeTravaille.setVisibility(View.VISIBLE);
+        }
+
+        if (!dbProjet.isDatabaseEmpty()){
+            checkProjet.setVisibility(View.VISIBLE);
         }
         //
 
@@ -113,5 +120,6 @@ public class ContentOfInformationCv extends AppCompatActivity {
         super.onBackPressed();
         dbInfoPersonnelle.clearAllData();
         dbInfoEducation.clearAllData();
+        dbProjet.clearAllData();
     }
 }

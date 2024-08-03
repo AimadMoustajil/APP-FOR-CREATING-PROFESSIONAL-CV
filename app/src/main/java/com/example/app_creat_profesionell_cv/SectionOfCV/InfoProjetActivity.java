@@ -4,14 +4,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.app_creat_profesionell_cv.Adapters.AdapterForExperience;
 import com.example.app_creat_profesionell_cv.Adapters.AdapterForProjet;
 import com.example.app_creat_profesionell_cv.Classes.InfoExperience;
 import com.example.app_creat_profesionell_cv.Classes.InfoProjet;
+import com.example.app_creat_profesionell_cv.ContentOfCV.ContentOfInformationCv;
+import com.example.app_creat_profesionell_cv.DB.Projet;
 import com.example.app_creat_profesionell_cv.R;
 
 import java.util.ArrayList;
@@ -22,6 +26,9 @@ public class InfoProjetActivity extends AppCompatActivity {
     AdapterForProjet adapterForProjet;
     RecyclerView recyclerView;
     ImageView addExperience,removeExperience,check;
+    //DB
+    Projet db;
+    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +44,7 @@ public class InfoProjetActivity extends AppCompatActivity {
         addExperience = findViewById(R.id.addEducation);
         removeExperience = findViewById(R.id.removeEducation);
         check = findViewById(R.id.checkInfo);
+        db = new Projet(this);
 
 
         addExperience.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +70,15 @@ public class InfoProjetActivity extends AppCompatActivity {
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (!infoProjets.isEmpty()){
+                    for (InfoProjet i:infoProjets){
+                        db.addInfoProjet(i);
+                    }
+                    Toast.makeText(InfoProjetActivity.this, "DONE", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(InfoProjetActivity.this, ContentOfInformationCv.class));
+                }else {
+                    startActivity(new Intent(InfoProjetActivity.this, ContentOfInformationCv.class));
+                }
             }
         });
     }
