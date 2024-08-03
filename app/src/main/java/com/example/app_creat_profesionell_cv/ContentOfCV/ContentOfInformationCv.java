@@ -279,7 +279,7 @@ public class ContentOfInformationCv extends AppCompatActivity {
         int pageWidth = pageInfo.getPageWidth();
         int currentY = margin;
         int textWidth = pageWidth - 2 * margin;
-        
+
         document.finishPage(page);
 
         return document;
