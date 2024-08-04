@@ -1,6 +1,5 @@
 package com.example.app_creat_profesionell_cv.ContentOfCV;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -15,6 +14,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 import android.os.Environment;
@@ -48,6 +52,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ContentOfInformationCv extends AppCompatActivity {
 
@@ -81,7 +86,6 @@ public class ContentOfInformationCv extends AppCompatActivity {
         dbProjet = new Projet(this);
         dbInformationAitionnelle = new InformationAdditionnelle(this);
         //
-
 
 
         checkInfoPersonnel = findViewById(R.id.checkInfoPersonnelles);
@@ -146,6 +150,19 @@ public class ContentOfInformationCv extends AppCompatActivity {
         });
 
 
+        try {
+            List<String> languages = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getLangueArrayList();
+            if (languages != null && languages.size() > 1) {
+                Toast.makeText(this, languages.get(1), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "No languages available", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error fetching language data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+
         generateCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -208,48 +225,6 @@ public class ContentOfInformationCv extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        if (requestCode == 1) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, create PDF
-                createPDF();
-            } else {
-                // Permission denied, show a toast message
-                showToastOnUiThread("Permission denied to write to external storage");
-            }
-        }
-    }
-
     private static final int START_Y_POSITION = 270;
     private static final int LINE_SPACING = 25;
     private static final int COLUMN_PRICE_X = 50;
@@ -260,6 +235,10 @@ public class ContentOfInformationCv extends AppCompatActivity {
     private static final int SIGNATURE_BOX_HEIGHT = 60;
     private static final int IMAGE_SIZE_PERCENT = 20;
     private static final int IMAGE_MARGIN = 50;
+    private static final int TABLE_HEADER_COLOR = Color.RED;
+    private static final int TOTALS_COLOR = Color.BLUE;
+    private static final int BACKGROUND_COLOR = Color.GREEN;
+
 
     private PdfDocument createPDF() {
         if (!isExternalStorageWritable()) {
@@ -268,44 +247,155 @@ public class ContentOfInformationCv extends AppCompatActivity {
         }
 
         PdfDocument document = new PdfDocument();
-        PdfDocument.PageInfo pageInfo = createPageInfo();
-        PdfDocument.Page page = document.startPage(pageInfo);
-        Canvas canvas = page.getCanvas();
-        Paint paint = createPaint();
+        PdfDocument.Page page = null;
 
-        int margin = 40;
-        int lineHeight = 20;
-        int paragraphSpacing = lineHeight * 2; // Extra space between paragraphs
-        int pageWidth = pageInfo.getPageWidth();
-        int currentY = margin;
-        int textWidth = pageWidth - 2 * margin;
+        try {
+            PdfDocument.PageInfo pageInfo = createPageInfo();
+            page = document.startPage(pageInfo);
+            Canvas canvas = page.getCanvas();
+            Paint paint = createPaint();
 
-        document.finishPage(page);
+            // Draw the background color
+            Paint backgroundPaint = new Paint();
+            backgroundPaint.setColor(BACKGROUND_COLOR); // Set your background color here
+            canvas.drawRect(0, 0, pageInfo.getPageWidth(), 200, backgroundPaint); // Draw rectangle with full width and height of 200
 
-        return document;
-    }
+            // Draw header image
+            drawHeaderImage(canvas);
+            drawContactInfo(canvas,220);
+            drawLanguages(canvas, 400);
 
-    private String[] wrapText(String text, Paint paint, int textWidth) {
-        ArrayList<String> lines = new ArrayList<>();
-        String[] words = text.split(" ");
-        StringBuilder line = new StringBuilder();
+            // Draw user name and job title
+            int logoBottomY = IMAGE_MARGIN + (int) (canvas.getWidth() * IMAGE_SIZE_PERCENT / 100);
+            drawUserName(canvas, logoBottomY);
 
-        for (String word : words) {
-            if (paint.measureText(line.toString() + " " + word) > textWidth) {
-                lines.add(line.toString());
-                line = new StringBuilder(word);
-            } else {
-                if (line.length() > 0) {
-                    line.append(" ");
-                }
-                line.append(word);
+            Paint paintForJobTitle = new Paint();
+            paintForJobTitle.setColor(Color.GRAY);
+            paintForJobTitle.setTextSize(40);
+            paintForJobTitle.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+
+            // Draw job title
+            drawUserJobTitle(canvas, (canvas.getWidth() - paint.measureText(dbInfoPersonnelle.getInfo().get(0).getJob())) / 2, logoBottomY - 50);
+
+            document.finishPage(page); // Finish the page before returning
+
+            // Don't close the document here, close it after saving or sending
+            return document;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            showToastOnUiThread("Error creating PDF: " + e.getMessage());
+            if (page != null) {
+                document.finishPage(page); // Finish the page in case of an error
             }
+            document.close(); // Close the document in case of an error
+            return null;
         }
-        lines.add(line.toString());
-
-        return lines.toArray(new String[0]);
     }
 
+
+
+
+
+
+    private void drawContactInfo(Canvas canvas, int startY) {
+        Paint paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(20); // Increased text size for the heading
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface for the heading
+
+        int marginLeft = 60; // Left margin for text (considering icon width)
+        int headingMarginBottom = 10; // Space below the heading
+        int elementMarginTop = 15; // Space between line and first element
+        int lineHeight = 50; // Space between lines
+        int iconMarginRight = 10; // Space between icon and text
+
+        // Load icons from resources
+        Bitmap phoneIcon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_phone);
+        Bitmap emailIcon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_email);
+        Bitmap addressIcon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_linkdin);
+
+        // Calculate the new left margin to align heading with the phone icon
+        int iconWidth = phoneIcon.getWidth();
+        int newMarginLeft = marginLeft - iconWidth - iconMarginRight;
+
+        // Draw the "Contact" heading
+        String heading = "Contact";
+        float headingY = startY + paint.getTextSize(); // Y position for heading
+        canvas.drawText(heading, newMarginLeft, headingY, paint);
+
+        // Measure the width of the heading text
+        float headingWidth = paint.measureText(heading);
+
+        // Draw a line directly below the heading
+        Paint linePaint = new Paint();
+        linePaint.setColor(Color.BLACK);
+        linePaint.setStrokeWidth(2); // Line width
+        canvas.drawLine(newMarginLeft, headingY + headingMarginBottom, newMarginLeft + headingWidth, headingY + headingMarginBottom, linePaint);
+
+        // Contact information text and corresponding icons
+        String[] contactInfo = {
+                "Phone: " + dbInfoPersonnelle.getInfo().get(0).getN_phone(),
+                "Email: " + dbInfoPersonnelle.getInfo().get(0).getEmail(),
+                "Address: " + dbInfoPersonnelle.getInfo().get(0).getPays()
+        };
+        Bitmap[] icons = {phoneIcon, emailIcon, addressIcon};
+
+        // Draw each line of contact information with its icon
+        for (int i = 0; i < contactInfo.length; i++) {
+            // Draw icon
+            if (icons[i] != null) {
+                float iconY = headingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * i - icons[i].getHeight() / 2;
+                canvas.drawBitmap(icons[i], newMarginLeft, iconY, null);
+            }
+
+            // Draw text
+            paint.setTextSize(18); // Reset text size for contact information
+            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Reset typeface for contact information
+            float textY = headingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * i;
+            canvas.drawText(contactInfo[i], marginLeft, textY, paint);
+        }
+    }
+
+
+
+
+    private void drawLanguages(Canvas canvas, int startY) {
+        Paint paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(20); // Text size for the heading
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface for the heading
+
+        int marginLeft = 24; // Left margin for text
+        int headingMarginBottom = 10; // Space below the heading
+        int elementMarginTop = 15; // Space between line and first element
+        int lineHeight = 50; // Space between lines
+
+        // Draw the "Languages" heading
+        String heading = "Languages";
+        float headingY = startY + paint.getTextSize() + 50; // Y position for heading
+        canvas.drawText(heading, marginLeft, headingY, paint);
+
+        // Measure the width of the heading text
+        float headingWidth = paint.measureText(heading);
+
+        // Draw a line directly below the heading
+        Paint linePaint = new Paint();
+        linePaint.setColor(Color.BLACK);
+        linePaint.setStrokeWidth(2); // Line width
+        canvas.drawLine(marginLeft, headingY + headingMarginBottom, marginLeft + headingWidth, headingY + headingMarginBottom, linePaint);
+
+        // Language information text
+        ArrayList<String> languages = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getLoisirArrayList();
+
+        // Draw each language
+        for (int i = 0; i < languages.size(); i++) {
+            paint.setTextSize(18); // Reset text size for languages
+            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Reset typeface for languages
+            float textY = headingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * i;
+            canvas.drawText(languages.get(i).toString(), marginLeft, textY, paint);
+        }
+    }
 
     private ByteArrayOutputStream savePDFToByteArray(PdfDocument document) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -317,6 +407,7 @@ public class ContentOfInformationCv extends AppCompatActivity {
         }
         return outputStream;
     }
+
 
     private void showToastOnUiThread(final String message) {
         runOnUiThread(() -> Toast.makeText(this, message, Toast.LENGTH_SHORT).show());
@@ -360,6 +451,8 @@ public class ContentOfInformationCv extends AppCompatActivity {
         }
     }
 
+
+
     private Paint createPaint() {
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
@@ -377,6 +470,7 @@ public class ContentOfInformationCv extends AppCompatActivity {
 
         return new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, 1).create();
     }
+
 
     private Bitmap resizeBitmap(Bitmap originalBitmap) {
         int width = originalBitmap.getWidth();
@@ -399,4 +493,135 @@ public class ContentOfInformationCv extends AppCompatActivity {
 
         return resizedBitmap;
     }
+
+
+    private void drawHeaderImage(Canvas canvas) {
+        try {
+            // Retrieve and resize the bitmap from the URL
+            Bitmap originalBitmap = getBitmapFromURL(dbInfoPersonnelle.getInfo().get(0).getLogoOfUser());
+            Bitmap resizedBitmap = resizeBitmap(originalBitmap);
+
+            // Calculate the position for the image in the top-left corner
+            int imageX = IMAGE_MARGIN; // Padding from the left edge
+            int imageY = IMAGE_MARGIN; // Padding from the top edge
+
+            // Draw the circular image at the calculated position
+            drawCircularImage(canvas, resizedBitmap, imageX, imageY);
+
+            // Draw the user's name centered horizontally between the logo and the end of the page
+            drawUserName(canvas, resizedBitmap.getWidth() + 2 * IMAGE_MARGIN); // Position the name after the logo with padding
+
+            // Release the resized bitmap to free memory
+            resizedBitmap.recycle();
+        } catch (Exception e) {
+            // Handle exceptions, e.g., logging or showing a toast message
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
+    private void drawUserName(Canvas canvas, int logoBottomY) {
+        Paint paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(50); // Adjust text size as needed
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Set text style
+
+        // Fetch the user's name
+        String userName = dbInfoPersonnelle.getInfo().get(0).getF_name() + " " + dbInfoPersonnelle.getInfo().get(0).getL_name();
+        float textWidth = paint.measureText(userName);
+
+        // Define a fixed vertical space from the bottom of the logo
+
+        // Calculate the vertical position for the text (fixed space from the bottom of the logo)
+
+        // Calculate the position for the text (center horizontally)
+        float textX = ((canvas.getWidth() - textWidth)+128) / 2;
+
+        // Draw the text at the calculated position
+        canvas.drawText(userName, textX, 128, paint);
+    }
+
+    private void drawUserJobTitle(Canvas canvas, float nameTextX, float nameTextY) {
+        Paint paint = new Paint();
+        paint.setColor(Color.GRAY); // Set a different color for job title
+        paint.setTextSize(40); // Adjust text size for job title
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Set text style
+
+        // Fetch the user's job title
+        String userJobTitle = dbInfoPersonnelle.getInfo().get(0).getJob(); // Adjust method to get job title
+        float jobTitleWidth = paint.measureText(userJobTitle);
+
+        // Define a fixed vertical space below the user's name
+        float spaceBelowName = 10; // Adjust this value as needed
+
+        // Calculate the vertical position for the job title
+        float jobTitleTextY = nameTextY + spaceBelowName + paint.getTextSize();
+
+        // Calculate the horizontal position for the job title (center horizontally)
+        float jobTitleTextX = ((canvas.getWidth() - jobTitleWidth) + 128) / 2;
+
+        // Draw the job title at the calculated position
+        canvas.drawText(userJobTitle, jobTitleTextX, jobTitleTextY, paint);
+    }
+
+
+
+
+
+
+
+
+    private void drawCircularImage(Canvas canvas, Bitmap bitmap, int x, int y) {
+        int imageSize = (int) (canvas.getWidth() * IMAGE_SIZE_PERCENT / 100);
+        Bitmap circularBitmap = Bitmap.createBitmap(imageSize, imageSize, Bitmap.Config.ARGB_8888);
+        Canvas circularCanvas = new Canvas(circularBitmap);
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        Rect rect = new Rect(0, 0, imageSize, imageSize);
+        RectF rectF = new RectF(rect);
+        circularCanvas.drawARGB(0, 0, 0, 0);
+        circularCanvas.drawCircle(imageSize / 2, imageSize / 2, imageSize / 2, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        circularCanvas.drawBitmap(bitmap, rect, rect, paint);
+        canvas.drawBitmap(circularBitmap, x, y, null);
+    }
+
+
+    private void drawFactureTitle(Canvas canvas, Paint paint) {
+        // Save current paint settings
+        int originalColor = paint.getColor();
+        Typeface originalTypeface = paint.getTypeface();
+        float originalTextSize = paint.getTextSize();
+
+        // Set text size and typeface for the title
+        paint.setTextSize(50); // Set text size to 36
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Set bold typeface
+
+        // Set text color to blue
+        paint.setColor(Color.BLUE);
+
+        // Calculate text position and size
+        float titleX = IMAGE_MARGIN;
+        float titleY = IMAGE_MARGIN + paint.getTextSize(); // Positioning it just below the top margin
+        float titleWidth = paint.measureText("Facture"); // Measure text width to position the border
+
+        // Draw the title text
+        canvas.drawText("Facture", titleX, titleY, paint);
+
+        // Draw bottom border for the title
+        float borderY = titleY + paint.getFontMetrics().descent; // Positioning it below the text baseline
+        paint.setStrokeWidth(2); // Set border width
+        canvas.drawLine(titleX, borderY, titleX + titleWidth, borderY, paint);
+
+        // Restore original paint settings
+        paint.setColor(originalColor);
+        paint.setTypeface(originalTypeface);
+        paint.setTextSize(originalTextSize);
+    }
+
 }
