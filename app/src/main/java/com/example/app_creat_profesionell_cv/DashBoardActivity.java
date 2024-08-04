@@ -40,6 +40,7 @@ public class DashBoardActivity extends AppCompatActivity {
         myShapesInDashBoard.add(new Shapes("resign","creat letter de dimission"));
         myShapesInDashBoard.add(new Shapes("promotion","creat letter de promotion"));
         myShapesInDashBoard.add(new Shapes("ask","Question d'entrevue"));
+        myShapesInDashBoard.add(new Shapes("book","Books"));
 
         // Initialize and set adapter
         adapter = new AdapterForShapeOnDashBoard(myShapesInDashBoard, this);

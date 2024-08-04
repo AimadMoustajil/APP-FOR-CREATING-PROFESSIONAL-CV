@@ -9,6 +9,7 @@
     tools:context=".DashBoardActivity">
 
     <include layout="@layout/activity_main_content"
-        tools:ignore="ResourceCycle" />
+        tools:ignore="ResourceCycle"
+        />
 
 </androidx.drawerlayout.widget.DrawerLayout>

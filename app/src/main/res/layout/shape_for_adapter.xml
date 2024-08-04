@@ -9,11 +9,13 @@
         android:id="@+id/card_view"
         android:layout_width="168dp"
         android:layout_height="140dp"
-        android:padding="10dp"
         android:layout_margin="15dp"
+        android:padding="10dp"
         app:cardBackgroundColor="@color/WhiteSmoke"
         app:cardCornerRadius="10dp"
         app:cardElevation="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
@@ -21,6 +23,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="5dp"
             android:padding="5dp">
 
             <ImageView

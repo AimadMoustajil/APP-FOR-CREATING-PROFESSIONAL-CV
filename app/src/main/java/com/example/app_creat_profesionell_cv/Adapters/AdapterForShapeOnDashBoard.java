@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.app_creat_profesionell_cv.BooksActivity;
 import com.example.app_creat_profesionell_cv.Classes.Shapes;
 import com.example.app_creat_profesionell_cv.Letters.LetterDeDimidion;
 import com.example.app_creat_profesionell_cv.Letters.LetterDePromotion;
@@ -59,6 +60,8 @@ public class AdapterForShapeOnDashBoard extends RecyclerView.Adapter<AdapterForS
                     v.getContext().startActivity(new Intent(v.getContext(), LetterDePromotion.class));
                 } else if (Objects.equals(shape.getDesc(), "Question d'entrevue")){
                     v.getContext().startActivity(new Intent(v.getContext(),QuestionForEnterviewActivity.class));
+                }else if (Objects.equals(shape.getDesc(), "Books")){
+                    v.getContext().startActivity(new Intent(v.getContext(), BooksActivity.class));
                 }
             }
         });
