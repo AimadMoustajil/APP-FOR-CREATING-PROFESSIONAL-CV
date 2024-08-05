@@ -314,43 +314,97 @@ public class ContentOfInformationCv extends AppCompatActivity {
         // Create and configure Paint object for heading
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
-        paint.setTextSize(20);
-        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+        paint.setTextSize(20); // Heading text size
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface
 
         // Define margins and spacing
-        int marginLeft = 260;
-        int headingMarginBottom = 10;
-        int elementMarginTop = 15;
-        int lineHeight = 50;
+        final int marginLeft = 260;
+        final int headingMarginBottom = 10; // Space below the heading
+        final int elementMarginTop = 25; // Reduced margin between line and first element
+        final int lineHeight = 25; // Space between lines
 
         // Draw the "Projet" heading
         String heading = "Projet";
-        float headingY = startY + paint.getTextSize();
+        float headingY = startY + paint.getTextSize();  // Y position for heading
         canvas.drawText(heading, marginLeft, headingY, paint);
+
+        // Measure the width of the heading text
+        float headingWidth = paint.measureText(heading);
 
         // Draw a line directly below the heading
         Paint linePaint = new Paint();
         linePaint.setColor(Color.BLACK);
-        linePaint.setStrokeWidth(2);
+        linePaint.setStrokeWidth(2); // Line width
         canvas.drawLine(marginLeft, headingY + headingMarginBottom,
-                marginLeft + paint.measureText(heading), headingY + headingMarginBottom, linePaint);
+                marginLeft + headingWidth, headingY + headingMarginBottom, linePaint);
 
         // Retrieve project information from database
-        ArrayList<InfoProjet> projectInfo = dbProjet.getAllInfoProjets();
+        ArrayList<InfoProjet> projectInfo;
+        try {
+            projectInfo = dbProjet.getAllInfoProjets();
+        } catch (Exception e) {
+            // Handle the exception (e.g., log the error)
+            return startY; // Return the initial Y position if there's an error
+        }
 
         // Configure Paint object for project information text
-        paint.setTextSize(10);
-        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+        Paint normalPaint = new Paint();
+        normalPaint.setColor(Color.BLACK);
+        normalPaint.setTextSize(10); // Text size for project information
+        normalPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Normal typeface
+
+        // Configure Paint object for project title and subject
+        Paint bigPaint = new Paint();
+        bigPaint.setColor(Color.BLACK);
+        bigPaint.setTextSize(15); // Text size for title and subject
+        bigPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface
 
         // Calculate Y offset for project information
         int yOffset = (int) (headingY + headingMarginBottom + elementMarginTop);
 
         // Draw each piece of project information
         for (InfoProjet info : projectInfo) {
-            canvas.drawText("Start Date: " + (info.getDateDebut() != null ? info.getDateDebut() : ""), marginLeft, yOffset, paint);
-            yOffset += lineHeight;
-            canvas.drawText("End Date: " + (info.getDateFin() != null ? info.getDateFin() : ""), marginLeft, yOffset, paint);
-            yOffset += lineHeight;
+            // Draw the project title
+            if (info.getTitreProjet() != null) {
+                canvas.drawText(info.getTitreProjet().toUpperCase(), marginLeft, yOffset, bigPaint);
+                yOffset += lineHeight;
+            }
+
+            // Draw the duration (start date and end date)
+            if (info.getDateDebut() != null && info.getDateFin() != null) {
+                String duration = info.getDateDebut() + " - " + info.getDateFin();
+                canvas.drawText(duration, marginLeft, yOffset, normalPaint);
+                yOffset += lineHeight;
+            } else {
+                // Draw the start date separately if end date is not available
+                if (info.getDateDebut() != null) {
+                    canvas.drawText("Start Date: " + info.getDateDebut(), marginLeft, yOffset, normalPaint);
+                    yOffset += lineHeight;
+                }
+
+                // Draw the end date separately if start date is not available
+                if (info.getDateFin() != null) {
+                    canvas.drawText("End Date: " + info.getDateFin(), marginLeft, yOffset, normalPaint);
+                    yOffset += lineHeight;
+                }
+            }
+
+            // Draw the project subject (sujet)
+            if (info.getTitreProjet() != null) {  // Assuming 'Sujet' is the project subject
+                canvas.drawText(info.getTitreProjet().toUpperCase(), marginLeft, yOffset, bigPaint);
+                yOffset += lineHeight;
+            }
+
+            // Draw the project resume with wrapping
+            if (info.getResume() != null) {
+                String resumeText = info.getResume();
+                // Add text wrapping logic if needed
+                canvas.drawText(resumeText, marginLeft, yOffset, normalPaint);
+                yOffset += lineHeight + 20; // Additional space after the resume
+            }
+
+            // Add space between different projects
+            yOffset += elementMarginTop;
         }
 
         // Return the bottom Y position of this section
@@ -525,18 +579,18 @@ public class ContentOfInformationCv extends AppCompatActivity {
         canvas.drawLine(marginLeft, headingY + headingMarginBottom, marginLeft + paint.measureText(heading), headingY + headingMarginBottom, linePaint);
 
         // Education information text (dummy data here; replace with actual data)
-        String[] educationInfo = {"Degree 1", "Degree 2", "Degree 3"};
+        ArrayList<InfoEducation> educationInfo = dbInfoEducation.getAllInfoEducation();
 
         // Draw each line of education information
-        for (int i = 0; i < educationInfo.length; i++) {
+        for (int i = 0; i < educationInfo.size(); i++) {
             paint.setTextSize(15);
             paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
             float textY = headingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * i;
-            canvas.drawText(educationInfo[i], marginLeft, textY, paint);
+            canvas.drawText(educationInfo.get(i).getShool(), marginLeft, textY, paint);
         }
 
         // Return the bottom Y position of this section
-        return (int) (headingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * educationInfo.length);
+        return (int) (headingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * educationInfo.size());
     }
 
 

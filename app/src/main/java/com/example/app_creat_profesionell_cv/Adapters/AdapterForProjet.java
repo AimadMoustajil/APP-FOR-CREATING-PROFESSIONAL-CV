@@ -2,6 +2,8 @@ package com.example.app_creat_profesionell_cv.Adapters;
 
 import android.app.DatePickerDialog;
 import android.icu.util.Calendar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +14,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.app_creat_profesionell_cv.Classes.InfoExperience;
 import com.example.app_creat_profesionell_cv.Classes.InfoProjet;
 import com.example.app_creat_profesionell_cv.R;
 
@@ -21,10 +22,10 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class AdapterForProjet extends RecyclerView.Adapter<AdapterForProjet.ViewHolder> {
-    ArrayList<InfoProjet> infoExperienceArrayList;
+    ArrayList<InfoProjet> infoProjetArrayList;
 
-    public AdapterForProjet(ArrayList<InfoProjet> infoExperienceArrayList) {
-        this.infoExperienceArrayList = infoExperienceArrayList;
+    public AdapterForProjet(ArrayList<InfoProjet> infoProjetArrayList) {
+        this.infoProjetArrayList = infoProjetArrayList;
     }
 
     @NonNull
@@ -36,31 +37,70 @@ public class AdapterForProjet extends RecyclerView.Adapter<AdapterForProjet.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        InfoProjet experience = infoExperienceArrayList.get(position);
-        holder.nameEntreprise.setText(experience.getNomEntreprise());
-        holder.titreDeJob.setText(experience.getTitreProjet());
-        holder.Résumé.setText(experience.getNomEntreprise());
-        holder.start.setText(experience.getDateDebut());
-        holder.Finich.setText(experience.getDateFin());
+        InfoProjet projet = infoProjetArrayList.get(position);
+        holder.nameEntreprise.setText(projet.getNomEntreprise());
+        holder.titreDeJob.setText(projet.getTitreProjet());
+        holder.Résumé.setText(projet.getResume());
+        holder.start.setText(projet.getDateDebut());
+        holder.Finich.setText(projet.getDateFin());
+
+        holder.nameEntreprise.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                projet.setNomEntreprise(s.toString());
+            }
+        });
+
+        holder.titreDeJob.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                projet.setTitreProjet(s.toString());
+            }
+        });
+
+        holder.Résumé.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                projet.setResume(s.toString());
+            }
+        });
 
         holder.start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePickerDialog(holder.start);
+                showDatePickerDialog(holder.start, projet, true);
             }
         });
 
         holder.Finich.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDatePickerDialog(holder.Finich);
+                showDatePickerDialog(holder.Finich, projet, false);
             }
         });
     }
 
-   @Override
+    @Override
     public int getItemCount() {
-        return infoExperienceArrayList.size();
+        return infoProjetArrayList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -78,7 +118,7 @@ public class AdapterForProjet extends RecyclerView.Adapter<AdapterForProjet.View
         }
     }
 
-    private void showDatePickerDialog(final TextView textView) {
+    private void showDatePickerDialog(final TextView textView, final InfoProjet projet, final boolean isStartDate) {
         Calendar calendar = Calendar.getInstance();
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -91,6 +131,11 @@ public class AdapterForProjet extends RecyclerView.Adapter<AdapterForProjet.View
                 String dateString = dateFormat.format(calendar.getTime());
 
                 textView.setText(dateString);
+                if (isStartDate) {
+                    projet.setDateDebut(dateString);
+                } else {
+                    projet.setDateFin(dateString);
+                }
             }
         };
 
