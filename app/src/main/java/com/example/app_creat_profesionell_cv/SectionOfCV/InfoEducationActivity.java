@@ -4,14 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.app_creat_profesionell_cv.Adapters.AdapterForAddEducation;
@@ -20,33 +16,33 @@ import com.example.app_creat_profesionell_cv.ContentOfCV.ContentOfInformationCv;
 import com.example.app_creat_profesionell_cv.DB.Education;
 import com.example.app_creat_profesionell_cv.R;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class InfoEducationActivity extends AppCompatActivity {
 
-    ImageView check, addEducation, removeEducation;
-    RecyclerView recyclerView;
-    ArrayList<InfoEducation> educations;
-    AdapterForAddEducation adapter;
+    private ImageView check, addEducation, removeEducation;
+    private RecyclerView recyclerView;
+    private ArrayList<InfoEducation> educations;
+    private AdapterForAddEducation adapter;
 
-    //db
-    Education dbEucation;
-    //
+    // Database instance
+    private Education dbEducation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_education);
 
+        // Initialize UI components
         check = findViewById(R.id.checkInfo);
         addEducation = findViewById(R.id.addEducation);
         removeEducation = findViewById(R.id.removeEducation);
         recyclerView = findViewById(R.id.recyclerView);
 
-        dbEucation = new Education(this);
+        // Initialize database instance
+        dbEducation = new Education(this);
 
+        // Initialize education list and adapter
         educations = new ArrayList<>();
         educations.add(new InfoEducation()); // Adding initial InfoEducation
 
@@ -54,6 +50,7 @@ public class InfoEducationActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
+        // Add Education button click listener
         addEducation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,6 +60,7 @@ public class InfoEducationActivity extends AppCompatActivity {
             }
         });
 
+        // Remove Education button click listener
         removeEducation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,22 +68,26 @@ public class InfoEducationActivity extends AppCompatActivity {
                     int lastIndex = educations.size() - 1;
                     educations.remove(lastIndex);
                     adapter.notifyItemRemoved(lastIndex);
+                } else {
+                    Toast.makeText(InfoEducationActivity.this, "No items to remove", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+        // Check button click listener
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!educations.isEmpty()){
-                    for (InfoEducation i:educations){
-                        dbEucation.addInfoEducation(i);
+                if (!educations.isEmpty()) {
+                    for (InfoEducation infoEducation : educations) {
+                        dbEducation.addInfoEducation(infoEducation);
                     }
-                    Toast.makeText(InfoEducationActivity.this, "DONE", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(InfoEducationActivity.this, ContentOfInformationCv.class));
-                }else {
-                    startActivity(new Intent(InfoEducationActivity.this, ContentOfInformationCv.class));
+                    Toast.makeText(InfoEducationActivity.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(InfoEducationActivity.this, "No data to save", Toast.LENGTH_SHORT).show();
                 }
+                // Navigate to ContentOfInformationCv activity
+                startActivity(new Intent(InfoEducationActivity.this, ContentOfInformationCv.class));
             }
         });
     }

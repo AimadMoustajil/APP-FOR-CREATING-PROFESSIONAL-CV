@@ -2,6 +2,8 @@ package com.example.app_creat_profesionell_cv.Adapters;
 
 import android.app.DatePickerDialog;
 import android.icu.util.Calendar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,8 +44,34 @@ public class AdapterForAddEducation extends RecyclerView.Adapter<AdapterForAddEd
         holder.start.setText(infoEducation.getStartYier());
         holder.Finich.setText(infoEducation.getEndYier());
 
-        holder.start.setOnClickListener(v -> showDatePickerDialog(holder.start));
-        holder.Finich.setOnClickListener(v -> showDatePickerDialog(holder.Finich));
+        holder.nameOfSchool.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                infoEducation.setShool(s.toString());
+            }
+        });
+
+        holder.yourMetier.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                infoEducation.setMetier(s.toString());
+            }
+        });
+
+        holder.start.setOnClickListener(v -> showDatePickerDialog(holder.start, infoEducation, true));
+        holder.Finich.setOnClickListener(v -> showDatePickerDialog(holder.Finich, infoEducation, false));
     }
 
     @Override
@@ -65,7 +93,7 @@ public class AdapterForAddEducation extends RecyclerView.Adapter<AdapterForAddEd
         }
     }
 
-    private void showDatePickerDialog(final TextView textView) {
+    private void showDatePickerDialog(final TextView textView, final InfoEducation infoEducation, final boolean isStartDate) {
         Calendar calendar = Calendar.getInstance();
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -78,6 +106,11 @@ public class AdapterForAddEducation extends RecyclerView.Adapter<AdapterForAddEd
                 String dateString = dateFormat.format(calendar.getTime());
 
                 textView.setText(dateString);
+                if (isStartDate) {
+                    infoEducation.setEndYier(dateString);
+                } else {
+                    infoEducation.setEndYier(dateString);
+                }
             }
         };
 
