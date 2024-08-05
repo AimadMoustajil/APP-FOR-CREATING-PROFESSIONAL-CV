@@ -20,45 +20,51 @@ import java.util.ArrayList;
 
 public class ExperinceActivity extends AppCompatActivity {
 
-    ArrayList<InfoExperience> infoExperienceArrayList;
-    AdapterForExperience adapterForExperience;
-    RecyclerView recyclerView;
-    ImageView addExperience,removeExperience,check;
-    //DB
-    ExperinceDeTravaile db;
-    //
+    private ArrayList<InfoExperience> infoExperienceArrayList;
+    private AdapterForExperience adapterForExperience;
+    private RecyclerView recyclerView;
+    private ImageView addExperience, removeExperience, check;
+    private ExperinceDeTravaile db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_experince);
+        setContentView(R.layout.activity_experince); // Make sure layout file name is correct
+
+        // Initialize variables
         infoExperienceArrayList = new ArrayList<>();
-        InfoExperience newEx = new InfoExperience();
-        infoExperienceArrayList.add(newEx);
+        infoExperienceArrayList.add(new InfoExperience());
         adapterForExperience = new AdapterForExperience(infoExperienceArrayList);
-        recyclerView  = findViewById(R.id.recyclerView);
+
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapterForExperience);
-        addExperience = findViewById(R.id.addEducation);
-        removeExperience = findViewById(R.id.removeEducation);
+
+        addExperience = findViewById(R.id.addEducation); // Corrected ID
+        removeExperience = findViewById(R.id.removeEducation); // Corrected ID
         check = findViewById(R.id.checkInfo);
+
         db = new ExperinceDeTravaile(this);
 
+        // Set up onClickListeners
         addExperience.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 InfoExperience newExperience = new InfoExperience();
                 infoExperienceArrayList.add(newExperience);
-                adapterForExperience.notifyItemInserted(infoExperienceArrayList.size()-1);
+                adapterForExperience.notifyItemInserted(infoExperienceArrayList.size() - 1);
             }
         });
 
         removeExperience.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!infoExperienceArrayList.isEmpty()){
+                if (!infoExperienceArrayList.isEmpty()) {
                     int lastIndex = infoExperienceArrayList.size() - 1;
                     infoExperienceArrayList.remove(lastIndex);
                     adapterForExperience.notifyItemRemoved(lastIndex);
+                } else {
+                    Toast.makeText(ExperinceActivity.this, "No experience to remove", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -66,17 +72,15 @@ public class ExperinceActivity extends AppCompatActivity {
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //infoExperienceArrayList
-                if (!infoExperienceArrayList.isEmpty()){
-                    for (InfoExperience i:infoExperienceArrayList){
-                        db.addInfoExperience(i);
+                if (!infoExperienceArrayList.isEmpty()) {
+                    for (InfoExperience experience : infoExperienceArrayList) {
+                        db.addInfoExperience(experience);
                     }
-                    Toast.makeText(ExperinceActivity.this, "DONE", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(ExperinceActivity.this, ContentOfInformationCv.class));
-                }else {
-                    startActivity(new Intent(ExperinceActivity.this, ContentOfInformationCv.class));
-
+                    Toast.makeText(ExperinceActivity.this, "Experience saved", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ExperinceActivity.this, "No experience to save", Toast.LENGTH_SHORT).show();
                 }
+               startActivity(new Intent(ExperinceActivity.this, ContentOfInformationCv.class));
             }
         });
     }
