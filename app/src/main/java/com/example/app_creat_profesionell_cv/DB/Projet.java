@@ -1,6 +1,5 @@
 package com.example.app_creat_profesionell_cv.DB;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 
 public class Projet extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "info_projet";
+    private static final String DATABASE_NAME = "info_of_projet";
     private static final String TABLE_INFO = "myProjet";
     private static final String COLUMN_NAME_PROJET = "n_projet";
     private static final String COLUMN_SUJET_PROJET = "sujet_projet";
@@ -37,23 +36,37 @@ public class Projet extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_INFO_TABLE);
-        Log.d("Projet", "Database table created.");
+        try {
+            db.execSQL(CREATE_INFO_TABLE);
+            Log.d("Projet", "Database table created.");
+        } catch (Exception e) {
+            Log.e("Projet", "Error creating database table", e);
+        }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_INFO);
-        onCreate(db);
-        Log.d("Projet", "Database table upgraded.");
+        try {
+            db.execSQL("DROP TABLE IF EXISTS " + TABLE_INFO);
+            onCreate(db);
+            Log.d("Projet", "Database table upgraded.");
+        } catch (Exception e) {
+            Log.e("Projet", "Error upgrading database table", e);
+        }
     }
 
     public boolean addInfoProjet(InfoProjet infoProjet) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = populateContentValues(infoProjet);
-        long result = db.insertWithOnConflict(TABLE_INFO, null, values, SQLiteDatabase.CONFLICT_REPLACE);
-        db.close();
-        Log.d("Projet", "Insert result: " + result);
+        long result = -1;
+        try {
+            result = db.insertWithOnConflict(TABLE_INFO, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+            Log.d("Projet", "Insert result: " + result);
+        } catch (Exception e) {
+            Log.e("Projet", "Error inserting infoProjet", e);
+        } finally {
+            db.close();
+        }
         return result != -1;
     }
 
@@ -73,20 +86,22 @@ public class Projet extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         try (Cursor cursor = db.rawQuery(selectQuery, null)) {
-            int nameIndex = cursor.getColumnIndex(COLUMN_NAME_PROJET);
-            int sujetIndex = cursor.getColumnIndex(COLUMN_SUJET_PROJET);
-            int dateStartIndex = cursor.getColumnIndex(COLUMN_DATE_START);
-            int dateEndIndex = cursor.getColumnIndex(COLUMN_DATE_END);
-            int resumeIndex = cursor.getColumnIndex(COLUMN_RESUME);
+            if (cursor.moveToFirst()) {
+                int nameIndex = cursor.getColumnIndex(COLUMN_NAME_PROJET);
+                int sujetIndex = cursor.getColumnIndex(COLUMN_SUJET_PROJET);
+                int dateStartIndex = cursor.getColumnIndex(COLUMN_DATE_START);
+                int dateEndIndex = cursor.getColumnIndex(COLUMN_DATE_END);
+                int resumeIndex = cursor.getColumnIndex(COLUMN_RESUME);
 
-            while (cursor.moveToNext()) {
-                InfoProjet infoProjet = new InfoProjet();
-                infoProjet.setNomEntreprise(cursor.isNull(nameIndex) ? null : cursor.getString(nameIndex));
-                infoProjet.setTitreProjet(cursor.isNull(sujetIndex) ? null : cursor.getString(sujetIndex));
-                infoProjet.setDateDebut(cursor.isNull(dateStartIndex) ? null : cursor.getString(dateStartIndex));
-                infoProjet.setDateFin(cursor.isNull(dateEndIndex) ? null : cursor.getString(dateEndIndex));
-                infoProjet.setResume(cursor.isNull(resumeIndex) ? null : cursor.getString(resumeIndex));
-                infoProjets.add(infoProjet);
+                do {
+                    InfoProjet infoProjet = new InfoProjet();
+                    infoProjet.setNomEntreprise(cursor.getString(nameIndex));
+                    infoProjet.setTitreProjet(cursor.getString(sujetIndex));
+                    infoProjet.setDateDebut(cursor.getString(dateStartIndex));
+                    infoProjet.setDateFin(cursor.getString(dateEndIndex));
+                    infoProjet.setResume(cursor.getString(resumeIndex));
+                    infoProjets.add(infoProjet);
+                } while (cursor.moveToNext());
             }
         } catch (Exception e) {
             Log.e("Projet", "Error retrieving info projets", e);
@@ -99,9 +114,14 @@ public class Projet extends SQLiteOpenHelper {
 
     public void clearAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_INFO);
-        db.close();
-        Log.d("Projet", "All data cleared from table " + TABLE_INFO);
+        try {
+            db.execSQL("DELETE FROM " + TABLE_INFO);
+            Log.d("Projet", "All data cleared from table " + TABLE_INFO);
+        } catch (Exception e) {
+            Log.e("Projet", "Error clearing all data", e);
+        } finally {
+            db.close();
+        }
     }
 
     public boolean isDatabaseEmpty() {

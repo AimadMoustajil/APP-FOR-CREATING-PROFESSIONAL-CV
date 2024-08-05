@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ public class InfoProjetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_projet);
 
+        db = new Projet(this);
         infoProjets = new ArrayList<>();
         InfoProjet newEx = new InfoProjet();
         infoProjets.add(newEx);
@@ -44,7 +46,6 @@ public class InfoProjetActivity extends AppCompatActivity {
         addExperience = findViewById(R.id.addEducation);
         removeExperience = findViewById(R.id.removeEducation);
         check = findViewById(R.id.checkInfo);
-        db = new Projet(this);
 
 
         addExperience.setOnClickListener(new View.OnClickListener() {
@@ -67,18 +68,11 @@ public class InfoProjetActivity extends AppCompatActivity {
             }
         });
 
+        // OnClickListener for checking and saving project info
         check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!infoProjets.isEmpty()){
-                    for (InfoProjet i:infoProjets){
-                        db.addInfoProjet(i);
-                    }
-                    Toast.makeText(InfoProjetActivity.this, "DONE", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(InfoProjetActivity.this, ContentOfInformationCv.class));
-                }else {
-                    startActivity(new Intent(InfoProjetActivity.this, ContentOfInformationCv.class));
-                }
+                Toast.makeText(InfoProjetActivity.this, ""+infoProjets.get(0).getResume(), Toast.LENGTH_SHORT).show();
             }
         });
     }

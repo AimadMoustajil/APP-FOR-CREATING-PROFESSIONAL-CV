@@ -311,11 +311,13 @@ public class ContentOfInformationCv extends AppCompatActivity {
 
 
     private int drawProjet(Canvas canvas, int startY) {
+        // Create and configure Paint object for heading
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
         paint.setTextSize(20);
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
+        // Define margins and spacing
         int marginLeft = 260;
         int headingMarginBottom = 10;
         int elementMarginTop = 15;
@@ -330,37 +332,31 @@ public class ContentOfInformationCv extends AppCompatActivity {
         Paint linePaint = new Paint();
         linePaint.setColor(Color.BLACK);
         linePaint.setStrokeWidth(2);
-        canvas.drawLine(marginLeft, headingY + headingMarginBottom, marginLeft + paint.measureText(heading), headingY + headingMarginBottom, linePaint);
+        canvas.drawLine(marginLeft, headingY + headingMarginBottom,
+                marginLeft + paint.measureText(heading), headingY + headingMarginBottom, linePaint);
 
-        // Project information text (dummy data here; replace with actual data)
+        // Retrieve project information from database
         ArrayList<InfoProjet> projectInfo = dbProjet.getAllInfoProjets();
 
-        // Draw each line of project information
+        // Configure Paint object for project information text
         paint.setTextSize(10);
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
+        // Calculate Y offset for project information
         int yOffset = (int) (headingY + headingMarginBottom + elementMarginTop);
 
-        for (int i = 0; i < projectInfo.size(); i++) {
-            InfoProjet info = projectInfo.get(i);
-
-            // Draw each piece of information
-            canvas.drawText(info.getDateDebut()+"", marginLeft, yOffset, paint);
+        // Draw each piece of project information
+        for (InfoProjet info : projectInfo) {
+            canvas.drawText("Start Date: " + (info.getDateDebut() != null ? info.getDateDebut() : ""), marginLeft, yOffset, paint);
             yOffset += lineHeight;
-            canvas.drawText(info.getDateFin()+"", marginLeft, yOffset, paint);
+            canvas.drawText("End Date: " + (info.getDateFin() != null ? info.getDateFin() : ""), marginLeft, yOffset, paint);
             yOffset += lineHeight;
-            canvas.drawText(info.getTitreProjet()+"", marginLeft, yOffset, paint);
-            yOffset += lineHeight;
-            canvas.drawText(info.getNomEntreprise()+"", marginLeft, yOffset, paint);
-            yOffset += lineHeight;
-            canvas.drawText(info.getResume()+"", marginLeft, yOffset, paint);
-            yOffset += lineHeight;
-
         }
 
         // Return the bottom Y position of this section
         return yOffset;
     }
+
 
 
 
