@@ -1,28 +1,31 @@
 package com.example.app_creat_profesionell_cv.Adapters;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.app_creat_profesionell_cv.ContentOfCV.ContentOfInformationCv;
+import com.example.app_creat_profesionell_cv.ContentOfCV.M1;
 import com.example.app_creat_profesionell_cv.R;
 
 import java.util.ArrayList;
 
 public class AdapterOfImageCV extends RecyclerView.Adapter<AdapterOfImageCV.ImageViewHolder> {
     private final ArrayList<Integer> images;
+    private final ArrayList<String> imageNames;
     private final Context context;
 
-    public AdapterOfImageCV(ArrayList<Integer> images, Context context) {
+    public AdapterOfImageCV(ArrayList<Integer> images, ArrayList<String> imageNames, Context context) {
         this.images = images;
-        this.context = context.getApplicationContext(); // Use application context to avoid potential leaks
+        this.imageNames = imageNames;
+        this.context = context;
     }
 
     @NonNull
@@ -33,17 +36,24 @@ public class AdapterOfImageCV extends RecyclerView.Adapter<AdapterOfImageCV.Imag
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ImageViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         Integer imageUrl = images.get(position);
+        String imageName = imageNames.get(position);
         holder.imageView.setImageResource(imageUrl);
 
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Navigate to ContentOfInformationCv activity when an image is clicked
-                Intent intent = new Intent(context, ContentOfInformationCv.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // Necessary since we use application context
-                context.startActivity(intent);
+                // Show the image name as a toast
+                Toast.makeText(context, "Clicked on image: " + imageName, Toast.LENGTH_SHORT).show();
+                if (imageName.equals("m31")){
+                    Intent intent = new Intent(context, ContentOfInformationCv.class);
+                    context.startActivity(intent);
+                }
+                if (imageName.equals("m1")){
+                    Intent intent = new Intent(context, M1.class);
+                    context.startActivity(intent);
+                }
             }
         });
     }

@@ -56,12 +56,44 @@ public class ModelsActivity extends AppCompatActivity {
         images.add(R.drawable.m28);
         images.add(R.drawable.m29);
         images.add(R.drawable.m30);
+        images.add(R.drawable.m31);
 
-
+        ArrayList<String> imageNames = new ArrayList<>();
+        imageNames.add("m1");
+        imageNames.add("m2");
+        imageNames.add("m3");
+        imageNames.add("m4");
+        imageNames.add("m5");
+        imageNames.add("m6");
+        imageNames.add("m7");
+        imageNames.add("m8");
+        imageNames.add("m9");
+        imageNames.add("m10");
+        imageNames.add("m11");
+        imageNames.add("m12");
+        imageNames.add("m13");
+        imageNames.add("m14");
+        imageNames.add("m15");
+        imageNames.add("m16");
+        imageNames.add("m17");
+        imageNames.add("m18");
+        imageNames.add("m19");
+        imageNames.add("m20");
+        imageNames.add("m21");
+        imageNames.add("m22");
+        imageNames.add("m23");
+        imageNames.add("m24");
+        imageNames.add("m25");
+        imageNames.add("m26");
+        imageNames.add("m27");
+        imageNames.add("m28");
+        imageNames.add("m29");
+        imageNames.add("m30");
+        imageNames.add("m31");
 
         rec.setLayoutManager(new GridLayoutManager(this, 2));
 
-        adapter = new AdapterOfImageCV(images, this);
+        adapter = new AdapterOfImageCV(images, imageNames, this);
         rec.setAdapter(adapter);
     }
 }

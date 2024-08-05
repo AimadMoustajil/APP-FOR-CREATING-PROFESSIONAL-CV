@@ -5,7 +5,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
-import android.companion.CompanionDeviceService;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -36,7 +35,6 @@ import com.example.app_creat_profesionell_cv.DB.ExperinceDeTravaile;
 import com.example.app_creat_profesionell_cv.DB.InfoPersonnel;
 import com.example.app_creat_profesionell_cv.DB.InformationAdditionnelle;
 import com.example.app_creat_profesionell_cv.DB.Projet;
-import com.example.app_creat_profesionell_cv.Letters.letterDeMotivation;
 import com.example.app_creat_profesionell_cv.R;
 import com.example.app_creat_profesionell_cv.SectionOfCV.ExperinceActivity;
 import com.example.app_creat_profesionell_cv.SectionOfCV.InfoEducationActivity;
@@ -55,7 +53,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContentOfInformationCv extends AppCompatActivity {
+public class M1 extends AppCompatActivity {
 
     TextView infoPersonnel,éducation,exDeTravaille,projet,infoAdditionnelle;
     Button generateCV;
@@ -69,11 +67,10 @@ public class ContentOfInformationCv extends AppCompatActivity {
     ExperinceDeTravaile dbExperienceDeTravaille;
     Projet dbProjet;
     InformationAdditionnelle dbInformationAitionnelle;
-    //
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_content_of_information_cv);
+        setContentView(R.layout.activity_m1);
 
         //DB
         dbInfoPersonnelle = new InfoPersonnel(this);
@@ -122,33 +119,33 @@ public class ContentOfInformationCv extends AppCompatActivity {
         infoPersonnel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ContentOfInformationCv.this, InfoPersonnelleActivity.class));
+                startActivity(new Intent(M1.this, InfoPersonnelleActivity.class));
             }
         });
 
         éducation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ContentOfInformationCv.this, InfoEducationActivity.class));
+                startActivity(new Intent(M1.this, InfoEducationActivity.class));
             }
         });
         exDeTravaille.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ContentOfInformationCv.this, ExperinceActivity.class));
+                startActivity(new Intent(M1.this, ExperinceActivity.class));
             }
         });
         projet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ContentOfInformationCv.this, InfoProjetActivity.class));
+                startActivity(new Intent(M1.this, InfoProjetActivity.class));
             }
         });
 
         infoAdditionnelle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ContentOfInformationCv.this, InformationAdditionnelleActivity.class));
+                startActivity(new Intent(M1.this, InformationAdditionnelleActivity.class));
             }
         });
 
@@ -171,9 +168,9 @@ public class ContentOfInformationCv extends AppCompatActivity {
             public void onClick(View v) {
                 //ShowDocumentActivity
                 // Check for permission to write to external storage
-                if (ContextCompat.checkSelfPermission(ContentOfInformationCv.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                if (ContextCompat.checkSelfPermission(M1.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(ContentOfInformationCv.this,
+                    ActivityCompat.requestPermissions(M1.this,
                             new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                             1);
                 } else {
@@ -183,7 +180,7 @@ public class ContentOfInformationCv extends AppCompatActivity {
                         ByteArrayOutputStream outputStream = savePDFToByteArray(document);
 
                         // Start ShowDocumentActivity to display the PDF
-                        Intent intent = new Intent(ContentOfInformationCv.this, ShowDocumentActivity.class);
+                        Intent intent = new Intent(M1.this, ShowDocumentActivity.class);
                         intent.putExtra("pdfByteArray", outputStream.toByteArray());
                         startActivity(intent);
 
@@ -193,11 +190,8 @@ public class ContentOfInformationCv extends AppCompatActivity {
                 }
             }
         });
-
     }
-
-
-    @Override
+    /*@Override
     public void onBackPressed() {
         super.onBackPressed();
         dbInfoPersonnelle.clearAllData();
@@ -215,7 +209,7 @@ public class ContentOfInformationCv extends AppCompatActivity {
         dbProjet.clearAllData();
         dbInformationAitionnelle.clearAllData();
         dbExperienceDeTravaille.clearAllData();
-    }
+    }*/
 
 
 
@@ -260,12 +254,12 @@ public class ContentOfInformationCv extends AppCompatActivity {
 
             // Draw the background color
             Paint backgroundPaint = new Paint();
-            backgroundPaint.setColor(BACKGROUND_COLOR); // Set your background color here
+            backgroundPaint.setColor(Color.parseColor("#DBEFFF"));
             canvas.drawRect(0, 0, pageInfo.getPageWidth(), 200, backgroundPaint); // Draw rectangle with full width and height of 200
 
             // Draw header image
-            drawHeaderImage(canvas);
             drawContactInfo(canvas,220);
+            drawVerticalLine(canvas, 200, canvas.getHeight());
             // Draw Competence and get the Y position where the next section should start
             int competenceEndY = drawCompetence(canvas, 220);
 
@@ -283,7 +277,7 @@ public class ContentOfInformationCv extends AppCompatActivity {
             drawLanguages(canvas, 400);
 
             // Draw user name and job title
-            int logoBottomY = IMAGE_MARGIN + (int) (canvas.getWidth() * IMAGE_SIZE_PERCENT / 100);
+            int logoBottomY =100;
             drawUserName(canvas, logoBottomY);
 
             Paint paintForJobTitle = new Paint();
@@ -657,11 +651,6 @@ public class ContentOfInformationCv extends AppCompatActivity {
         return (int) (currentY + elementMarginTop);
     }
 
-
-
-
-
-
     private void drawLanguages(Canvas canvas, int startY) {
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
@@ -774,28 +763,6 @@ public class ContentOfInformationCv extends AppCompatActivity {
         }
     }
 
-    private Bitmap getBitmapFromURL(String urlImage) throws IOException {
-        URL url = new URL(urlImage);
-
-        if ("http".equalsIgnoreCase(url.getProtocol()) || "https".equalsIgnoreCase(url.getProtocol())) {
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-
-            try (InputStream input = connection.getInputStream()) {
-                return BitmapFactory.decodeStream(input);
-            } finally {
-                connection.disconnect();
-            }
-        } else if ("file".equalsIgnoreCase(url.getProtocol())) {
-            try (InputStream input = url.openStream()) {
-                return BitmapFactory.decodeStream(input);
-            }
-        } else {
-            throw new IllegalArgumentException("Unsupported URL scheme: " + url.getProtocol());
-        }
-    }
-
 
 
     private Paint createPaint() {
@@ -817,58 +784,6 @@ public class ContentOfInformationCv extends AppCompatActivity {
     }
 
 
-    private Bitmap resizeBitmap(Bitmap originalBitmap) {
-        int width = originalBitmap.getWidth();
-        int height = originalBitmap.getHeight();
-
-        float scaleWidth = ((float) 150) / width;
-        float scaleHeight = ((float) 150) / height;
-
-        // Create a matrix for the manipulation
-        Matrix matrix = new Matrix();
-
-        // Resize the bitmap
-        matrix.postScale(scaleWidth, scaleHeight);
-
-        // Recreate the new Bitmap
-        Bitmap resizedBitmap = Bitmap.createBitmap(originalBitmap, 0, 0, width, height, matrix, false);
-
-        // Release the original bitmap
-        originalBitmap.recycle();
-
-        return resizedBitmap;
-    }
-
-
-    private void drawHeaderImage(Canvas canvas) {
-        try {
-            // Retrieve and resize the bitmap from the URL
-            Bitmap originalBitmap = getBitmapFromURL(dbInfoPersonnelle.getInfo().get(0).getLogoOfUser());
-            Bitmap resizedBitmap = resizeBitmap(originalBitmap);
-
-            // Calculate the position for the image in the top-left corner
-            int imageX = IMAGE_MARGIN; // Padding from the left edge
-            int imageY = IMAGE_MARGIN; // Padding from the top edge
-
-            // Draw the circular image at the calculated position
-            drawCircularImage(canvas, resizedBitmap, imageX, imageY);
-
-            // Draw the user's name centered horizontally between the logo and the end of the page
-            drawUserName(canvas, resizedBitmap.getWidth() + 2 * IMAGE_MARGIN); // Position the name after the logo with padding
-
-            // Release the resized bitmap to free memory
-            resizedBitmap.recycle();
-        } catch (Exception e) {
-            // Handle exceptions, e.g., logging or showing a toast message
-            e.printStackTrace();
-        }
-    }
-
-
-
-
-
-
 
     private void drawUserName(Canvas canvas, int logoBottomY) {
         Paint paint = new Paint();
@@ -877,19 +792,16 @@ public class ContentOfInformationCv extends AppCompatActivity {
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Set text style
 
         // Fetch the user's name
-        String userName = dbInfoPersonnelle.getInfo().get(0).getL_name().toUpperCase() + " " + capitalizeFirstLetterOfEachWord(dbInfoPersonnelle.getInfo().get(0).getF_name())  ;
-        float textWidth = paint.measureText(capitalizeFirstLetterOfEachWord(userName));
-
-        // Define a fixed vertical space from the bottom of the logo
-
-        // Calculate the vertical position for the text (fixed space from the bottom of the logo)
+        String userName = dbInfoPersonnelle.getInfo().get(0).getL_name().toUpperCase() + " " + capitalizeFirstLetterOfEachWord(dbInfoPersonnelle.getInfo().get(0).getF_name());
+        float textWidth = paint.measureText(userName);
 
         // Calculate the position for the text (center horizontally)
-        float textX = ((canvas.getWidth() - textWidth)+128) / 2;
+        float textX = (canvas.getWidth() - textWidth) / 2;
 
         // Draw the text at the calculated position
-        canvas.drawText(userName, textX, 128, paint);
+        canvas.drawText(userName, textX, logoBottomY, paint); // Adjust vertical position as needed
     }
+
 
     private void drawUserJobTitle(Canvas canvas, float nameTextX, float nameTextY) {
         Paint paint = new Paint();
@@ -898,17 +810,17 @@ public class ContentOfInformationCv extends AppCompatActivity {
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Set text style
 
         // Fetch the user's job title
-        String userJobTitle =capitalizeFirstLetterOfEachWord( dbInfoPersonnelle.getInfo().get(0).getJob()); // Adjust method to get job title
+        String userJobTitle = capitalizeFirstLetterOfEachWord(dbInfoPersonnelle.getInfo().get(0).getJob());
         float jobTitleWidth = paint.measureText(userJobTitle);
 
         // Define a fixed vertical space below the user's name
         float spaceBelowName = 10; // Adjust this value as needed
 
         // Calculate the vertical position for the job title
-        float jobTitleTextY = nameTextY + spaceBelowName + paint.getTextSize();
+        float jobTitleTextY = 145;
 
         // Calculate the horizontal position for the job title (center horizontally)
-        float jobTitleTextX = ((canvas.getWidth() - jobTitleWidth) + 128) / 2;
+        float jobTitleTextX = (canvas.getWidth() - jobTitleWidth) / 2;
 
         // Draw the job title at the calculated position
         canvas.drawText(userJobTitle, jobTitleTextX, jobTitleTextY, paint);
@@ -918,59 +830,6 @@ public class ContentOfInformationCv extends AppCompatActivity {
 
 
 
-
-
-
-    private void drawCircularImage(Canvas canvas, Bitmap bitmap, int x, int y) {
-        int imageSize = (int) (canvas.getWidth() * IMAGE_SIZE_PERCENT / 100);
-        Bitmap circularBitmap = Bitmap.createBitmap(imageSize, imageSize, Bitmap.Config.ARGB_8888);
-        Canvas circularCanvas = new Canvas(circularBitmap);
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
-        Rect rect = new Rect(0, 0, imageSize, imageSize);
-        RectF rectF = new RectF(rect);
-        circularCanvas.drawARGB(0, 0, 0, 0);
-        circularCanvas.drawCircle(imageSize / 2, imageSize / 2, imageSize / 2, paint);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        circularCanvas.drawBitmap(bitmap, rect, rect, paint);
-        canvas.drawBitmap(circularBitmap, x, y, null);
-    }
-
-
-    private void drawFactureTitle(Canvas canvas, Paint paint) {
-        // Save current paint settings
-        int originalColor = paint.getColor();
-        Typeface originalTypeface = paint.getTypeface();
-        float originalTextSize = paint.getTextSize();
-
-        // Set text size and typeface for the title
-        paint.setTextSize(50); // Set text size to 36
-        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Set bold typeface
-
-        // Set text color to blue
-        paint.setColor(Color.BLUE);
-
-        // Calculate text position and size
-        float titleX = IMAGE_MARGIN;
-        float titleY = IMAGE_MARGIN + paint.getTextSize(); // Positioning it just below the top margin
-        float titleWidth = paint.measureText("Facture"); // Measure text width to position the border
-
-        // Draw the title text
-        canvas.drawText("Facture", titleX, titleY, paint);
-
-        // Draw bottom border for the title
-        float borderY = titleY + paint.getFontMetrics().descent; // Positioning it below the text baseline
-        paint.setStrokeWidth(2); // Set border width
-        canvas.drawLine(titleX, borderY, titleX + titleWidth, borderY, paint);
-
-        // Restore original paint settings
-        paint.setColor(originalColor);
-        paint.setTypeface(originalTypeface);
-        paint.setTextSize(originalTextSize);
-    }
-
-
-    // Helper method to capitalize the first letter of each word
     public static String capitalizeFirstLetterOfEachWord(String str) {
         if (str == null || str.isEmpty()) {
             return str;
@@ -992,4 +851,22 @@ public class ContentOfInformationCv extends AppCompatActivity {
         // Remove the trailing space
         return capitalizedStr.toString().trim();
     }
+
+
+
+    private void drawVerticalLine(Canvas canvas, int startY, int endY) {
+        Paint linePaint = new Paint();
+        linePaint.setColor(Color.BLACK); // Set the color for the line
+        linePaint.setStrokeWidth(2); // Set the width of the line
+
+        // Define the X position for the vertical line (from the left margin or edge)
+        int lineX = 200; // X position for the vertical line
+
+        // Draw the vertical line from startY to endY
+        canvas.drawLine(lineX, startY, lineX, endY, linePaint);
+    }
+
+
+
+
 }
