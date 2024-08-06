@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.app_creat_profesionell_cv.Adapters.AdapteForCertificate;
 import com.example.app_creat_profesionell_cv.Adapters.AdapterForCompetance;
 import com.example.app_creat_profesionell_cv.Adapters.AdapterForLangue;
 import com.example.app_creat_profesionell_cv.Adapters.AdapterForLoisir;
@@ -24,22 +25,23 @@ import java.util.ArrayList;
 
 public class InformationAdditionnelleActivity extends AppCompatActivity {
 
-    EditText competance, softSkills, language, loisir, linkedin, github, leetcode;
-    ImageView addCompetance, addSoftSkills, addLanguage, addLoisir, checkInfo;
-    RecyclerView recForCompetance, recForSoftSkills, recForLanguage, recForLoisir;
+    EditText competance, softSkills, language, loisir, linkedin, github, leetcode,certificate;
+    ImageView addCompetance, addSoftSkills, addLanguage, addLoisir, checkInfo,certificateAdd;
+    RecyclerView recForCompetance, recForSoftSkills, recForLanguage, recForLoisir,recForCerteficated;
 
     // Array of Info
     ArrayList<String> loisirArrayList;
     ArrayList<String> softSkillsArrayList;
     ArrayList<String> langueArrayList;
     ArrayList<String> competanceArrayList;
+    ArrayList<String> certificateArrayList;
 
     // Adapters
     AdapterForSoftSkills adapterForSoftSkills;
     AdapterForLoisir adapterForLoisir;
     AdapterForLangue adapterForLangue;
     AdapterForCompetance adapterForCompetance;
-
+    AdapteForCertificate adapteForCertificate;
     //
 
     // DB
@@ -56,28 +58,28 @@ public class InformationAdditionnelleActivity extends AppCompatActivity {
         softSkillsArrayList = new ArrayList<>();
         langueArrayList = new ArrayList<>();
         competanceArrayList = new ArrayList<>();
-
+        certificateArrayList = new ArrayList<>();
 
         // Initialize adapters
         adapterForSoftSkills = new AdapterForSoftSkills(softSkillsArrayList);
         adapterForLoisir = new AdapterForLoisir(loisirArrayList);
         adapterForLangue = new AdapterForLangue(langueArrayList);
         adapterForCompetance = new AdapterForCompetance(competanceArrayList);
-
+        adapteForCertificate = new AdapteForCertificate(certificateArrayList);
 
         // Set adapters to RecyclerViews
         recForLoisir.setAdapter(adapterForLoisir);
         recForSoftSkills.setAdapter(adapterForSoftSkills);
         recForCompetance.setAdapter(adapterForCompetance);
         recForLanguage.setAdapter(adapterForLangue);
-
+        recForCerteficated.setAdapter(adapteForCertificate);
 
         // Set layout managers to RecyclerViews
         recForLoisir.setLayoutManager(new LinearLayoutManager(this));
         recForLanguage.setLayoutManager(new LinearLayoutManager(this));
         recForCompetance.setLayoutManager(new LinearLayoutManager(this));
         recForSoftSkills.setLayoutManager(new LinearLayoutManager(this));
-
+        recForCerteficated.setLayoutManager(new LinearLayoutManager(this));
 
         // OnClickListeners for adding items
         addCompetance.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +138,20 @@ public class InformationAdditionnelleActivity extends AppCompatActivity {
             }
         });
 
+
+        certificateAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String certificate1 = certificate.getText().toString();
+                if (!certificate1.isEmpty()) {
+                    certificateArrayList.add(certificate1);
+                    adapteForCertificate.notifyDataSetChanged();
+                    certificate.setText(""); // Clear input field
+                } else {
+                    Toast.makeText(InformationAdditionnelleActivity.this, "Enter certificate", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
 
         checkInfo.setOnClickListener(new View.OnClickListener() {
@@ -201,12 +217,15 @@ public class InformationAdditionnelleActivity extends AppCompatActivity {
         addSoftSkills = findViewById(R.id.softSkills);
         addLanguage = findViewById(R.id.lesLangue);
         addLoisir = findViewById(R.id.loisirAdded);
+        certificate = findViewById(R.id.certificate);
         checkInfo = findViewById(R.id.checkInfo);
+        certificateAdd = findViewById(R.id.certificateAdd);
 
         recForCompetance = findViewById(R.id.recForCompetance);
         recForSoftSkills = findViewById(R.id.recForSoftSkills);
         recForLanguage = findViewById(R.id.recForLanguage);
         recForLoisir = findViewById(R.id.recForLoisir);
+        recForCerteficated = findViewById(R.id.recForCerteficated);
 
         // Initialize database object
         db = new InformationAdditionnelle(this); // Ensure this is initialized correctly
