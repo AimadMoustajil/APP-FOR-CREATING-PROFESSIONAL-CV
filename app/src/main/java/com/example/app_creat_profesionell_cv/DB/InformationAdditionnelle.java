@@ -53,14 +53,25 @@ public class InformationAdditionnelle extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_INFO_TABLE);
+        db.execSQL("CREATE TABLE info (" +
+                "softSkills TEXT, " +
+                "competence TEXT, " +
+                "github TEXT, " +
+                "leetCode TEXT, " +
+                "certificate TEXT, " +
+                "langue TEXT, " +
+                "linkedin TEXT, " +
+                "loisir TEXT);");
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_INFO);
-        onCreate(db);
+        if (oldVersion < newVersion) {
+            db.execSQL("ALTER TABLE info ADD COLUMN certificate TEXT;");
+        }
     }
+
 
     public boolean addInformationAdditionnelle(InfoAdditionnelle infoAdditionnelle) {
         SQLiteDatabase db = this.getWritableDatabase();

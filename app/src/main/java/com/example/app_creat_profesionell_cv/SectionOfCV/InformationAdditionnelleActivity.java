@@ -233,6 +233,6 @@ public class InformationAdditionnelleActivity extends AppCompatActivity {
         recForCerteficated = findViewById(R.id.recForCerteficated);
 
         // Initialize database object
-        db = new InformationAdditionnelle(this); 
+        db = new InformationAdditionnelle(this);
     }
 }
