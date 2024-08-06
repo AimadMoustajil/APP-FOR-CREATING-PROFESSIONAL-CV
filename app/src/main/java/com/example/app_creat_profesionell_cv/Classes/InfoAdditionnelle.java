@@ -7,21 +7,32 @@ public class InfoAdditionnelle {
     ArrayList<String> softSkillsArrayList;
     ArrayList<String> langueArrayList;
     ArrayList<String> loisirArrayList;
+    ArrayList<String> certificateArrayList;
     String linkdin;
     String github;
     String leetCode;
 
-    public InfoAdditionnelle(ArrayList<String> competanceArrayList, ArrayList<String> softSkillsArrayList, ArrayList<String> langueArrayList, ArrayList<String> loisirArrayList, String linkdin, String github, String leetCode) {
+    public InfoAdditionnelle(ArrayList<String> competanceArrayList, ArrayList<String> softSkillsArrayList, ArrayList<String> langueArrayList, ArrayList<String> loisirArrayList,ArrayList<String> certificateArrayList, String linkdin, String github, String leetCode) {
         this.competanceArrayList = competanceArrayList;
         this.softSkillsArrayList = softSkillsArrayList;
         this.langueArrayList = langueArrayList;
         this.loisirArrayList = loisirArrayList;
+        this.certificateArrayList = certificateArrayList;
         this.linkdin = linkdin;
         this.github = github;
         this.leetCode = leetCode;
     }
 
     public InfoAdditionnelle() {
+    }
+
+
+    public ArrayList<String> getCertificateArrayList() {
+        return certificateArrayList;
+    }
+
+    public void setCertificateArrayList(ArrayList<String> certificateArrayList) {
+        this.certificateArrayList = certificateArrayList;
     }
 
     public ArrayList<String> getCompetanceArrayList() {

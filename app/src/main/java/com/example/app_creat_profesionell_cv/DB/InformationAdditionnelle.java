@@ -31,6 +31,7 @@ public class InformationAdditionnelle extends SQLiteOpenHelper {
     private static final String COLUMN_SOFTSKILL = "softSkills";
     private static final String COLUMN_LANGUE = "langue";
     private static final String COLUMN_LOISIR = "loisir";
+    private static final String COLUMN_CERTIFICATE = "certificate";
     private static final String COLUMN_LINKEDIN = "linkedin";
     private static final String COLUMN_GITHUB = "github";
     private static final String COLUMN_LEETCODE = "leetCode";
@@ -40,6 +41,7 @@ public class InformationAdditionnelle extends SQLiteOpenHelper {
             + COLUMN_SOFTSKILL + " TEXT,"
             + COLUMN_LANGUE + " TEXT,"
             + COLUMN_LOISIR + " TEXT,"
+            + COLUMN_CERTIFICATE + "TEXT,"
             + COLUMN_LINKEDIN + " TEXT,"
             + COLUMN_GITHUB + " TEXT,"
             + COLUMN_LEETCODE + " TEXT"
@@ -80,6 +82,7 @@ public class InformationAdditionnelle extends SQLiteOpenHelper {
         values.put(COLUMN_SOFTSKILL, convertArrayListToJson(infoAdditionnelle.getSoftSkillsArrayList()));
         values.put(COLUMN_LANGUE, convertArrayListToJson(infoAdditionnelle.getLangueArrayList()));
         values.put(COLUMN_LOISIR, convertArrayListToJson(infoAdditionnelle.getLoisirArrayList()));
+        values.put(COLUMN_CERTIFICATE, convertArrayListToJson(infoAdditionnelle.getCertificateArrayList()));
         values.put(COLUMN_LINKEDIN, infoAdditionnelle.getLinkdin());
         values.put(COLUMN_GITHUB, infoAdditionnelle.getGithub());
         values.put(COLUMN_LEETCODE, infoAdditionnelle.getLeetCode());
@@ -126,6 +129,7 @@ public class InformationAdditionnelle extends SQLiteOpenHelper {
         infoAdditionnelle.setSoftSkillsArrayList(convertJsonToArrayList(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_SOFTSKILL))));
         infoAdditionnelle.setLangueArrayList(convertJsonToArrayList(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LANGUE))));
         infoAdditionnelle.setLoisirArrayList(convertJsonToArrayList(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LOISIR))));
+        infoAdditionnelle.setCertificateArrayList(convertJsonToArrayList(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CERTIFICATE))));
         infoAdditionnelle.setLinkdin(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LINKEDIN)));
         infoAdditionnelle.setGithub(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_GITHUB)));
         infoAdditionnelle.setLeetCode(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LEETCODE)));

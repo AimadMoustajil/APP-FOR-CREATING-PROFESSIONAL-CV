@@ -165,6 +165,7 @@ public class InformationAdditionnelleActivity extends AppCompatActivity {
                 String linkedinValue = linkedin.getText().toString();
                 String githubValue = github.getText().toString();
                 String leetcodeValue = leetcode.getText().toString();
+                String mycertificate = certificate.getText().toString();
 
                 // Check if the lists are empty and add values from input fields if needed
                 if (!competanceValue.isEmpty() && !competanceArrayList.contains(competanceValue)) {
@@ -179,6 +180,9 @@ public class InformationAdditionnelleActivity extends AppCompatActivity {
                 if (!loisirValue.isEmpty() && !loisirArrayList.contains(loisirValue)) {
                     loisirArrayList.add(loisirValue);
                 }
+                if (!mycertificate.isEmpty() && !certificateArrayList.contains(mycertificate)) {
+                    certificateArrayList.add(loisirValue);
+                }
 
                 // Create InfoAdditionnelle object
                 InfoAdditionnelle additionnelle = new InfoAdditionnelle(
@@ -186,6 +190,7 @@ public class InformationAdditionnelleActivity extends AppCompatActivity {
                         softSkillsArrayList,
                         langueArrayList,
                         loisirArrayList,
+                        certificateArrayList,
                         linkedinValue,
                         githubValue,
                         leetcodeValue
@@ -228,6 +233,6 @@ public class InformationAdditionnelleActivity extends AppCompatActivity {
         recForCerteficated = findViewById(R.id.recForCerteficated);
 
         // Initialize database object
-        db = new InformationAdditionnelle(this); // Ensure this is initialized correctly
+        db = new InformationAdditionnelle(this); 
     }
 }
