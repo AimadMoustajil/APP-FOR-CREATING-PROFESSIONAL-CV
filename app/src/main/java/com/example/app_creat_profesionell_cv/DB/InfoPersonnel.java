@@ -25,6 +25,7 @@ public class InfoPersonnel extends SQLiteOpenHelper {
     private static final String COLUMN_PAYS = "pays";
     private static final String COLUMN_VILLE = "ville";
     private static final String COLUMN_JOBS = "job";
+    private static final String COLUMN_ABOUT_USER = "about";
 
     public InfoPersonnel(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -39,7 +40,8 @@ public class InfoPersonnel extends SQLiteOpenHelper {
             + COLUMN_EMAIL + " TEXT,"
             + COLUMN_PAYS + " TEXT,"
             + COLUMN_VILLE + " TEXT,"
-            + COLUMN_JOBS + " TEXT"
+            + COLUMN_JOBS + " TEXT,"
+            + COLUMN_ABOUT_USER + " TEXT"
             + ")";
 
     @Override
@@ -79,6 +81,7 @@ public class InfoPersonnel extends SQLiteOpenHelper {
         values.put(COLUMN_PAYS, infoPersonnelle.getPays());
         values.put(COLUMN_VILLE, infoPersonnelle.getVille());
         values.put(COLUMN_JOBS, infoPersonnelle.getJob());
+        values.put(COLUMN_ABOUT_USER, infoPersonnelle.getAbout());
         return values;
     }
 
@@ -108,6 +111,7 @@ public class InfoPersonnel extends SQLiteOpenHelper {
         infoPersonnelle.setPays(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PAYS)));
         infoPersonnelle.setVille(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_VILLE)));
         infoPersonnelle.setJob(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_JOBS)));
+        infoPersonnelle.setAbout(cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ABOUT_USER)));
         return infoPersonnelle;
     }
 

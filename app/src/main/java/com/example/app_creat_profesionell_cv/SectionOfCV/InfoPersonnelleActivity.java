@@ -23,7 +23,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker;
 public class InfoPersonnelleActivity extends AppCompatActivity {
 
     ImageView imageOfUser, check;
-    EditText firstName, lastName, numberPhone, emailOfUser, paysOfUser, villeOfUser, jobOfUser;
+    EditText firstName, lastName, numberPhone, emailOfUser, paysOfUser, villeOfUser, jobOfUser,AboutUSer;
     ActivityResultLauncher<Intent> imagePickerLauncher;
     Uri selectedImage;
     // DB
@@ -43,6 +43,7 @@ public class InfoPersonnelleActivity extends AppCompatActivity {
         paysOfUser = findViewById(R.id.paysOfUser);
         villeOfUser = findViewById(R.id.villeOfUSer);
         jobOfUser = findViewById(R.id.jobOfUSer);
+        AboutUSer = findViewById(R.id.AboutUSer);
         setupImagePicker();
 
         infoPersonnel = new InfoPersonnel(this);
@@ -57,9 +58,10 @@ public class InfoPersonnelleActivity extends AppCompatActivity {
                 String p_user = paysOfUser.getText().toString();
                 String v_user = villeOfUser.getText().toString();
                 String j_user = jobOfUser.getText().toString();
+                String ab_user = AboutUSer.getText().toString();
 
-                if (!f_name.isEmpty() && !l_name.isEmpty() && !n_phone.isEmpty() && !e_user.isEmpty() && !p_user.isEmpty() && !v_user.isEmpty() && !j_user.isEmpty()) {
-                    InfoPersonnelle infoPersonnelle = new InfoPersonnelle(selectedImage.toString(), f_name, l_name, n_phone, e_user, p_user, v_user, j_user);
+                if (!f_name.isEmpty() && !l_name.isEmpty() && !n_phone.isEmpty() && !e_user.isEmpty() && !p_user.isEmpty() && !v_user.isEmpty() && !j_user.isEmpty() && !ab_user.isEmpty()) {
+                    InfoPersonnelle infoPersonnelle = new InfoPersonnelle(selectedImage.toString(), f_name, l_name, n_phone, e_user, p_user, v_user, j_user,ab_user);
                     infoPersonnel.addInfoPersonnelle(infoPersonnelle);
                     Toast.makeText(InfoPersonnelleActivity.this, "DONE", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(InfoPersonnelleActivity.this, ContentOfInformationCv.class));

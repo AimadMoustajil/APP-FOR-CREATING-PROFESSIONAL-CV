@@ -1,9 +1,9 @@
 package com.example.app_creat_profesionell_cv.Classes;
 
 public class InfoPersonnelle {
-    String logoOfUser,f_name,l_name,n_phone,email,pays,ville,job;
+    String logoOfUser,f_name,l_name,n_phone,email,pays,ville,job,about;
 
-    public InfoPersonnelle(String logoOfUser, String f_name, String l_name, String n_phone, String email, String pays, String ville, String job) {
+    public InfoPersonnelle(String logoOfUser, String f_name, String l_name, String n_phone, String email, String pays, String ville, String job,String about) {
         this.logoOfUser = logoOfUser;
         this.f_name = f_name;
         this.l_name = l_name;
@@ -12,10 +12,19 @@ public class InfoPersonnelle {
         this.pays = pays;
         this.ville = ville;
         this.job = job;
+        this.about = about;
     }
 
     public InfoPersonnelle() {
 
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
     }
 
     public String getLogoOfUser() {

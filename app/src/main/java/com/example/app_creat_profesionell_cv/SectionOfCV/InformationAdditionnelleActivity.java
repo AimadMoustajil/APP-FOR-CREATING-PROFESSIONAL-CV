@@ -39,6 +39,7 @@ public class InformationAdditionnelleActivity extends AppCompatActivity {
     AdapterForLoisir adapterForLoisir;
     AdapterForLangue adapterForLangue;
     AdapterForCompetance adapterForCompetance;
+
     //
 
     // DB
@@ -56,11 +57,13 @@ public class InformationAdditionnelleActivity extends AppCompatActivity {
         langueArrayList = new ArrayList<>();
         competanceArrayList = new ArrayList<>();
 
+
         // Initialize adapters
         adapterForSoftSkills = new AdapterForSoftSkills(softSkillsArrayList);
         adapterForLoisir = new AdapterForLoisir(loisirArrayList);
         adapterForLangue = new AdapterForLangue(langueArrayList);
         adapterForCompetance = new AdapterForCompetance(competanceArrayList);
+
 
         // Set adapters to RecyclerViews
         recForLoisir.setAdapter(adapterForLoisir);
@@ -68,11 +71,13 @@ public class InformationAdditionnelleActivity extends AppCompatActivity {
         recForCompetance.setAdapter(adapterForCompetance);
         recForLanguage.setAdapter(adapterForLangue);
 
+
         // Set layout managers to RecyclerViews
         recForLoisir.setLayoutManager(new LinearLayoutManager(this));
         recForLanguage.setLayoutManager(new LinearLayoutManager(this));
         recForCompetance.setLayoutManager(new LinearLayoutManager(this));
         recForSoftSkills.setLayoutManager(new LinearLayoutManager(this));
+
 
         // OnClickListeners for adding items
         addCompetance.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +135,8 @@ public class InformationAdditionnelleActivity extends AppCompatActivity {
                 }
             }
         });
+
+
 
         checkInfo.setOnClickListener(new View.OnClickListener() {
             @Override

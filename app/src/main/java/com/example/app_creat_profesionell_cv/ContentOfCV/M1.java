@@ -305,6 +305,13 @@ public class M1 extends AppCompatActivity {
     }
 
 
+
+
+
+
+
+
+
     private int drawProjet(Canvas canvas, int startY) {
         // Create and configure Paint object for heading
         Paint paint = new Paint();
@@ -317,6 +324,8 @@ public class M1 extends AppCompatActivity {
         final int headingMarginBottom = 10; // Space below the heading
         final int elementMarginTop = 25; // Reduced margin between line and first element
         final int lineHeight = 25; // Space between lines
+        final int verticalLineX = 240; // X position for vertical line
+        final int lineLength = 240; // Length of the horizontal line
 
         // Draw the "Projet" heading
         String heading = "Projet".toUpperCase();
@@ -327,11 +336,7 @@ public class M1 extends AppCompatActivity {
         float headingWidth = paint.measureText(heading);
 
         // Draw a line directly below the heading
-        Paint linePaint = new Paint();
-        linePaint.setColor(Color.BLACK);
-        linePaint.setStrokeWidth(2); // Line width
-        canvas.drawLine(marginLeft, headingY + headingMarginBottom,
-                marginLeft + headingWidth, headingY + headingMarginBottom, linePaint);
+
 
         // Retrieve project information from database
         ArrayList<InfoProjet> projectInfo;
@@ -352,7 +357,7 @@ public class M1 extends AppCompatActivity {
         Paint bigPaint = new Paint();
         bigPaint.setColor(Color.BLACK);
         bigPaint.setTextSize(15); // Text size for title and subject
-        bigPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Bold typeface
+        bigPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Normal typeface
 
         // Calculate Y offset for project information
         int yOffset = (int) (headingY + headingMarginBottom + elementMarginTop);
@@ -402,8 +407,26 @@ public class M1 extends AppCompatActivity {
             yOffset += elementMarginTop;
         }
 
+        // Draw the horizontal line below the entire Projet section
+        drawHorizontalLineWithCircle(canvas, verticalLineX, yOffset, 0, lineLength);
+
         // Return the bottom Y position of this section
         return yOffset;
+    }
+
+    private void drawHorizontalLineWithCircle(Canvas canvas, float verticalLineX, float startY, float headingWidth, float lineLength) {
+        Paint linePaint = new Paint();
+        linePaint.setColor(Color.BLACK);
+        linePaint.setStrokeWidth(2); // Line width
+
+        // Draw the horizontal line
+        canvas.drawLine(verticalLineX, startY, verticalLineX + lineLength, startY, linePaint);
+
+        // Draw a circle at the intersection with the vertical line
+        Paint circlePaint = new Paint();
+        circlePaint.setColor(Color.BLACK);
+        float circleRadius = 5; // Radius of the circle
+        canvas.drawCircle(verticalLineX, startY, circleRadius, circlePaint);
     }
 
 
@@ -413,133 +436,172 @@ public class M1 extends AppCompatActivity {
 
 
 
-    private void drawContactInfo(Canvas canvas, int startY) {
-        Paint paint = new Paint();
-        paint.setColor(Color.BLACK);
-        paint.setTextSize(20); // Increased text size for the heading
-        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface for the heading
 
-        int marginLeft = 60; // Left margin for text (considering icon width)
-        int headingMarginBottom = 10; // Space below the heading
-        int elementMarginTop = 15; // Space between line and first element
-        int lineHeight = 50; // Space between lines
-        int iconMarginRight = 10; // Space between icon and text
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Method to draw contact information
+    private void drawContactInfo(Canvas canvas, int startY) {
+        Paint paint = createPaint(20, Typeface.defaultFromStyle(Typeface.BOLD), Color.BLACK);
+        int marginLeft = 60;
+        int headingMarginBottom = 10;
+        int elementMarginTop = 15;
+        int lineHeight = 50;
+        int sectionBottomY;
 
         // Load icons from resources
         Bitmap phoneIcon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_phone);
         Bitmap emailIcon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_email);
         Bitmap addressIcon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_linkdin);
+        Bitmap[] icons = {phoneIcon, emailIcon, addressIcon};
 
         // Calculate the new left margin to align heading with the phone icon
         int iconWidth = phoneIcon.getWidth();
-        int newMarginLeft = marginLeft - iconWidth - iconMarginRight;
+        int newMarginLeft = marginLeft - iconWidth - 10;
 
         // Draw the "Contact" heading
         String heading = "Contact".toUpperCase();
-        float headingY = startY + paint.getTextSize(); // Y position for heading
+        float headingY = startY + paint.getTextSize();
         canvas.drawText(heading, newMarginLeft, headingY, paint);
 
-        // Measure the width of the heading text
-        float headingWidth = paint.measureText(heading);
-
         // Draw a line directly below the heading
-        Paint linePaint = new Paint();
-        linePaint.setColor(Color.BLACK);
-        linePaint.setStrokeWidth(2); // Line width
-        canvas.drawLine(newMarginLeft, headingY + headingMarginBottom, newMarginLeft + headingWidth, headingY + headingMarginBottom, linePaint);
 
-        // Contact information text and corresponding icons
+        // Contact information text
         String[] contactInfo = {
                 dbInfoPersonnelle.getInfo().get(0).getN_phone(),
                 dbInfoPersonnelle.getInfo().get(0).getEmail(),
                 dbInfoPersonnelle.getInfo().get(0).getPays()
         };
-        Bitmap[] icons = {phoneIcon, emailIcon, addressIcon};
 
         // Draw each line of contact information with its icon
         for (int i = 0; i < contactInfo.length; i++) {
             // Draw icon
             if (icons[i] != null) {
-                float iconY = headingY + headingMarginBottom + elementMarginTop-10 + paint.getTextSize() + lineHeight * i - icons[i].getHeight() / 2;
+                float iconY = headingY + headingMarginBottom + elementMarginTop - 10 + paint.getTextSize() + lineHeight * i - icons[i].getHeight() / 2;
                 canvas.drawBitmap(icons[i], newMarginLeft, iconY, null);
             }
 
             // Draw text
-            paint.setTextSize(10); // Reset text size for contact information
-            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Reset typeface for contact information
+            paint.setTextSize(10);
+            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
             float textY = headingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * i;
             canvas.drawText(contactInfo[i], marginLeft, textY, paint);
         }
+
+        // Calculate section bottom Y position
+        sectionBottomY = (int) (headingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * contactInfo.length);
+
+        // Draw horizontal line below section from icon position to 240x
+        float iconLineX = newMarginLeft + iconWidth + 10;
+        canvas.drawLine(iconLineX-40, sectionBottomY, 240, sectionBottomY, paint);
+
+        // Draw vertical line at 240x
+        canvas.drawLine(240, startY, 240, sectionBottomY, paint);
+
+        // Draw circle at intersection points
+        Paint circlePaint = createPaint(0, Typeface.defaultFromStyle(Typeface.NORMAL), Color.BLUE);
+        circlePaint.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(240, sectionBottomY, 5, circlePaint);
     }
+
+    // Method to create and configure a Paint object
+    private Paint createPaint(int textSize, Typeface typeface, int color) {
+        Paint paint = new Paint();
+        paint.setColor(color);
+        paint.setTextSize(textSize);
+        paint.setTypeface(typeface);
+        return paint;
+    }
+
+
+
+
 
 
 
     private int drawCompetence(Canvas canvas, int startY) {
+        // Create and configure Paint object for heading
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
-        paint.setTextSize(20);
-        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+        paint.setTextSize(20); // Heading text size
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface
 
-        int marginLeft = 260;
-        int headingMarginBottom = 10;
-        int elementMarginTop = 8;
-        int lineHeight = 25;
+        // Define margins and spacing
+        final int marginLeft = 260;
+        final int headingMarginBottom = 10; // Space below the heading
+        final int elementMarginTop = 8; // Space between line and first element
+        final int lineHeight = 25; // Space between lines
+        final int verticalLineX = 240; // X position for vertical line
+        final int lineLength = 240; // Length of the horizontal line
 
         // Draw the "Compétence" heading
         String heading = "Compétence".toUpperCase();
-        float headingY = startY + paint.getTextSize();
+        float headingY = startY + paint.getTextSize(); // Y position for heading
         canvas.drawText(heading, marginLeft, headingY, paint);
 
         // Draw a line directly below the heading
-        Paint linePaint = new Paint();
-        linePaint.setColor(Color.BLACK);
-        linePaint.setStrokeWidth(2);
-        canvas.drawLine(marginLeft, headingY + headingMarginBottom, marginLeft + paint.measureText(heading), headingY + headingMarginBottom, linePaint);
 
-        // Competence information text (dummy data here; replace with actual data)
+        // Competence information text
         ArrayList<String> competenceInfo = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getCompetanceArrayList();
 
         // Draw each line of competence information
         for (int i = 0; i < competenceInfo.size(); i++) {
-            paint.setTextSize(15);
-            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+            paint.setTextSize(15); // Reset text size for competence info
+            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Reset typeface for competence info
             float textY = headingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * i;
             canvas.drawText(competenceInfo.get(i), marginLeft, textY, paint);
         }
 
+        // Calculate the Y position for the horizontal line and circle
+        int sectionBottomY = (int) (headingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * competenceInfo.size());
+
+        // Draw the horizontal line and circle below the entire section
+        drawHorizontalLineWithCircle(canvas, verticalLineX, sectionBottomY, 0, lineLength);
+
         // Return the bottom Y position of this section
-        return (int) (headingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * competenceInfo.size());
+        return sectionBottomY;
     }
+
+
+
 
 
 
     private int drawExperienceDeTravail(Canvas canvas, int startY) {
         Paint headingPaint = new Paint();
         headingPaint.setColor(Color.BLACK);
-        headingPaint.setTextSize(20);
-        headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+        headingPaint.setTextSize(20); // Text size for the heading
+        headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface for the heading
 
         Paint normalPaint = new Paint();
         normalPaint.setColor(Color.BLACK);
-        normalPaint.setTextSize(15);
-        normalPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+        normalPaint.setTextSize(15); // Text size for experience details
+        normalPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Normal typeface
 
         int marginLeft = 260;
-        int headingMarginBottom = 10;
-        int elementMarginTop = 10;
-        int lineHeight = 25;
+        int headingMarginBottom = 10; // Space below the heading
+        int elementMarginTop = 10; // Space between elements
+        int lineHeight = 25; // Space between lines
+        int verticalLineX = 240; // X position for vertical line
+        int lineLength = 240; // Length of the horizontal line
 
         // Draw the "Expérience de Travail" heading
         String heading = "Expérience de Travail".toUpperCase();
-        float headingY = startY + headingPaint.getTextSize();
+        float headingY = startY + headingPaint.getTextSize(); // Y position for heading
         canvas.drawText(heading, marginLeft, headingY, headingPaint);
 
         // Draw a line directly below the heading
-        Paint linePaint = new Paint();
-        linePaint.setColor(Color.BLACK);
-        linePaint.setStrokeWidth(2);
-        canvas.drawLine(marginLeft, headingY + headingMarginBottom,
-                marginLeft + headingPaint.measureText(heading), headingY + headingMarginBottom, linePaint);
+
 
         // Retrieve experience information from database
         ArrayList<InfoExperience> experienceInfo = dbExperienceDeTravaille.getAllInfoExperience();
@@ -558,7 +620,7 @@ public class M1 extends AppCompatActivity {
             yOffset += lineHeight;
 
             // Draw the start date
-            canvas.drawText("" + info.getDateDébut(), marginLeft, yOffset, normalPaint);
+            canvas.drawText(info.getDateDébut(), marginLeft, yOffset, normalPaint);
             yOffset += lineHeight;
 
             // Draw the end date
@@ -573,9 +635,15 @@ public class M1 extends AppCompatActivity {
             yOffset += elementMarginTop;
         }
 
+        // Draw the horizontal line and circle below the entire section
+        drawHorizontalLineWithCircle(canvas, verticalLineX, yOffset, 0, lineLength);
+
         // Return the bottom Y position of this section
         return (int) yOffset;
     }
+
+
+
 
 
 
@@ -651,6 +719,9 @@ public class M1 extends AppCompatActivity {
         return (int) (currentY + elementMarginTop);
     }
 
+
+
+
     private void drawLanguages(Canvas canvas, int startY) {
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
@@ -687,8 +758,12 @@ public class M1 extends AppCompatActivity {
             canvas.drawText(languages.get(i), marginLeft, textY, paint);
         }
 
+        // Draw the horizontal line below the Languages section
+        float languagesBottomY = headingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * languages.size() + 40; // Y position for the line
+        drawHorizontalLine(canvas, marginLeft, languagesBottomY, 240);
+
         // Draw the "Soft Skills" heading below the languages
-        float softSkillsHeadingY = headingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * languages.size() + 40; // Adjust Y position
+        float softSkillsHeadingY = languagesBottomY + headingMarginBottom + elementMarginTop; // Adjust Y position
         canvas.drawText("Soft Skills".toUpperCase(), marginLeft, softSkillsHeadingY, paint);
 
         // Measure the width of the Soft Skills heading text
@@ -708,8 +783,12 @@ public class M1 extends AppCompatActivity {
             canvas.drawText(softSkills.get(i), marginLeft, textY, paint);
         }
 
+        // Draw the horizontal line below the Soft Skills section
+        float softSkillsBottomY = softSkillsHeadingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * softSkills.size() + 40; // Y position for the line
+        drawHorizontalLine(canvas, marginLeft, softSkillsBottomY, 240);
+
         // Draw the "Loisirs" heading below the soft skills
-        float loisirsHeadingY = softSkillsHeadingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * softSkills.size() + 40; // Adjust Y position
+        float loisirsHeadingY = softSkillsBottomY + headingMarginBottom + elementMarginTop; // Adjust Y position
         canvas.drawText("Loisirs".toUpperCase(), marginLeft, loisirsHeadingY, paint);
 
         // Measure the width of the Loisirs heading text
@@ -728,7 +807,29 @@ public class M1 extends AppCompatActivity {
             float textY = loisirsHeadingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * i;
             canvas.drawText(loisirs.get(i), marginLeft, textY, paint);
         }
+
+        // Draw the horizontal line below the Loisirs section
+        float loisirsBottomY = loisirsHeadingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * loisirs.size() + 40; // Y position for the line
+        drawHorizontalLine(canvas, marginLeft, loisirsBottomY, 240);
     }
+
+    private void drawHorizontalLine(Canvas canvas, float startX, float y, float length) {
+        Paint linePaint = new Paint();
+        linePaint.setColor(Color.BLACK);
+        linePaint.setStrokeWidth(2); // Line width
+        canvas.drawLine(startX, y, length, y, linePaint);
+
+
+        // Draw a circle at the end of the line
+        Paint circlePaint = new Paint();
+        circlePaint.setColor(Color.BLACK);
+        float circleRadius = 5; // Radius of the circle
+        canvas.drawCircle(length, y, circleRadius, circlePaint);
+    }
+
+
+
+
 
 
     private ByteArrayOutputStream savePDFToByteArray(PdfDocument document) {
@@ -797,10 +898,44 @@ public class M1 extends AppCompatActivity {
 
         // Calculate the position for the text (center horizontally)
         float textX = (canvas.getWidth() - textWidth) / 2;
+        float textY = logoBottomY; // Vertical position for the text
 
         // Draw the text at the calculated position
-        canvas.drawText(userName, textX, logoBottomY, paint); // Adjust vertical position as needed
+        canvas.drawText(userName, textX, textY, paint);
+
+        // Draw the lines
+        drawLines(canvas, textX, textY, textWidth);
     }
+
+    private void drawLines(Canvas canvas, float textX, float textY, float textWidth) {
+        Paint linePaint = new Paint();
+        linePaint.setColor(Color.BLACK);
+        linePaint.setStrokeWidth(2); // Line width
+
+        Paint circlePaint = new Paint();
+        circlePaint.setColor(Color.BLACK);
+        circlePaint.setStyle(Paint.Style.FILL); // Solid fill for circles
+
+        // Define positions for lines
+        float startX = 0; // Start of the first line (left edge of the canvas)
+        float endX = canvas.getWidth(); // End of the second line (right edge of the canvas)
+
+        float circleRadius = 6; // Radius of the small circles
+        float circleDiameter = circleRadius * 2; // Diameter of the circles
+
+        // Draw the line from the start of the canvas to the left edge of the text
+        canvas.drawLine(startX, textY, textX - 50, textY, linePaint); // Draw line with 50px distance from text
+        // Draw a small circle at the end of the first line
+        canvas.drawCircle(textX - 50, textY, circleRadius, circlePaint);
+
+        // Draw the line from the right edge of the text to the end of the canvas
+        canvas.drawLine(textX + textWidth + 50, textY, endX, textY, linePaint); // Draw line with 50px distance from text
+        // Draw a small circle at the beginning of the second line
+        canvas.drawCircle(textX + textWidth + 50, textY, circleRadius, circlePaint);
+    }
+
+
+
 
 
     private void drawUserJobTitle(Canvas canvas, float nameTextX, float nameTextY) {
@@ -860,10 +995,10 @@ public class M1 extends AppCompatActivity {
         linePaint.setStrokeWidth(2); // Set the width of the line
 
         // Define the X position for the vertical line (from the left margin or edge)
-        int lineX = 200; // X position for the vertical line
+        int lineX = 240; // X position for the vertical line
 
         // Draw the vertical line from startY to endY
-        canvas.drawLine(lineX, startY, lineX, endY, linePaint);
+        canvas.drawLine(lineX, startY+20, lineX, endY, linePaint);
     }
 
 
