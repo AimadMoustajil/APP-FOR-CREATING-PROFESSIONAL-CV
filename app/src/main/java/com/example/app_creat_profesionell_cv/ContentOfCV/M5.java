@@ -926,35 +926,40 @@ public class M5 extends AppCompatActivity {
 
     private Bitmap drawCircularImage(Canvas canvas, Bitmap bitmap, int x, int y) {
         int imageSize = (int) (canvas.getWidth() * IMAGE_SIZE_PERCENT / 100);
-        Bitmap circularBitmap = Bitmap.createBitmap(imageSize, imageSize, Bitmap.Config.ARGB_8888);
+        int borderWidth = 5;
+        int padding = 5;
+        int totalSize = imageSize + 2 * (borderWidth + padding);
+
+        Bitmap circularBitmap = Bitmap.createBitmap(totalSize, totalSize, Bitmap.Config.ARGB_8888);
         Canvas circularCanvas = new Canvas(circularBitmap);
 
         Paint paint = new Paint();
         paint.setAntiAlias(true);
 
         // Draw the circular mask
-        float radius = imageSize / 2f;
-        circularCanvas.drawCircle(radius, radius, radius, paint);
+        float radius = totalSize / 2f;
+        circularCanvas.drawCircle(radius, radius, radius - borderWidth - padding, paint);
 
         // Set the Xfermode to SRC_IN to draw the bitmap only within the circular mask
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         Rect srcRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-        Rect destRect = new Rect(0, 0, imageSize, imageSize);
+        Rect destRect = new Rect(padding + borderWidth, padding + borderWidth, totalSize - (padding + borderWidth), totalSize - (padding + borderWidth));
         circularCanvas.drawBitmap(bitmap, srcRect, destRect, paint);
 
         // Draw the blue border around the circular image
         Paint borderPaint = new Paint();
         borderPaint.setColor(Color.rgb(	108	,154	,195));
         borderPaint.setStyle(Paint.Style.STROKE);
-        borderPaint.setStrokeWidth(2);
+        borderPaint.setStrokeWidth(borderWidth);
         borderPaint.setAntiAlias(true);
-        circularCanvas.drawCircle(radius, radius, radius - 2.5f, borderPaint); // Adjusting radius for border width
+        circularCanvas.drawCircle(radius, radius, radius - borderWidth / 2f, borderPaint);
 
         // Draw the resulting circular bitmap with border onto the original canvas
         canvas.drawBitmap(circularBitmap, x, y, null);
 
         return circularBitmap;
     }
+
 
 
 
