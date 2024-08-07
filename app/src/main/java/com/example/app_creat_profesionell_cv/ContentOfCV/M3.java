@@ -279,6 +279,7 @@ public class M3 extends AppCompatActivity {
 
             drawLanguages(canvas, 400);
 
+
             // Draw user name and job title
             int logoBottomY = IMAGE_MARGIN + (int) (canvas.getWidth() * IMAGE_SIZE_PERCENT / 100);
             drawUserName(canvas, logoBottomY);
@@ -311,17 +312,23 @@ public class M3 extends AppCompatActivity {
     private int drawProjet(Canvas canvas, int startY) {
         // Create and configure Paint object for heading
         Paint paint = new Paint();
-        paint.setColor(Color.rgb(96,96,96));
+        paint.setColor(Color.rgb(96, 96, 96));
+        paint.setTextSize(20); // Heading text size
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface
+
+        Paint titleT = new Paint();
+        paint.setColor(Color.rgb(40, 40, 40));
         paint.setTextSize(20); // Heading text size
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface
 
         // Define margins and spacing
         final int marginLeft = 260;
+        final int bulletMarginLeft = 270; // Additional margin for bullet points
         final int headingMarginBottom = 10; // Space below the heading
         final int elementMarginTop = 25; // Reduced margin between line and first element
         final int lineHeight = 25; // Space between lines
         final int bulletSize = 10; // Size of bullet point
-        final int bulletMarginLeft = 5; // Margin between bullet and text
+        final int bulletTextMargin = 5; // Margin between bullet and text
         final int smallMarginTop = 10; // Small margin before resume text
 
         // Draw the "Projet" heading
@@ -334,10 +341,9 @@ public class M3 extends AppCompatActivity {
 
         // Draw a line directly below the heading
         Paint linePaint = new Paint();
-        linePaint.setColor(Color.rgb(96,96,96));
+        linePaint.setColor(Color.rgb(96, 96, 96));
         linePaint.setStrokeWidth(2); // Line width
-        canvas.drawLine(marginLeft, headingY + headingMarginBottom,
-                marginLeft + headingWidth, headingY + headingMarginBottom, linePaint);
+        canvas.drawLine(marginLeft, headingY + headingMarginBottom, 550, headingY + headingMarginBottom, linePaint);
 
         // Retrieve project information from database
         ArrayList<InfoProjet> projectInfo;
@@ -350,7 +356,7 @@ public class M3 extends AppCompatActivity {
 
         // Configure Paint object for project information text
         Paint grayPaint = new Paint();
-        grayPaint.setColor(Color.rgb(48,48,48)); // Gray text color
+        grayPaint.setColor(Color.rgb(48, 48, 48)); // Gray text color
         grayPaint.setTextSize(10); // Text size for project information
         grayPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Normal typeface
 
@@ -362,7 +368,7 @@ public class M3 extends AppCompatActivity {
 
         // Configure Paint object for bullet point
         Paint bulletPaint = new Paint();
-        bulletPaint.setColor(Color.rgb(48,48,48)); // Gray text color
+        bulletPaint.setColor(Color.rgb(48, 48, 48)); // Gray text color
         bulletPaint.setTextSize(bulletSize); // Bullet point size
 
         // Calculate Y offset for project information
@@ -375,7 +381,7 @@ public class M3 extends AppCompatActivity {
                 String formattedTitle = capitalizeFirstLetterOfEachWord(info.getNomEntreprise());
                 String dates = (info.getDateDebut() != null ? info.getDateDebut() : "") +
                         (info.getDateFin() != null ? " - " + info.getDateFin() : "");
-                canvas.drawText(dates + " " + formattedTitle, marginLeft, yOffset, grayPaint);
+                canvas.drawText(dates + " " + formattedTitle, marginLeft, yOffset, titleT);
                 yOffset += lineHeight;
             }
 
@@ -389,10 +395,10 @@ public class M3 extends AppCompatActivity {
             // Draw the resume with a bullet point and small margin
             if (info.getResume() != null) {
                 String resumeText = info.getResume();
-                // Draw the bullet point
-                canvas.drawText("•", marginLeft, yOffset, bulletPaint);
-                // Draw the resume text
-                canvas.drawText(resumeText, marginLeft + bulletSize + bulletMarginLeft, yOffset, grayPaint);
+                // Draw the bullet point with additional margin
+                canvas.drawText("•", bulletMarginLeft, yOffset, bulletPaint);
+                // Draw the resume text with margin between bullet and text
+                canvas.drawText(resumeText, bulletMarginLeft + bulletSize + bulletTextMargin, yOffset, grayPaint);
                 yOffset += lineHeight + smallMarginTop; // Additional space after the resume
             }
 
@@ -403,6 +409,7 @@ public class M3 extends AppCompatActivity {
         // Return the bottom Y position of this section
         return yOffset;
     }
+
 
 
 
@@ -427,7 +434,7 @@ public class M3 extends AppCompatActivity {
 
         // Load icons from resources
         Bitmap phoneIcon = BitmapFactory.decodeResource(getResources(), R.drawable.telephone);
-        Bitmap emailIcon = BitmapFactory.decodeResource(getResources(), R.drawable.mail);
+        Bitmap emailIcon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_email);
         Bitmap addressIcon = BitmapFactory.decodeResource(getResources(), R.drawable.social);
 
         // Calculate the new left margin to align heading with the phone icon
@@ -446,7 +453,7 @@ public class M3 extends AppCompatActivity {
         Paint linePaint = new Paint();
         linePaint.setColor(Color.WHITE);
         linePaint.setStrokeWidth(2); // Line width
-        canvas.drawLine(newMarginLeft, headingY + headingMarginBottom, newMarginLeft + 150, headingY + headingMarginBottom, linePaint);
+        canvas.drawLine(newMarginLeft, headingY + headingMarginBottom, 200, headingY + headingMarginBottom, linePaint);
 
         // Contact information text and corresponding icons
         String[] contactInfo = {
@@ -482,7 +489,7 @@ public class M3 extends AppCompatActivity {
 
         int marginLeft = 260;
         int headingMarginBottom = 10;
-        int elementMarginTop = 8;
+        int elementMarginTop = 20;
         int lineHeight = 25;
 
         // Draw the "Compétence" heading
@@ -494,7 +501,7 @@ public class M3 extends AppCompatActivity {
         Paint linePaint = new Paint();
         linePaint.setColor(Color.BLACK);
         linePaint.setStrokeWidth(2);
-        canvas.drawLine(marginLeft, headingY + headingMarginBottom, marginLeft + 150, headingY + headingMarginBottom, linePaint);
+        canvas.drawLine(marginLeft, headingY + headingMarginBottom,  550, headingY + headingMarginBottom, linePaint);
 
         // Competence information text (dummy data here; replace with actual data)
         ArrayList<InfoPersonnelle> aboutUser = dbInfoPersonnelle.getInfo();
@@ -525,13 +532,13 @@ public class M3 extends AppCompatActivity {
         normalPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
         Paint bulletPaint = new Paint();
-        bulletPaint.setColor(Color.GRAY); // Set text color to gray
+        bulletPaint.setColor(Color.rgb(48,48,48)); // Set text color to gray
         bulletPaint.setTextSize(15);
         bulletPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
         int marginLeft = 260;
         int headingMarginBottom = 10;
-        int elementMarginTop = 20;
+        int elementMarginTop = 25;
         int lineHeight = 25;
         int bulletMargin = 20;
 
@@ -545,7 +552,7 @@ public class M3 extends AppCompatActivity {
         linePaint.setColor(Color.BLACK);
         linePaint.setStrokeWidth(2);
         canvas.drawLine(marginLeft, headingY + headingMarginBottom,
-                marginLeft + 150, headingY + headingMarginBottom, linePaint);
+                550, headingY + headingMarginBottom, linePaint);
 
         // Retrieve experience information from database
         ArrayList<InfoExperience> experienceInfo = dbExperienceDeTravaille.getAllInfoExperience();
@@ -557,7 +564,7 @@ public class M3 extends AppCompatActivity {
         for (InfoExperience info : experienceInfo) {
             // Draw the company name and dates on the first line
             String companyAndDates = info.getNomEntreprise() + " - " + info.getDateDébut() + " to " + info.getDateDeFin();
-            canvas.drawText(companyAndDates, marginLeft, yOffset, headingPaint);
+            canvas.drawText(companyAndDates, marginLeft, yOffset, bulletPaint);
             yOffset += lineHeight;
 
             // Draw the job title on the next line
@@ -583,7 +590,7 @@ public class M3 extends AppCompatActivity {
 
 
     private int drawEducation(Canvas canvas, int startY) {
-        // Create and configure the Paint object for heading
+        // Create and configure the Paint object for headings
         Paint headingPaint = new Paint();
         headingPaint.setColor(Color.BLACK);
         headingPaint.setTextSize(20);
@@ -596,25 +603,25 @@ public class M3 extends AppCompatActivity {
 
         // Create and configure the Paint object for school names (big and black)
         Paint schoolNamePaint = new Paint();
-        schoolNamePaint.setColor(Color.BLACK);
+        schoolNamePaint.setColor(Color.	rgb(48,48,48));
         schoolNamePaint.setTextSize(18); // Adjust size as needed
         schoolNamePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
         // Create and configure the Paint object for date ranges (small and gray)
         Paint dateRangePaint = new Paint();
-        dateRangePaint.setColor(Color.BLACK);
-
+        dateRangePaint.setColor(Color.GRAY); // Change color to gray for date ranges
         dateRangePaint.setTextSize(14); // Adjust size as needed
         dateRangePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
         // Create and configure the Paint object for professions (normal)
         Paint professionPaint = new Paint();
-        professionPaint.setColor(Color.BLACK);
+        professionPaint.setColor(Color.rgb(40,40,40));
         professionPaint.setTextSize(15); // Adjust size as needed
         professionPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
         // Define margins and spacing
         int marginLeft = 260;
+        int bulletMarginLeft = 270; // Additional margin for bullet points
         int headingMarginBottom = 10;
         int elementMarginTop = 25;
         int lineHeight = 25;
@@ -625,7 +632,7 @@ public class M3 extends AppCompatActivity {
         canvas.drawText(heading, marginLeft, headingY, headingPaint);
 
         // Draw a line below the heading
-        float lineEndX = marginLeft + 150;
+        float lineEndX = 550;
         canvas.drawLine(marginLeft, headingY + headingMarginBottom, lineEndX, headingY + headingMarginBottom, linePaint);
 
         // Get the education information
@@ -633,27 +640,25 @@ public class M3 extends AppCompatActivity {
 
         // Draw each piece of education information
         float currentY = headingY + headingMarginBottom + elementMarginTop;
-        for (InfoEducation info : educationInfo) {
-            // Draw school name (big and black)
-            canvas.drawText(info.getShool().toUpperCase(), marginLeft, currentY, schoolNamePaint);
 
-            // Draw date range (small and gray)
-            currentY += lineHeight; // Move to next line
-            String dateRange = info.getStartYier() + " - " + info.getEndYier();
-            canvas.drawText(dateRange, marginLeft, currentY, dateRangePaint);
+        for (InfoEducation education : educationInfo) {
+            // Draw the school name and dates on the first line
+            String schoolNameAndDates = education.getShool() + " - " + education.getStartYier() + " to " + education.getEndYier();
+            canvas.drawText(schoolNameAndDates, marginLeft, currentY, schoolNamePaint);
 
-            // Draw profession or title (normal)
-            currentY += lineHeight; // Move to next line
-            canvas.drawText(info.getMetier(), marginLeft, currentY, professionPaint);
-
-            // Adjust Y position for next education item
+            // Move to the next line for the job title
             currentY += lineHeight;
+
+            // Draw the job title on the next line with additional margin for bullet point
+            canvas.drawText("• " + education.getMetier(), bulletMarginLeft, currentY, professionPaint);
+
+            // Move to the next section with padding
+            currentY += lineHeight + elementMarginTop;
         }
 
         // Return the bottom Y position of this section
-        return (int) (currentY + elementMarginTop);
+        return (int) currentY;
     }
-
 
 
 
@@ -667,7 +672,7 @@ public class M3 extends AppCompatActivity {
 
         int marginLeft = 24; // Left margin for text
         int headingMarginBottom = 10; // Space below the heading
-        int elementMarginTop = 15; // Space between line and first element
+        int elementMarginTop = 25; // Space between line and first element
         int lineHeight = 25; // Space between lines
 
         // Draw the "Languages" heading
@@ -682,61 +687,81 @@ public class M3 extends AppCompatActivity {
         Paint linePaint = new Paint();
         linePaint.setColor(Color.WHITE);
         linePaint.setStrokeWidth(2); // Line width
-        canvas.drawLine(marginLeft, headingY + headingMarginBottom, marginLeft + 150, headingY + headingMarginBottom, linePaint);
+        canvas.drawLine(marginLeft, headingY + headingMarginBottom, 200, headingY + headingMarginBottom, linePaint);
 
         // Language information text
         ArrayList<String> languages = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getLangueArrayList();
 
         // Draw each language
-        for (int i = 0; i < languages.size(); i++) {
-            paint.setTextSize(15); // Reset text size for languages
-            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Reset typeface for languages
-            float textY = headingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * i;
-            canvas.drawText(languages.get(i), marginLeft, textY, paint);
+        paint.setTextSize(15); // Reset text size for languages
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Reset typeface for languages
+        float textY = headingY + headingMarginBottom + elementMarginTop;
+        for (String language : languages) {
+            canvas.drawText("• " + language, marginLeft, textY, paint);
+            textY += lineHeight;
         }
 
         // Draw the "Soft Skills" heading below the languages
-        float softSkillsHeadingY = headingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * languages.size() + 40; // Adjust Y position
+        float softSkillsHeadingY = textY + 30; // Adjust Y position
         canvas.drawText("Soft Skills".toUpperCase(), marginLeft, softSkillsHeadingY, paint);
 
         // Measure the width of the Soft Skills heading text
         float softSkillsHeadingWidth = paint.measureText("Soft Skills");
 
         // Draw a line directly below the Soft Skills heading
-        canvas.drawLine(marginLeft, softSkillsHeadingY + headingMarginBottom, marginLeft + 150, softSkillsHeadingY + headingMarginBottom, linePaint);
+        canvas.drawLine(marginLeft, softSkillsHeadingY + headingMarginBottom, 200, softSkillsHeadingY + headingMarginBottom, linePaint);
 
         // Soft skills information text
         ArrayList<String> softSkills = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getSoftSkillsArrayList();
 
         // Draw each soft skill
-        for (int i = 0; i < softSkills.size(); i++) {
-            paint.setTextSize(15); // Reset text size for soft skills
-            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Reset typeface for soft skills
-            float textY = softSkillsHeadingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * i;
-            canvas.drawText(softSkills.get(i), marginLeft, textY, paint);
+        textY = softSkillsHeadingY + headingMarginBottom + elementMarginTop;
+        for (String softSkill : softSkills) {
+            canvas.drawText("• " + softSkill, marginLeft, textY, paint);
+            textY += lineHeight;
         }
 
         // Draw the "Loisirs" heading below the soft skills
-        float loisirsHeadingY = softSkillsHeadingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * softSkills.size() + 40; // Adjust Y position
+        float loisirsHeadingY = textY + 30; // Adjust Y position
         canvas.drawText("Loisirs".toUpperCase(), marginLeft, loisirsHeadingY, paint);
 
         // Measure the width of the Loisirs heading text
         float loisirsHeadingWidth = paint.measureText("Loisirs");
 
         // Draw a line directly below the Loisirs heading
-        canvas.drawLine(marginLeft, loisirsHeadingY + headingMarginBottom, marginLeft + 150, loisirsHeadingY + headingMarginBottom, linePaint);
+        canvas.drawLine(marginLeft, loisirsHeadingY + headingMarginBottom, 200, loisirsHeadingY + headingMarginBottom, linePaint);
 
         // Loisirs information text
         ArrayList<String> loisirs = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getLoisirArrayList();
 
         // Draw each loisir
-        for (int i = 0; i < loisirs.size(); i++) {
-            paint.setTextSize(15); // Reset text size for loisirs
-            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Reset typeface for loisirs
-            float textY = loisirsHeadingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * i;
-            canvas.drawText(loisirs.get(i), marginLeft, textY, paint);
+        textY = loisirsHeadingY + headingMarginBottom + elementMarginTop;
+        for (String loisir : loisirs) {
+            canvas.drawText("• " + loisir, marginLeft, textY, paint);
+            textY += lineHeight;
+        }
+
+        // Draw the "Certificate" heading below the loisirs
+        float certificateHeadingY = textY + 30; // Adjust Y position
+        canvas.drawText("Certificate".toUpperCase(), marginLeft, certificateHeadingY, paint);
+
+        // Measure the width of the Certificate heading text
+        float certificateHeadingWidth = paint.measureText("Certificate");
+
+        // Draw a line directly below the Certificate heading
+        canvas.drawLine(marginLeft, certificateHeadingY + headingMarginBottom, 200, certificateHeadingY + headingMarginBottom, linePaint);
+
+        // Certificates information text
+        ArrayList<String> certificates = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getCertificateArrayList();
+
+        // Draw each certificate
+        textY = certificateHeadingY + headingMarginBottom + elementMarginTop;
+        for (String certificate : certificates) {
+            canvas.drawText("• " + certificate, marginLeft, textY, paint);
+            textY += lineHeight;
         }
     }
+
 
 
     private ByteArrayOutputStream savePDFToByteArray(PdfDocument document) {
@@ -870,16 +895,13 @@ public class M3 extends AppCompatActivity {
     private void drawUserName(Canvas canvas, int logoBottomY) {
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
-        paint.setTextSize(40); // Adjust text size as needed
+        paint.setTextSize(35); // Adjust text size as needed
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Set text style
 
         // Fetch the user's name
-        String userName = dbInfoPersonnelle.getInfo().get(0).getL_name().toUpperCase() + " " + capitalizeFirstLetterOfEachWord(dbInfoPersonnelle.getInfo().get(0).getF_name())  ;
+        String userName = dbInfoPersonnelle.getInfo().get(0).getL_name().toUpperCase() + " " + dbInfoPersonnelle.getInfo().get(0).getF_name().toUpperCase()  ;
         float textWidth = paint.measureText(capitalizeFirstLetterOfEachWord(userName));
 
-        // Define a fixed vertical space from the bottom of the logo
-
-        // Calculate the vertical position for the text (fixed space from the bottom of the logo)
 
         // Calculate the position for the text (center horizontally)
         float textX = ((canvas.getWidth() - textWidth)+128) / 2;
@@ -890,7 +912,7 @@ public class M3 extends AppCompatActivity {
 
     private void drawUserJobTitle(Canvas canvas, float nameTextX, float nameTextY) {
         Paint paint = new Paint();
-        paint.setColor(Color.GRAY); // Set a different color for job title
+        paint.setColor(Color.rgb(36,36,36)); // Set a different color for job title
         paint.setTextSize(30); // Adjust text size for job title
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Set text style
 
@@ -905,10 +927,23 @@ public class M3 extends AppCompatActivity {
         float jobTitleTextY = nameTextY + spaceBelowName + paint.getTextSize();
 
         // Calculate the horizontal position for the job title (center horizontally)
-        float jobTitleTextX = ((canvas.getWidth() - jobTitleWidth) + 128) / 2;
+        float jobTitleTextX = ((canvas.getWidth() - jobTitleWidth-65)) / 2;
 
         // Draw the job title at the calculated position
         canvas.drawText(userJobTitle, jobTitleTextX, jobTitleTextY, paint);
+
+        // Draw a line below the job title
+        Paint linePaint = new Paint();
+        linePaint.setColor(Color.BLACK); // Set the line color to match the job title
+        linePaint.setStrokeWidth(2); // Set line width
+
+        // Calculate the start and end X positions for the line
+        float lineStartX = jobTitleTextX;
+        float lineEndX = jobTitleTextX + jobTitleWidth;
+        float lineY = jobTitleTextY + 10; // Adjust vertical position as needed
+
+        // Draw the line
+        canvas.drawLine(lineStartX, lineY, lineEndX, lineY, linePaint);
     }
 
 
@@ -933,51 +968,6 @@ public class M3 extends AppCompatActivity {
         canvas.drawBitmap(circularBitmap, x, y, null);
     }
 
-
-    private void drawFactureTitle(Canvas canvas, Paint paint) {
-        // Save current paint settings
-        int originalColor = paint.getColor();
-        Typeface originalTypeface = paint.getTypeface();
-        float originalTextSize = paint.getTextSize();
-
-        // Set text size and typeface for the title
-        paint.setTextSize(50); // Set text size to 36
-        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Set bold typeface
-
-        // Set text color to blue
-        paint.setColor(Color.BLUE);
-
-        // Calculate text position and size
-        float titleX = IMAGE_MARGIN;
-        float titleY = IMAGE_MARGIN + paint.getTextSize(); // Positioning it just below the top margin
-        float titleWidth = paint.measureText("Facture"); // Measure text width to position the border
-
-        // Draw the title text
-        canvas.drawText("Facture", titleX, titleY, paint);
-
-        // Draw bottom border for the title
-        float borderY = titleY + paint.getFontMetrics().descent; // Positioning it below the text baseline
-        paint.setStrokeWidth(2); // Set border width
-        canvas.drawLine(titleX, borderY, titleX + titleWidth, borderY, paint);
-
-        // Restore original paint settings
-        paint.setColor(originalColor);
-        paint.setTypeface(originalTypeface);
-        paint.setTextSize(originalTextSize);
-    }
-
-    private void drawBlueVerticalLine(Canvas canvas) {
-        Paint linePaint = new Paint();
-        linePaint.setColor(Color.BLUE); // Set the line color to blue
-        linePaint.setStrokeWidth(5); // Set the line width
-
-        int xPosition = 200; // X position where the line starts
-        int startY = 0; // Start from the top of the canvas
-        int endY = canvas.getHeight(); // End at the bottom of the canvas
-
-        // Draw the vertical line
-        canvas.drawLine(xPosition, startY, xPosition, endY, linePaint);
-    }
     private void drawBlueBackground(Canvas canvas) {
         Paint paint = new Paint();
         paint.setColor(Color.rgb(22,56,83)); // Set the background color to blue
