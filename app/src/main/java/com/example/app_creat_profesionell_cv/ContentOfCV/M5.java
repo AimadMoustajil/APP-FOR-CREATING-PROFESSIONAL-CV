@@ -120,33 +120,33 @@ public class M5 extends AppCompatActivity {
         infoPersonnel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(M4.this, InfoPersonnelleActivity.class));
+                startActivity(new Intent(M5.this, InfoPersonnelleActivity.class));
             }
         });
 
         éducation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(M4.this, InfoEducationActivity.class));
+                startActivity(new Intent(M5.this, InfoEducationActivity.class));
             }
         });
         exDeTravaille.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(M4.this, ExperinceActivity.class));
+                startActivity(new Intent(M5.this, ExperinceActivity.class));
             }
         });
         projet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(M4.this, InfoProjetActivity.class));
+                startActivity(new Intent(M5.this, InfoProjetActivity.class));
             }
         });
 
         infoAdditionnelle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(M4.this, InformationAdditionnelleActivity.class));
+                startActivity(new Intent(M5.this, InformationAdditionnelleActivity.class));
             }
         });
 
@@ -169,9 +169,9 @@ public class M5 extends AppCompatActivity {
             public void onClick(View v) {
                 //ShowDocumentActivity
                 // Check for permission to write to external storage
-                if (ContextCompat.checkSelfPermission(M4.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                if (ContextCompat.checkSelfPermission(M5.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(M4.this,
+                    ActivityCompat.requestPermissions(M5.this,
                             new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                             1);
                 } else {
@@ -181,7 +181,7 @@ public class M5 extends AppCompatActivity {
                         ByteArrayOutputStream outputStream = savePDFToByteArray(document);
 
                         // Start ShowDocumentActivity to display the PDF
-                        Intent intent = new Intent(M4.this, ShowDocumentActivity.class);
+                        Intent intent = new Intent(M5.this, ShowDocumentActivity.class);
                         intent.putExtra("pdfByteArray", outputStream.toByteArray());
                         startActivity(intent);
 
@@ -232,8 +232,6 @@ public class M5 extends AppCompatActivity {
 
             // Draw header image and content
             drawHeaderImage(canvas);
-
-            drawLineAtY(canvas, 300);
 
             // Draw user name and job title
             int logoBottomY = IMAGE_MARGIN + (int) (canvas.getWidth() * IMAGE_SIZE_PERCENT / 100);
@@ -348,22 +346,10 @@ public class M5 extends AppCompatActivity {
     }
 
 
-    private void drawLineAtY(Canvas canvas, float yCoordinate) {
-        Paint linePaint = new Paint();
-        linePaint.setColor(Color.BLACK);
-        linePaint.setStrokeWidth(2);
-
-        // Define margins
-        float leftMargin = 40;
-        float rightMargin = 40;
-
-        // Draw the line from leftMargin to canvas width - rightMargin at the specified Y coordinate
-        canvas.drawLine(leftMargin, yCoordinate, canvas.getWidth() - rightMargin, yCoordinate, linePaint);
-    }
 
     private void drawVerticalLine(Canvas canvas, float startY, float lineHeight) {
         Paint paint = new Paint();
-        paint.setColor(Color.BLACK); // Line color
+        paint.setColor(Color.rgb(108,	154,	195)); // Line color
         paint.setStrokeWidth(2); // Line thickness
 
         // X position for the vertical line
@@ -938,58 +924,40 @@ public class M5 extends AppCompatActivity {
 
 
 
-
-
-
-
-
-    private void drawCircularImage(Canvas canvas, Bitmap bitmap, int x, int y) {
+    private Bitmap drawCircularImage(Canvas canvas, Bitmap bitmap, int x, int y) {
         int imageSize = (int) (canvas.getWidth() * IMAGE_SIZE_PERCENT / 100);
         Bitmap circularBitmap = Bitmap.createBitmap(imageSize, imageSize, Bitmap.Config.ARGB_8888);
         Canvas circularCanvas = new Canvas(circularBitmap);
+
         Paint paint = new Paint();
         paint.setAntiAlias(true);
-        Rect rect = new Rect(0, 0, imageSize, imageSize);
-        RectF rectF = new RectF(rect);
-        circularCanvas.drawARGB(0, 0, 0, 0);
-        circularCanvas.drawCircle(imageSize / 2, imageSize / 2, imageSize / 2, paint);
+
+        // Draw the circular mask
+        float radius = imageSize / 2f;
+        circularCanvas.drawCircle(radius, radius, radius, paint);
+
+        // Set the Xfermode to SRC_IN to draw the bitmap only within the circular mask
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        circularCanvas.drawBitmap(bitmap, rect, rect, paint);
+        Rect srcRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        Rect destRect = new Rect(0, 0, imageSize, imageSize);
+        circularCanvas.drawBitmap(bitmap, srcRect, destRect, paint);
+
+        // Draw the blue border around the circular image
+        Paint borderPaint = new Paint();
+        borderPaint.setColor(Color.rgb(	108	,154	,195));
+        borderPaint.setStyle(Paint.Style.STROKE);
+        borderPaint.setStrokeWidth(2);
+        borderPaint.setAntiAlias(true);
+        circularCanvas.drawCircle(radius, radius, radius - 2.5f, borderPaint); // Adjusting radius for border width
+
+        // Draw the resulting circular bitmap with border onto the original canvas
         canvas.drawBitmap(circularBitmap, x, y, null);
+
+        return circularBitmap;
     }
 
 
-    private void drawFactureTitle(Canvas canvas, Paint paint) {
-        // Save current paint settings
-        int originalColor = paint.getColor();
-        Typeface originalTypeface = paint.getTypeface();
-        float originalTextSize = paint.getTextSize();
 
-        // Set text size and typeface for the title
-        paint.setTextSize(50); // Set text size to 36
-        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Set bold typeface
-
-        // Set text color to blue
-        paint.setColor(Color.BLUE);
-
-        // Calculate text position and size
-        float titleX = IMAGE_MARGIN;
-        float titleY = IMAGE_MARGIN + paint.getTextSize(); // Positioning it just below the top margin
-        float titleWidth = paint.measureText("Facture"); // Measure text width to position the border
-
-        // Draw the title text
-        canvas.drawText("Facture", titleX, titleY, paint);
-
-        // Draw bottom border for the title
-        float borderY = titleY + paint.getFontMetrics().descent; // Positioning it below the text baseline
-        paint.setStrokeWidth(2); // Set border width
-        canvas.drawLine(titleX, borderY, titleX + titleWidth, borderY, paint);
-
-        // Restore original paint settings
-        paint.setColor(originalColor);
-        paint.setTypeface(originalTypeface);
-        paint.setTextSize(originalTextSize);
-    }
 
 
     // Helper method to capitalize the first letter of each word
@@ -1015,5 +983,4 @@ public class M5 extends AppCompatActivity {
         return capitalizedStr.toString().trim();
     }
 
-}
 }
