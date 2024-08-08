@@ -20,6 +20,7 @@ import com.example.app_creat_profesionell_cv.ContentOfCV.M5;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M6;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M7;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M8;
+import com.example.app_creat_profesionell_cv.ContentOfCV.M9;
 import com.example.app_creat_profesionell_cv.R;
 
 import java.util.ArrayList;
@@ -87,6 +88,10 @@ public class AdapterOfImageCV extends RecyclerView.Adapter<AdapterOfImageCV.Imag
                 }
                 if (imageName.equals("m11")){
                     Intent intent = new Intent(context, M8.class);
+                    context.startActivity(intent);
+                }
+                if (imageName.equals("m12")){
+                    Intent intent = new Intent(context, M9.class);
                     context.startActivity(intent);
                 }
             }
