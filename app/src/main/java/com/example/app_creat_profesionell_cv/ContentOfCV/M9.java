@@ -294,7 +294,7 @@ public class M9 extends AppCompatActivity {
 
     private void drawGrayBackground(Canvas canvas) {
         Paint paint = new Paint();
-        paint.setColor(Color.GRAY); // Set the color to gray
+        paint.setColor(Color.rgb(244,244,244)); // Set the color to gray
 
         // Get the width and height of the canvas
         int canvasWidth = canvas.getWidth();
