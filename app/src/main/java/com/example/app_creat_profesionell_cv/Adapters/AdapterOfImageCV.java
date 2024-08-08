@@ -15,6 +15,7 @@ import com.example.app_creat_profesionell_cv.ContentOfCV.ContentOfInformationCv;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M1;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M10;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M11;
+import com.example.app_creat_profesionell_cv.ContentOfCV.M12;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M2;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M3;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M4;
@@ -102,6 +103,10 @@ public class AdapterOfImageCV extends RecyclerView.Adapter<AdapterOfImageCV.Imag
                 }
                 if (imageName.equals("m15")){
                     Intent intent = new Intent(context, M11.class);
+                    context.startActivity(intent);
+                }
+                if (imageName.equals("m16")){
+                    Intent intent = new Intent(context, M12.class);
                     context.startActivity(intent);
                 }
             }
