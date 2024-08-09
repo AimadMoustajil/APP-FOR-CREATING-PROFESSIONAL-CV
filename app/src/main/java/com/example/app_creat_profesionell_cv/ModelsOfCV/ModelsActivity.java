@@ -44,13 +44,10 @@ public class ModelsActivity extends AppCompatActivity {
         images.add(R.drawable.m21);
         images.add(R.drawable.m22);
         images.add(R.drawable.m23);
-        images.add(R.drawable.m25);
         images.add(R.drawable.m26);
         images.add(R.drawable.m27);
         images.add(R.drawable.m28);
         images.add(R.drawable.m29);
-        images.add(R.drawable.m30);
-        images.add(R.drawable.m31);
 
         ArrayList<String> imageNames = new ArrayList<>();
         imageNames.add("m1");
@@ -71,17 +68,16 @@ public class ModelsActivity extends AppCompatActivity {
         imageNames.add("m21");
         imageNames.add("m22");
         imageNames.add("m23");
-        imageNames.add("m25");
         imageNames.add("m26");
         imageNames.add("m27");
         imageNames.add("m28");
         imageNames.add("m29");
-        imageNames.add("m30");
-        imageNames.add("m31");
 
         rec.setLayoutManager(new GridLayoutManager(this, 2));
 
         adapter = new AdapterOfImageCV(images, imageNames, this);
         rec.setAdapter(adapter);
+        rec.setHasFixedSize(true);
+
     }
 }

@@ -74,14 +74,33 @@ public class ExperinceActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!infoExperienceArrayList.isEmpty()) {
                     for (InfoExperience experience : infoExperienceArrayList) {
+                        // Check if any of the fields are empty, and if so, set them to an empty string
+                        if (experience.getNomEntreprise() == null || experience.getNomEntreprise().trim().isEmpty()) {
+                            experience.setNomEntreprise("");
+                        }
+                        if (experience.getTitreDePoste() == null || experience.getTitreDePoste().trim().isEmpty()) {
+                            experience.setTitreDePoste("");
+                        }
+                        if (experience.getDateDébut() == null || experience.getDateDébut().trim().isEmpty()) {
+                            experience.setDateDébut("");
+                        }
+                        if (experience.getDateDeFin() == null || experience.getDateDeFin().trim().isEmpty()) {
+                            experience.setDateDeFin("");
+                        }
+                        if (experience.getRésumé() == null || experience.getRésumé().trim().isEmpty()) {
+                            experience.setRésumé("");
+                        }
+
+                        // Add the experience to the database
                         db.addInfoExperience(experience);
                     }
                     Toast.makeText(ExperinceActivity.this, "Experience saved", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(ExperinceActivity.this, "No experience to save", Toast.LENGTH_SHORT).show();
                 }
-               startActivity(new Intent(ExperinceActivity.this, ContentOfInformationCv.class));
+                startActivity(new Intent(ExperinceActivity.this, ContentOfInformationCv.class));
             }
         });
+
     }
 }

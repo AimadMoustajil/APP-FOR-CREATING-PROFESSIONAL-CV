@@ -158,16 +158,16 @@ public class InformationAdditionnelleActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Fetch values from input fields
-                String competanceValue = competance.getText().toString();
-                String softSkillValue = softSkills.getText().toString();
-                String langueValue = language.getText().toString();
-                String loisirValue = loisir.getText().toString();
-                String linkedinValue = linkedin.getText().toString();
-                String githubValue = github.getText().toString();
-                String leetcodeValue = leetcode.getText().toString();
-                String mycertificate = certificate.getText().toString();
+                String competanceValue = competance.getText().toString().trim();
+                String softSkillValue = softSkills.getText().toString().trim();
+                String langueValue = language.getText().toString().trim();
+                String loisirValue = loisir.getText().toString().trim();
+                String linkedinValue = linkedin.getText().toString().trim();
+                String githubValue = github.getText().toString().trim();
+                String leetcodeValue = leetcode.getText().toString().trim();
+                String certificateValue = certificate.getText().toString().trim();
 
-                // Check if the lists are empty and add values from input fields if needed
+                // Add values from input fields to lists if they are not empty
                 if (!competanceValue.isEmpty() && !competanceArrayList.contains(competanceValue)) {
                     competanceArrayList.add(competanceValue);
                 }
@@ -180,8 +180,8 @@ public class InformationAdditionnelleActivity extends AppCompatActivity {
                 if (!loisirValue.isEmpty() && !loisirArrayList.contains(loisirValue)) {
                     loisirArrayList.add(loisirValue);
                 }
-                if (!mycertificate.isEmpty() && !certificateArrayList.contains(mycertificate)) {
-                    certificateArrayList.add(loisirValue);
+                if (!certificateValue.isEmpty() && !certificateArrayList.contains(certificateValue)) {
+                    certificateArrayList.add(certificateValue);
                 }
 
                 // Create InfoAdditionnelle object
@@ -191,9 +191,9 @@ public class InformationAdditionnelleActivity extends AppCompatActivity {
                         langueArrayList,
                         loisirArrayList,
                         certificateArrayList,
-                        linkedinValue,
-                        githubValue,
-                        leetcodeValue
+                        linkedinValue.isEmpty() ? "" : linkedinValue,
+                        githubValue.isEmpty() ? "" : githubValue,
+                        leetcodeValue.isEmpty() ? "" : leetcodeValue
                 );
 
                 // Check if db is initialized and add information
@@ -207,7 +207,6 @@ public class InformationAdditionnelleActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private void initialElements() {

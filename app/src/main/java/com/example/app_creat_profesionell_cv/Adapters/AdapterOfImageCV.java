@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.app_creat_profesionell_cv.ContentOfCV.ContentOfInformationCv;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M1;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M10;
@@ -52,71 +53,69 @@ public class AdapterOfImageCV extends RecyclerView.Adapter<AdapterOfImageCV.Imag
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         Integer imageUrl = images.get(position);
         String imageName = imageNames.get(position);
-        holder.imageView.setImageResource(imageUrl);
+
+        // Use Glide to load the image
+        Glide.with(context)
+                .load(imageUrl)
+                .into(holder.imageView);
 
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Show the image name as a toast
                 Toast.makeText(context, "Clicked on image: " + imageName, Toast.LENGTH_SHORT).show();
-                if (imageName.equals("m31")){
-                    Intent intent = new Intent(context, ContentOfInformationCv.class);
-                    context.startActivity(intent);
+
+                // Handle the click events for each image
+                Intent intent = null;
+                switch (imageName) {
+                    case "m31":
+                        intent = new Intent(context, ContentOfInformationCv.class);
+                        break;
+                    case "m1":
+                        intent = new Intent(context, M1.class);
+                        break;
+                    case "m2":
+                        intent = new Intent(context, M2.class);
+                        break;
+                    case "m3":
+                        intent = new Intent(context, M3.class);
+                        break;
+                    case "m4":
+                        intent = new Intent(context, M4.class);
+                        break;
+                    case "m5":
+                        intent = new Intent(context, M5.class);
+                        break;
+                    case "m7":
+                        intent = new Intent(context, M6.class);
+                        break;
+                    case "m10":
+                        intent = new Intent(context, M7.class);
+                        break;
+                    case "m11":
+                        intent = new Intent(context, M8.class);
+                        break;
+                    case "m12":
+                        intent = new Intent(context, M9.class);
+                        break;
+                    case "m14":
+                        intent = new Intent(context, M10.class);
+                        break;
+                    case "m15":
+                        intent = new Intent(context, M11.class);
+                        break;
+                    case "m16":
+                        intent = new Intent(context, M12.class);
+                        break;
+                    case "m17":
+                        intent = new Intent(context, M13.class);
+                        break;
+                    case "m19":
+                        intent = new Intent(context, M14.class);
+                        break;
                 }
-                if (imageName.equals("m1")){
-                    Intent intent = new Intent(context, M1.class);
-                    context.startActivity(intent);
-                }
-                if (imageName.equals("m2")){
-                    Intent intent = new Intent(context, M2.class);
-                    context.startActivity(intent);
-                }
-                if (imageName.equals("m3")){
-                    Intent intent = new Intent(context, M3.class);
-                    context.startActivity(intent);
-                }
-                if (imageName.equals("m4")){
-                    Intent intent = new Intent(context, M4.class);
-                    context.startActivity(intent);
-                }
-                if (imageName.equals("m5")){
-                    Intent intent = new Intent(context, M5.class);
-                    context.startActivity(intent);
-                }
-                if (imageName.equals("m7")){
-                    Intent intent = new Intent(context, M6.class);
-                    context.startActivity(intent);
-                }
-                if (imageName.equals("m10")){
-                    Intent intent = new Intent(context, M7.class);
-                    context.startActivity(intent);
-                }
-                if (imageName.equals("m11")){
-                    Intent intent = new Intent(context, M8.class);
-                    context.startActivity(intent);
-                }
-                if (imageName.equals("m12")){
-                    Intent intent = new Intent(context, M9.class);
-                    context.startActivity(intent);
-                }
-                if (imageName.equals("m14")){
-                    Intent intent = new Intent(context, M10.class);
-                    context.startActivity(intent);
-                }
-                if (imageName.equals("m15")){
-                    Intent intent = new Intent(context, M11.class);
-                    context.startActivity(intent);
-                }
-                if (imageName.equals("m16")){
-                    Intent intent = new Intent(context, M12.class);
-                    context.startActivity(intent);
-                }
-                if (imageName.equals("m17")){
-                    Intent intent = new Intent(context, M13.class);
-                    context.startActivity(intent);
-                }
-                if (imageName.equals("m19")){
-                    Intent intent = new Intent(context, M14.class);
+
+                if (intent != null) {
                     context.startActivity(intent);
                 }
             }

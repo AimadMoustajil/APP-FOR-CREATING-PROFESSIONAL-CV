@@ -70,11 +70,26 @@ public class InfoProjetActivity extends AppCompatActivity {
             public void onClick(View v) {
                 StringBuilder infoString = new StringBuilder();
                 for (InfoProjet projet : infoProjets) {
-                    infoString.append("Entreprise: ").append(projet.getNomEntreprise()).append("\n")
-                            .append("Titre: ").append(projet.getTitreProjet()).append("\n")
-                            .append("Résumé: ").append(projet.getResume()).append("\n")
-                            .append("Début: ").append(projet.getDateDebut()).append("\n")
-                            .append("Fin: ").append(projet.getDateFin()).append("\n\n");
+                    // Check and set empty strings for empty fields
+                    String nomEntreprise = projet.getNomEntreprise() != null ? projet.getNomEntreprise() : "";
+                    String titreProjet = projet.getTitreProjet() != null ? projet.getTitreProjet() : "";
+                    String resume = projet.getResume() != null ? projet.getResume() : "";
+                    String dateDebut = projet.getDateDebut() != null ? projet.getDateDebut() : "";
+                    String dateFin = projet.getDateFin() != null ? projet.getDateFin() : "";
+
+                    // Append project details to the string
+                    infoString.append("Entreprise: ").append(nomEntreprise).append("\n")
+                            .append("Titre: ").append(titreProjet).append("\n")
+                            .append("Résumé: ").append(resume).append("\n")
+                            .append("Début: ").append(dateDebut).append("\n")
+                            .append("Fin: ").append(dateFin).append("\n\n");
+
+                    // Save project info to the database
+                    projet.setNomEntreprise(nomEntreprise);
+                    projet.setTitreProjet(titreProjet);
+                    projet.setResume(resume);
+                    projet.setDateDebut(dateDebut);
+                    projet.setDateFin(dateFin);
                     db.addInfoProjet(projet);
                 }
                 startActivity(new Intent(InfoProjetActivity.this, ContentOfInformationCv.class));

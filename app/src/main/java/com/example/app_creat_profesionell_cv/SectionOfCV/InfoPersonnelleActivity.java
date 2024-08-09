@@ -23,7 +23,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker;
 public class InfoPersonnelleActivity extends AppCompatActivity {
 
     ImageView imageOfUser, check;
-    EditText firstName, lastName, numberPhone, emailOfUser, paysOfUser, villeOfUser, jobOfUser,AboutUSer;
+    EditText firstName, lastName, numberPhone, emailOfUser, paysOfUser, villeOfUser, jobOfUser, AboutUSer;
     ActivityResultLauncher<Intent> imagePickerLauncher;
     Uri selectedImage;
     // DB
@@ -60,14 +60,29 @@ public class InfoPersonnelleActivity extends AppCompatActivity {
                 String j_user = jobOfUser.getText().toString();
                 String ab_user = AboutUSer.getText().toString();
 
-                if (!f_name.isEmpty() && !l_name.isEmpty() && !n_phone.isEmpty() && !e_user.isEmpty() && !p_user.isEmpty() && !v_user.isEmpty() && !j_user.isEmpty() && !ab_user.isEmpty()) {
-                    InfoPersonnelle infoPersonnelle = new InfoPersonnelle(selectedImage.toString(), f_name, l_name, n_phone, e_user, p_user, v_user, j_user,ab_user);
-                    infoPersonnel.addInfoPersonnelle(infoPersonnelle);
-                    Toast.makeText(InfoPersonnelleActivity.this, "DONE", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(InfoPersonnelleActivity.this, ContentOfInformationCv.class));
-                }else {
-                    Toast.makeText(InfoPersonnelleActivity.this, "there is probelem", Toast.LENGTH_SHORT).show();
+                // Check if the required fields are empty
+                if (f_name.isEmpty() || l_name.isEmpty() || n_phone.isEmpty() || e_user.isEmpty() || p_user.isEmpty() || v_user.isEmpty() || j_user.isEmpty()) {
+                    Toast.makeText(InfoPersonnelleActivity.this, "Please fill in all required fields", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
+                // If image is not selected, use default image
+                if (selectedImage == null) {
+                    selectedImage = Uri.parse("android.resource://" + getPackageName() + "/" + R.drawable.baseline_account_circle_24);
+                }
+
+                // Set ab_user to "empty" if it is blank
+                if (ab_user.isEmpty()) {
+                    ab_user = "empty";
+                }
+
+                // Create InfoPersonnelle object with the information provided
+                InfoPersonnelle infoPersonnelle = new InfoPersonnelle(selectedImage.toString(), f_name, l_name, n_phone, e_user, p_user, v_user, j_user, ab_user);
+                infoPersonnel.addInfoPersonnelle(infoPersonnelle);
+
+                // Show success message and navigate to the next screen
+                Toast.makeText(InfoPersonnelleActivity.this, "DONE", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(InfoPersonnelleActivity.this, ContentOfInformationCv.class));
             }
         });
     }

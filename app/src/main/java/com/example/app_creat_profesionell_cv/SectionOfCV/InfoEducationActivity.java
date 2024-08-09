@@ -80,6 +80,19 @@ public class InfoEducationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!educations.isEmpty()) {
                     for (InfoEducation infoEducation : educations) {
+                        // Check if any field is null and replace with an empty string if necessary
+                        String schoolName = infoEducation.getShool() != null ? infoEducation.getShool() : "";
+                        String metier = infoEducation.getMetier() != null ? infoEducation.getMetier() : "";
+                        String startYear = infoEducation.getStartYier() != null ? infoEducation.getStartYier() : "";
+                        String endYear = infoEducation.getEndYier() != null ? infoEducation.getEndYier() : "";
+
+                        // Update the InfoEducation object with the sanitized data
+                        infoEducation.setShool(schoolName);
+                        infoEducation.setMetier(metier);
+                        infoEducation.setStartYier(startYear);
+                        infoEducation.setEndYier(endYear);
+
+                        // Save the updated object to the database
                         dbEducation.addInfoEducation(infoEducation);
                     }
                     Toast.makeText(InfoEducationActivity.this, "Saved Successfully", Toast.LENGTH_SHORT).show();
@@ -90,5 +103,7 @@ public class InfoEducationActivity extends AppCompatActivity {
                 startActivity(new Intent(InfoEducationActivity.this, ContentOfInformationCv.class));
             }
         });
+
     }
+
 }
