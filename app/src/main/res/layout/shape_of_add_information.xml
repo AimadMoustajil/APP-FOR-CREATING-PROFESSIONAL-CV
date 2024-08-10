@@ -15,8 +15,7 @@
         <EditText
             android:id="@+id/newInfo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="LeetCode"/>
+            android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

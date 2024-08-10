@@ -17,7 +17,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Collége/Université">
+            android:hint="Nom de l'entreprise">
 
             <EditText
                 android:id="@+id/nameOfSchool"
@@ -28,7 +28,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Titre de degré">
+            android:hint="Titre de projet">
 
             <EditText
                 android:id="@+id/yourMetier"
@@ -44,39 +44,46 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="5dp"
                 android:layout_marginTop="5dp"
-                android:hint="From">
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:hint="Date de début">
 
                 <TextView
                     android:id="@+id/start"
                     android:layout_width="match_parent"
-                    android:hint="Date de début"
+                    android:layout_height="50dp"
                     android:layout_gravity="start"
                     android:gravity="center"
-                    android:background="@color/WhiteSmoke"
-                    android:layout_height="50dp" />
+                    android:hint="Date de début" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
-                android:hint="To">
+                android:layout_weight="1"
+                android:hint="Date de fin">
 
                 <TextView
                     android:id="@+id/Finich"
                     android:layout_width="match_parent"
-                    android:hint="Date de fin"
+                    android:layout_height="50dp"
                     android:layout_gravity="start"
                     android:gravity="center"
-                    android:background="@color/WhiteSmoke"
-                    android:layout_height="50dp" />
+                    android:hint="Date de fin" />
             </com.google.android.material.textfield.TextInputLayout>
-
         </LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/rs"
+                android:layout_width="match_parent"
+                android:hint="Résumé"
+                android:gravity="start"
+                android:layout_height="100dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

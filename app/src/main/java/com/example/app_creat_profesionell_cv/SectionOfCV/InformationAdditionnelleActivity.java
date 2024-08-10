@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class InformationAdditionnelleActivity extends AppCompatActivity {
 
-    EditText competance, softSkills, language, loisir, linkedin, github, leetcode,certificate;
+    EditText competance, softSkills, language, loisir, linkedin,certificate;
     ImageView addCompetance, addSoftSkills, addLanguage, addLoisir, checkInfo,certificateAdd;
     RecyclerView recForCompetance, recForSoftSkills, recForLanguage, recForLoisir,recForCerteficated;
 
@@ -163,8 +163,6 @@ public class InformationAdditionnelleActivity extends AppCompatActivity {
                 String langueValue = language.getText().toString().trim();
                 String loisirValue = loisir.getText().toString().trim();
                 String linkedinValue = linkedin.getText().toString().trim();
-                String githubValue = github.getText().toString().trim();
-                String leetcodeValue = leetcode.getText().toString().trim();
                 String certificateValue = certificate.getText().toString().trim();
 
                 // Add values from input fields to lists if they are not empty
@@ -191,9 +189,7 @@ public class InformationAdditionnelleActivity extends AppCompatActivity {
                         langueArrayList,
                         loisirArrayList,
                         certificateArrayList,
-                        linkedinValue.isEmpty() ? "" : linkedinValue,
-                        githubValue.isEmpty() ? "" : githubValue,
-                        leetcodeValue.isEmpty() ? "" : leetcodeValue
+                        linkedinValue.isEmpty() ? "" : linkedinValue
                 );
 
                 // Check if db is initialized and add information
@@ -215,8 +211,6 @@ public class InformationAdditionnelleActivity extends AppCompatActivity {
         language = findViewById(R.id.langue);
         loisir = findViewById(R.id.loisir);
         linkedin = findViewById(R.id.linkdin);
-        github = findViewById(R.id.github);
-        leetcode = findViewById(R.id.leetCode);
         addCompetance = findViewById(R.id.addCompétence);
         addSoftSkills = findViewById(R.id.softSkills);
         addLanguage = findViewById(R.id.lesLangue);

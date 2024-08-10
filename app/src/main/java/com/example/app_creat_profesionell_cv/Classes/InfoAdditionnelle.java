@@ -9,18 +9,14 @@ public class InfoAdditionnelle {
     ArrayList<String> loisirArrayList;
     ArrayList<String> certificateArrayList;
     String linkdin;
-    String github;
-    String leetCode;
 
-    public InfoAdditionnelle(ArrayList<String> competanceArrayList, ArrayList<String> softSkillsArrayList, ArrayList<String> langueArrayList, ArrayList<String> loisirArrayList,ArrayList<String> certificateArrayList, String linkdin, String github, String leetCode) {
+    public InfoAdditionnelle(ArrayList<String> competanceArrayList, ArrayList<String> softSkillsArrayList, ArrayList<String> langueArrayList, ArrayList<String> loisirArrayList,ArrayList<String> certificateArrayList, String linkdin) {
         this.competanceArrayList = competanceArrayList;
         this.softSkillsArrayList = softSkillsArrayList;
         this.langueArrayList = langueArrayList;
         this.loisirArrayList = loisirArrayList;
         this.certificateArrayList = certificateArrayList;
         this.linkdin = linkdin;
-        this.github = github;
-        this.leetCode = leetCode;
     }
 
     public InfoAdditionnelle() {
@@ -75,19 +71,4 @@ public class InfoAdditionnelle {
         this.linkdin = linkdin;
     }
 
-    public String getGithub() {
-        return github;
-    }
-
-    public void setGithub(String github) {
-        this.github = github;
-    }
-
-    public String getLeetCode() {
-        return leetCode;
-    }
-
-    public void setLeetCode(String leetCode) {
-        this.leetCode = leetCode;
-    }
 }

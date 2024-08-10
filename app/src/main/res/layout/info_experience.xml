@@ -17,7 +17,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name Of Shool">
+            android:hint="Nom de l'entreprise">
 
             <EditText
                 android:id="@+id/nameOfSchool"
@@ -28,7 +28,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name Of your metier">
+            android:hint="Titre de poste">
 
             <EditText
                 android:id="@+id/yourMetier"
@@ -47,7 +47,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"
                 android:layout_weight="1"
-                android:hint="From">
+                android:hint="Date de début">
 
                 <TextView
                     android:id="@+id/start"
@@ -55,7 +55,7 @@
                     android:layout_height="50dp"
                     android:layout_gravity="start"
                     android:gravity="center"
-                    android:hint="From" />
+                    android:hint="Date de début" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -64,7 +64,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="1"
-                android:hint="To">
+                android:hint="Date de fin">
 
                 <TextView
                     android:id="@+id/Finich"
@@ -72,7 +72,7 @@
                     android:layout_height="50dp"
                     android:layout_gravity="start"
                     android:gravity="center"
-                    android:hint="To" />
+                    android:hint="Date de fin" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
         <com.google.android.material.textfield.TextInputLayout

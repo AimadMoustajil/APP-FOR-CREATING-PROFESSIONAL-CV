@@ -116,9 +116,10 @@ public class AdapterForExperience extends RecyclerView.Adapter<AdapterForExperie
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                // No need to set the day
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                // Format date to "yyyy-MM" to include only year and month
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM", Locale.getDefault());
                 String dateString = dateFormat.format(calendar.getTime());
 
                 textView.setText(dateString);

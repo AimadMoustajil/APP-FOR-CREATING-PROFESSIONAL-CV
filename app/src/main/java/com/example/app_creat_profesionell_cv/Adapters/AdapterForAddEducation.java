@@ -100,14 +100,13 @@ public class AdapterForAddEducation extends RecyclerView.Adapter<AdapterForAddEd
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM", Locale.getDefault());
                 String dateString = dateFormat.format(calendar.getTime());
 
                 textView.setText(dateString);
                 if (isStartDate) {
-                    infoEducation.setEndYier(dateString);
+                    infoEducation.setStartYier(dateString);
                 } else {
                     infoEducation.setEndYier(dateString);
                 }
@@ -117,4 +116,5 @@ public class AdapterForAddEducation extends RecyclerView.Adapter<AdapterForAddEd
         new DatePickerDialog(textView.getContext(), dateSetListener, calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
+
 }

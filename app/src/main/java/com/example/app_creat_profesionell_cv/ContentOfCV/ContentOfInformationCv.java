@@ -197,7 +197,7 @@ public class ContentOfInformationCv extends AppCompatActivity {
     }
 
 
-    @Override
+   /* @Override
     public void onBackPressed() {
         super.onBackPressed();
         dbInfoPersonnelle.clearAllData();
@@ -215,7 +215,7 @@ public class ContentOfInformationCv extends AppCompatActivity {
         dbProjet.clearAllData();
         dbInformationAitionnelle.clearAllData();
         dbExperienceDeTravaille.clearAllData();
-    }
+    }*/
 
 
 

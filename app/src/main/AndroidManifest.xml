@@ -4,8 +4,7 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.App_creat_profesionell_cv"
         tools:targetApi="31">
+        <activity
+            android:name=".ContentOfCV.ContentOfInformationCv"
+            android:exported="false" />
         <activity
             android:name=".ContentOfCV.M14"
             android:exported="false" />
@@ -88,9 +90,6 @@
             android:exported="false" />
         <activity
             android:name=".ContentOfCV.MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ContentOfCV.ContentOfInformationCv"
             android:exported="false" />
         <activity
             android:name=".Letters.LetterDePromotion"

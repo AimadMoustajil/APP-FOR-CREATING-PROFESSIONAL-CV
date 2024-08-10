@@ -73,7 +73,7 @@ public class InfoPersonnelleActivity extends AppCompatActivity {
 
                 // Set ab_user to "empty" if it is blank
                 if (ab_user.isEmpty()) {
-                    ab_user = "empty";
+                    ab_user = "";
                 }
 
                 // Create InfoPersonnelle object with the information provided

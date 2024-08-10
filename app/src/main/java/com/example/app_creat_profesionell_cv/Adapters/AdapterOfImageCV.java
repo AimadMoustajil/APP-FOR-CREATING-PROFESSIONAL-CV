@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.app_creat_profesionell_cv.ContentOfCV.ContentOfInformationCv;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M1;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M10;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M11;
@@ -68,9 +67,6 @@ public class AdapterOfImageCV extends RecyclerView.Adapter<AdapterOfImageCV.Imag
                 // Handle the click events for each image
                 Intent intent = null;
                 switch (imageName) {
-                    case "m31":
-                        intent = new Intent(context, ContentOfInformationCv.class);
-                        break;
                     case "m1":
                         intent = new Intent(context, M1.class);
                         break;

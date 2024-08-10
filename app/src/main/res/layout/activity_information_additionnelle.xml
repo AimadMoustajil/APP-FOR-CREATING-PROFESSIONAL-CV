@@ -196,7 +196,7 @@
                         android:id="@+id/certificate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Loisir"/>
+                        android:hint="Certificat"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -244,35 +244,6 @@
                     android:hint="Linkdin"/>
 
             </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="60dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp">
-
-                <EditText
-                    android:id="@+id/github"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Github"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="60dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp">
-
-                <EditText
-                    android:id="@+id/leetCode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="LeetCode"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
         </LinearLayout>
     </ScrollView>
 

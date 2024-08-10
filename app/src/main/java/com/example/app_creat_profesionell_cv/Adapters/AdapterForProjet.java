@@ -31,7 +31,7 @@ public class AdapterForProjet extends RecyclerView.Adapter<AdapterForProjet.View
     @NonNull
     @Override
     public AdapterForProjet.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.info_experience, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.info_of_projet, parent, false);
         return new AdapterForProjet.ViewHolder(view);
     }
 
@@ -125,9 +125,10 @@ public class AdapterForProjet extends RecyclerView.Adapter<AdapterForProjet.View
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                calendar.set(Calendar.DAY_OF_MONTH, 1);  // Set the day to the first day of the month
 
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                // Format the date as "yyyy-MM" to include only the year and month
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM", Locale.getDefault());
                 String dateString = dateFormat.format(calendar.getTime());
 
                 textView.setText(dateString);
@@ -142,4 +143,5 @@ public class AdapterForProjet extends RecyclerView.Adapter<AdapterForProjet.View
         new DatePickerDialog(textView.getContext(), dateSetListener, calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
+
 }
