@@ -307,7 +307,12 @@ public class M4 extends AppCompatActivity {
         float elementMarginTop = 20;
 
         // Fetch the certifications data
-        List<String> certifications = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getCertificateArrayList(); // Adjust method to fetch certifications
+        List<String> certifications = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getCertificateArrayList();
+
+        // Check if certifications are empty; if so, skip drawing this section
+        if (certifications == null || certifications.isEmpty()) {
+            return (int) startY; // Return the startY value if there are no certifications
+        }
 
         float currentY = startY;
         String sectionTitle = "Certifications";
@@ -334,7 +339,7 @@ public class M4 extends AppCompatActivity {
 
             // Draw each line
             for (String line : lines) {
-                canvas.drawText(" • " +line, marginLeft, currentY, paint);
+                canvas.drawText(" • " + line, marginLeft, currentY, paint);
                 currentY += lineHeight;
             }
 
@@ -345,6 +350,7 @@ public class M4 extends AppCompatActivity {
         // Return the bottom Y position of this section
         return (int) currentY;
     }
+
 
 
     private void drawLineAtY(Canvas canvas, float yCoordinate) {
@@ -1051,39 +1057,6 @@ public class M4 extends AppCompatActivity {
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         circularCanvas.drawBitmap(bitmap, rect, rect, paint);
         canvas.drawBitmap(circularBitmap, x, y, null);
-    }
-
-
-    private void drawFactureTitle(Canvas canvas, Paint paint) {
-        // Save current paint settings
-        int originalColor = paint.getColor();
-        Typeface originalTypeface = paint.getTypeface();
-        float originalTextSize = paint.getTextSize();
-
-        // Set text size and typeface for the title
-        paint.setTextSize(50); // Set text size to 36
-        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Set bold typeface
-
-        // Set text color to blue
-        paint.setColor(Color.BLUE);
-
-        // Calculate text position and size
-        float titleX = IMAGE_MARGIN;
-        float titleY = IMAGE_MARGIN + paint.getTextSize(); // Positioning it just below the top margin
-        float titleWidth = paint.measureText("Facture"); // Measure text width to position the border
-
-        // Draw the title text
-        canvas.drawText("Facture", titleX, titleY, paint);
-
-        // Draw bottom border for the title
-        float borderY = titleY + paint.getFontMetrics().descent; // Positioning it below the text baseline
-        paint.setStrokeWidth(2); // Set border width
-        canvas.drawLine(titleX, borderY, titleX + titleWidth, borderY, paint);
-
-        // Restore original paint settings
-        paint.setColor(originalColor);
-        paint.setTypeface(originalTypeface);
-        paint.setTextSize(originalTextSize);
     }
 
 
