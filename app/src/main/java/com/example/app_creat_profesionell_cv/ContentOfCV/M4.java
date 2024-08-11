@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.example.app_creat_profesionell_cv.Classes.InfoEducation;
 import com.example.app_creat_profesionell_cv.Classes.InfoExperience;
 import com.example.app_creat_profesionell_cv.Classes.InfoPersonnelle;
+import com.example.app_creat_profesionell_cv.Classes.InfoProjet;
 import com.example.app_creat_profesionell_cv.DB.Education;
 import com.example.app_creat_profesionell_cv.DB.ExperinceDeTravaile;
 import com.example.app_creat_profesionell_cv.DB.InfoPersonnel;
@@ -273,9 +274,10 @@ public class M4 extends AppCompatActivity {
 
             // Draw experience section below competence
             int experienceBottomY = drawExperienceDeTravail(canvas, competenceBottomY + 30); // Adding some padding between sections
+            int projects = drawProjects(canvas,experienceBottomY+30);
 
             // Draw certification section below experience
-            drawCertification(canvas, experienceBottomY + 30); // Adding some padding between sections
+            drawCertification(canvas, softskillsBottomY + 30); // Adding some padding between sections
 
             document.finishPage(page); // Finish the page before returning
 
@@ -292,6 +294,71 @@ public class M4 extends AppCompatActivity {
         }
     }
 
+    private int drawProjects(Canvas canvas, int startY) {
+        // Create and configure the Paint object for the projects heading (big and black)
+        Paint headingPaint = new Paint();
+        headingPaint.setColor(Color.BLACK);
+        headingPaint.setTextSize(20); // Adjust size as needed
+        headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+
+        // Create and configure the Paint object for project details (normal)
+        Paint normalPaint = new Paint();
+        normalPaint.setColor(Color.rgb(48, 48, 48));
+        normalPaint.setTextSize(15); // Adjust size as needed
+        normalPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+
+        // Define margins and spacing
+        int marginLeft = 330;
+        int bulletMargin = 20; // Additional margin for bullet points
+        int headingMarginBottom = 10;
+        int elementMarginTop = 25;
+        int lineHeight = 25;
+        int maxTextWidth = 250; // Maximum width for wrapping text
+
+        /*int headingMarginBottom = 10;
+        int elementMarginTop = 25;
+        int lineHeight = 25;
+        int bulletMargin = 20;
+        int maxTextWidth = 250; */
+
+        // Draw the "Projects" heading
+        String heading = "Projects".toUpperCase();
+        float headingY = startY + headingPaint.getTextSize();
+        canvas.drawText(heading, marginLeft, headingY, headingPaint);
+
+        // Get the project information (replace with your method to fetch project data)
+        ArrayList<InfoProjet> projects = dbProjet.getAllInfoProjets();
+
+        // Calculate the Y offset for project information
+        float yOffset = headingY + headingMarginBottom + elementMarginTop;
+
+        // Draw each piece of project information
+        for (InfoProjet project : projects) {
+            // Draw the project name and dates on the first line
+            String projectHeader = project.getNomEntreprise() + " - " + project.getDateDebut() + " to " + project.getDateFin();
+            canvas.drawText(projectHeader, marginLeft, yOffset, normalPaint);
+            yOffset += lineHeight;
+
+            // Draw the project title on the next line with a gray background
+            String projectTitle = project.getTitreProjet();
+            Paint titlePaint = new Paint(normalPaint);
+            titlePaint.setColor(Color.WHITE); // Gray background
+            Paint.FontMetrics fontMetrics = titlePaint.getFontMetrics();
+            canvas.drawRect(marginLeft - 10, yOffset - fontMetrics.bottom, canvas.getWidth() - 10, yOffset + fontMetrics.top, titlePaint);
+            titlePaint.setColor(Color.BLACK); // Text color
+            canvas.drawText(projectTitle, marginLeft, yOffset, titlePaint);
+            yOffset += lineHeight;
+
+            // Draw the project description on the next line with a bullet point, wrapping if necessary
+            String projectDescription = "• " + project.getResume();
+            yOffset = drawWrappedText(canvas, projectDescription, marginLeft + bulletMargin, yOffset, normalPaint, maxTextWidth);
+            yOffset += elementMarginTop;
+        }
+
+        // Return the bottom Y position of this section
+        return (int) yOffset;
+    }
+
 
 
 
@@ -302,7 +369,7 @@ public class M4 extends AppCompatActivity {
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Set text style
 
         // Define margins and line height
-        float marginLeft = 330;
+        float marginLeft = 40;
         float lineHeight = 25;
         float elementMarginTop = 20;
 
