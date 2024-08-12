@@ -378,27 +378,44 @@ public class M9 extends AppCompatActivity {
         String email = dbInfoPersonnelle.getInfo().get(0).getEmail(); // Replace with actual method to get email
         String address = dbInfoPersonnelle.getInfo().get(0).getPays(); // Replace with actual method to get address
 
-        // Calculate horizontal position
-        String phoneEmailText = phone + "   " + email;
-        float phoneTextWidth = paint.measureText(phone);
-        float emailTextWidth = paint.measureText(email);
-        float maxTextWidth = Math.max(phoneTextWidth, emailTextWidth);
-        float textX = ((canvas.getWidth() - maxTextWidth) + 175) / 2;
-
-        // Define margins and line height
+        // Define initial X position and maximum line width
+        float startX = 250;
+        float maxLineWidth = 300; // Maximum width for a line before wrapping
         float lineHeight = 30; // Line height for spacing between lines
 
-        // Draw phone number
-        canvas.drawText("Phone :"+phone, textX-40, startY, paint);
+        // Define spacing between text blocks
+        float spacing = 20; // Spacing between different contact info blocks
 
-        // Draw email address on the next line
-        float emailY = startY + lineHeight; // Position for email
-        canvas.drawText("Email :"+email, textX-40, emailY, paint);
+        // Text blocks
+        String[] texts = {
+                "Phone: ".toUpperCase() + phone,
+                "Email: ".toUpperCase() + email,
+                "Address: ".toUpperCase() + address
+        };
 
-        // Draw address on the next line
-        float addressY = emailY + lineHeight; // Position for address
-        canvas.drawText("Address :"+address, textX-40, addressY, paint);
+        // Start drawing text
+        float currentX = startX;
+        float currentY = startY;
+
+        for (String text : texts) {
+            float textWidth = paint.measureText(text);
+
+            // Check if text fits on the current line
+            if (currentX + textWidth > startX + maxLineWidth) {
+                // Move to next line if text exceeds maxLineWidth
+                currentX = startX;
+                currentY += lineHeight;
+            }
+
+            // Draw the text
+            canvas.drawText(text, currentX, currentY, paint);
+
+            // Update the current X position for the next text block
+            currentX += textWidth + spacing;
+        }
     }
+
+
 
 
 
@@ -425,12 +442,12 @@ public class M9 extends AppCompatActivity {
         professionPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
         // Define margins and spacing
-        int marginLeft = 40;
-        int bulletMarginLeft = 50; // Additional margin for bullet points
-        int headingMarginBottom = 10;
+        int marginLeft = 25;
+        int bulletMarginLeft = 25; // Additional margin for bullet points
+        int headingMarginBottom = 25;
         int elementMarginTop = 10;
         int lineHeight = 25;
-        int maxLineWidth = 150; // Maximum width before wrapping
+        int maxLineWidth = 300; // Maximum width before wrapping
 
         // Draw the "Éducation" heading
         String heading = "Éducation".toUpperCase();
@@ -444,18 +461,16 @@ public class M9 extends AppCompatActivity {
         float currentY = headingY + headingMarginBottom + elementMarginTop;
 
         for (InfoEducation education : educationInfo) {
-            // Extract the year from the start and end year
-            String schoolNameAndDates = education.getShool() + " - " + education.getStartYier() + " to " + education.getEndYier();
-            String schoolNameAndDatesWithYearOnly = education.getShool() + " - " + education.getStartYier() + " - " + education.getEndYier();
+            // Draw the school name
+            String schoolName = education.getShool();
+            currentY = drawWrappedText(canvas, schoolName, marginLeft, currentY, schoolNamePaint, maxLineWidth);
 
-            // Wrap text if it exceeds the maximum line width
-            currentY = drawWrappedText(canvas, schoolNameAndDatesWithYearOnly, marginLeft, currentY, schoolNamePaint, maxLineWidth);
-
-            // Move to the next line for the job title
-            currentY += lineHeight;
+            // Draw the dates on the next line
+            String dates = education.getStartYier() + " - " + education.getEndYier();
+            currentY = drawWrappedText(canvas, dates, marginLeft, currentY, schoolNamePaint, maxLineWidth);
 
             // Draw the job title on the next line with additional margin for bullet point
-            currentY = drawWrappedText(canvas, "• " + education.getMetier(), bulletMarginLeft, currentY, professionPaint, maxLineWidth);
+            currentY = drawWrappedText(canvas, education.getMetier(), bulletMarginLeft, currentY, professionPaint, maxLineWidth);
 
             // Move to the next section with padding
             currentY += elementMarginTop - 5;
@@ -464,6 +479,7 @@ public class M9 extends AppCompatActivity {
         // Return the bottom Y position of this section
         return (int) currentY;
     }
+
 
     private float drawWrappedText(Canvas canvas, String text, float x, float y, Paint paint, int maxLineWidth) {
         // Split the text into lines if it exceeds the maximum width
@@ -516,7 +532,7 @@ public class M9 extends AppCompatActivity {
         skillPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
         // Define margins and spacing
-        int marginLeft = 40;
+        int marginLeft = 25;
         int headingMarginBottom = 10;
         int elementMarginTop = 25;
         int lineHeight = 25;
@@ -554,10 +570,10 @@ public class M9 extends AppCompatActivity {
         loisirsPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
         // Define margins and spacing
-        int marginLeft = 40;
-        int bulletMarginLeft = 50; // Additional margin for bullet points
-        int headingMarginBottom = 10;
-        int elementMarginTop = 25;
+        int marginLeft = 25;
+        int bulletMarginLeft = 25; // Additional margin for bullet points
+        int headingMarginBottom = 25; // Space between heading and first element
+        int elementMarginTop = 10; // Space between elements
         int lineHeight = 25;
 
         // Draw the "Loisirs" heading
@@ -569,63 +585,65 @@ public class M9 extends AppCompatActivity {
         ArrayList<String> loisirs = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getLoisirArrayList(); // Replace with your method to fetch loisirs
 
         // Draw each piece of loisirs information
-        float currentY = headingY + headingMarginBottom + elementMarginTop;
+        float currentY = headingY + headingMarginBottom;
 
         for (String loisir : loisirs) {
             // Draw the loisirs on the line with additional margin for bullet point
             canvas.drawText("• " + loisir, bulletMarginLeft, currentY, loisirsPaint);
 
             // Move to the next line with padding
-            currentY += lineHeight + elementMarginTop-5;
+            currentY += lineHeight + elementMarginTop;
         }
 
         // Return the bottom Y position of this section
         return (int) currentY;
     }
+
 
 
     private int softskillsBottomY(Canvas canvas, int startY) {
-        // Create and configure the Paint object for the loisirs heading (big and black)
+        // Create and configure the Paint object for the heading (big and black)
         Paint headingPaint = new Paint();
         headingPaint.setColor(Color.BLACK);
-        headingPaint.setTextSize(20); // Adjust size as needed
-        headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+        headingPaint.setTextSize(20); // Font size for the heading
+        headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold font
 
-        // Create and configure the Paint object for loisirs (normal)
+        // Create and configure the Paint object for items (normal)
         Paint loisirsPaint = new Paint();
-        loisirsPaint.setColor(Color.rgb(40, 40, 40));
-        loisirsPaint.setTextSize(15); // Adjust size as needed
-        loisirsPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+        loisirsPaint.setColor(Color.rgb(40, 40, 40)); // Dark gray color for text
+        loisirsPaint.setTextSize(15); // Font size for items
+        loisirsPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Normal font
 
         // Define margins and spacing
-        int marginLeft = 40;
-        int bulletMarginLeft = 50; // Additional margin for bullet points
-        int headingMarginBottom = 10;
-        int elementMarginTop = 25;
-        int lineHeight = 25;
+        int marginLeft = 25;
+        int bulletMarginLeft = 25; // Additional margin for bullet points
+        int headingMarginBottom = 25; // Distance between heading and first element
+        int elementMarginTop = 10; // Distance between subsequent elements
+        int lineHeight = 25; // Line height for spacing between lines
 
-        // Draw the "Loisirs" heading
-        String heading = "Soft Skills".toUpperCase();
-        float headingY = startY + headingPaint.getTextSize();
+        // Draw the "Soft Skills" heading
+        String heading = "Soft Skills".toUpperCase(); // Heading text
+        float headingY = startY + headingPaint.getTextSize(); // Y-coordinate for heading
         canvas.drawText(heading, marginLeft, headingY, headingPaint);
 
-        // Get the loisirs information
-        ArrayList<String> loisirs = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getCertificateArrayList(); // Replace with your method to fetch loisirs
+        // Get the soft skills information
+        ArrayList<String> loisirs = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getCertificateArrayList(); // Replace with actual method
 
-        // Draw each piece of loisirs information
-        float currentY = headingY + headingMarginBottom + elementMarginTop;
+        // Draw each piece of soft skills information
+        float currentY = headingY + headingMarginBottom; // Initial Y-coordinate for items
 
         for (String loisir : loisirs) {
-            // Draw the loisirs on the line with additional margin for bullet point
+            // Draw each item with a bullet point
             canvas.drawText("• " + loisir, bulletMarginLeft, currentY, loisirsPaint);
 
             // Move to the next line with padding
-            currentY += lineHeight + elementMarginTop-5;
+            currentY += lineHeight + elementMarginTop; // Adjust for spacing
         }
 
-        // Return the bottom Y position of this section
+        // Return the Y-coordinate after the last item
         return (int) currentY;
     }
+
 
 
 
@@ -755,11 +773,11 @@ public class M9 extends AppCompatActivity {
         languagePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
         // Define margins and spacing
-        int marginLeft = 40;
-        int bulletMarginLeft = 50; // Additional margin for bullet points
-        int headingMarginBottom = 10;
-        int elementMarginTop = 25;
-        int lineHeight = 25;
+        int marginLeft = 25;
+        int bulletMarginLeft = 25; // Additional margin for bullet points
+        int headingMarginBottom = 25; // Space between heading and first element
+        int elementMarginTop = 10;    // Space between elements
+        int lineHeight = 25;          // Line height for spacing between lines
 
         // Draw the "Languages" heading
         String heading = "Languages".toUpperCase();
@@ -770,19 +788,20 @@ public class M9 extends AppCompatActivity {
         ArrayList<String> languages = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getLangueArrayList(); // Replace with your method to fetch languages
 
         // Draw each piece of language information
-        float currentY = headingY + headingMarginBottom + elementMarginTop;
+        float currentY = headingY + headingMarginBottom; // Start drawing after the heading with the specified margin
 
         for (String language : languages) {
             // Draw the language on the line with additional margin for bullet point
             canvas.drawText("• " + language, bulletMarginLeft, currentY, languagePaint);
 
             // Move to the next line with padding
-            currentY += lineHeight + elementMarginTop;
+            currentY += lineHeight + elementMarginTop; // Update vertical position for the next element
         }
 
         // Return the bottom Y position of this section
         return (int) currentY;
     }
+
 
 
 
@@ -811,7 +830,7 @@ public class M9 extends AppCompatActivity {
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
         for (int i = 0; i < aboutUser.size(); i++) {
-            String text = aboutUser.get(i).getAbout()+aboutUser.get(i).getAbout()+aboutUser.get(i).getAbout();
+            String text = aboutUser.get(i).getAbout();
             List<String> lines = new ArrayList<>();
 
             // Break text into multiple lines if it exceeds 300 pixels
