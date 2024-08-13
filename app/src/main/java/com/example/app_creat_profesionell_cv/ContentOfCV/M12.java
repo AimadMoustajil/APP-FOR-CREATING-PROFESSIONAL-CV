@@ -260,19 +260,19 @@ public class M12 extends AppCompatActivity {
             drawContactInfo(canvas,220);
             // Draw Competence and get the Y position where the next section should start
             int competenceEndY = drawCompetence(canvas, 245);
-
+            int skillsEndY = drawSkills(canvas,competenceEndY+30);
             // Draw Experience de Travail section starting just below Competence
-            drawExperienceDeTravail(canvas, competenceEndY + 30);
+            //drawExperienceDeTravail(canvas, skillsEndY + 30);
 
-            int experienceEndY = drawExperienceDeTravail(canvas, competenceEndY + 30); // Adding extra margin
-
+            int experienceEndY = drawExperienceDeTravail(canvas, skillsEndY + 30); // Adding extra margin
             // Draw Projet section starting just below Experience de Travail
-            drawProjet(canvas, experienceEndY + 30);
+            //drawProjet(canvas, experienceEndY + 30);
             int projetEndY = drawProjet(canvas, experienceEndY + 30);
-            drawEducation(canvas, projetEndY + 30);
+            int drwarEducationY = drawEducation(canvas, projetEndY + 30);
+            drawVerticalLine(canvas,250,drwarEducationY);
 
 
-            drawLanguages(canvas, 400);
+            drawLanguages(canvas, 430);
 
 
             // Draw user name and job title
@@ -307,7 +307,7 @@ public class M12 extends AppCompatActivity {
     private int drawProjet(Canvas canvas, int startY) {
         // Create and configure Paint object for heading
         Paint paint = new Paint();
-        paint.setColor(Color.rgb(96, 96, 96));
+        paint.setColor(Color.BLACK);
         paint.setTextSize(20); // Heading text size
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface
 
@@ -329,7 +329,7 @@ public class M12 extends AppCompatActivity {
 
         // Draw the "Projet" heading
         String heading = "Projet".toUpperCase();
-        float headingY = startY + paint.getTextSize();  // Y position for heading
+        float headingY = startY + paint.getTextSize()-50;  // Y position for heading
         canvas.drawText(heading, marginLeft, headingY, paint);
 
         // Retrieve project information from database
@@ -343,8 +343,8 @@ public class M12 extends AppCompatActivity {
 
         // Configure Paint object for project information text
         Paint grayPaint = new Paint();
-        grayPaint.setColor(Color.rgb(48, 48, 48)); // Gray text color
-        grayPaint.setTextSize(10); // Text size for project information
+        grayPaint.setColor(Color.rgb(96, 96, 96)); // Gray text color
+        grayPaint.setTextSize(15); // Text size for project information
         grayPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Normal typeface
 
         // Configure Paint object for project title
@@ -363,23 +363,29 @@ public class M12 extends AppCompatActivity {
 
         // Draw each piece of project information
         for (InfoProjet info : projectInfo) {
-            // Draw the project title and dates on the same line
+            // Draw the company name on the first line
             if (info.getNomEntreprise() != null) {
                 String formattedTitle = capitalizeFirstLetterOfEachWord(info.getNomEntreprise());
-                String dates = (info.getDateDebut() != null ? info.getDateDebut() : "") +
-                        (info.getDateFin() != null ? " - " + info.getDateFin() : "");
-                canvas.drawText(dates + " " + formattedTitle, marginLeft, yOffset, titleT);
+                canvas.drawText(formattedTitle, marginLeft, yOffset, titleT);
                 yOffset += lineHeight;
             }
 
-            // Draw the job title (metier)
+            // Draw the dates on the next line
+            if (info.getDateDebut() != null || info.getDateFin() != null) {
+                String dates = (info.getDateDebut() != null ? info.getDateDebut() : "") +
+                        (info.getDateFin() != null ? " - " + info.getDateFin() : "");
+                canvas.drawText(dates, marginLeft, yOffset, grayPaint);
+                yOffset += lineHeight;
+            }
+
+            // Draw the project title on the next line
             if (info.getTitreProjet() != null) {
                 String formattedJobTitle = capitalizeFirstLetterOfEachWord(info.getTitreProjet());
                 canvas.drawText(formattedJobTitle, marginLeft, yOffset, titlePaint);
                 yOffset += lineHeight;
             }
 
-            // Draw the resume with a bullet point and small margin
+            // Draw the resume on the next line with a bullet point
             if (info.getResume() != null) {
                 String resumeText = info.getResume();
                 // Draw the bullet point with additional margin
@@ -415,93 +421,136 @@ public class M12 extends AppCompatActivity {
     }
 
 
+
     private void drawContactInfo(Canvas canvas, int startY) {
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
-        paint.setTextSize(20); // Increased text size for the heading
+        paint.setTextSize(20); // Text size for the heading
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface for the heading
 
-        int marginLeft = 60; // Left margin for text (considering icon width)
+        int marginLeft = 60; // Left margin for text
         int headingMarginBottom = 10; // Space below the heading
         int elementMarginTop = 15; // Space between line and first element
         int lineHeight = 50; // Space between lines
         int iconMarginRight = 10; // Space between icon and text
+        int lastElementMarginBottom = 20; // Margin below the last element
 
         // Load icons from resources
         Bitmap phoneIcon = BitmapFactory.decodeResource(getResources(), R.drawable.telephone);
         Bitmap emailIcon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_email);
         Bitmap addressIcon = BitmapFactory.decodeResource(getResources(), R.drawable.social);
+        Bitmap placeholder = BitmapFactory.decodeResource(getResources(), R.drawable.placeholder);
 
-        // Calculate the new left margin to align heading with the phone icon
-        int iconWidth = phoneIcon.getWidth();
-        int newMarginLeft = marginLeft - iconWidth - iconMarginRight;
-
-        String heading = "CONTACT";
-        float headingY = startY + paint.getTextSize()+25; // Y position for heading
-        canvas.drawText(heading, newMarginLeft, headingY, paint);
-
-        // Measure the width of the heading text
-        float headingWidth = paint.measureText(heading);
-
-
-        // Contact information text and corresponding icons
+        // Define contact information and corresponding icons
         String[] contactInfo = {
                 dbInfoPersonnelle.getInfo().get(0).getN_phone(),
                 dbInfoPersonnelle.getInfo().get(0).getEmail(),
-                dbInfoPersonnelle.getInfo().get(0).getPays()
+                dbInformationAitionnelle.getInfoAdditionnelle().get(0).getLinkdin(),
+                dbInfoPersonnelle.getInfo().get(0).getPays() + ", " + dbInfoPersonnelle.getInfo().get(0).getVille()
         };
-        Bitmap[] icons = {phoneIcon, emailIcon, addressIcon};
+        Bitmap[] icons = {phoneIcon, emailIcon, addressIcon, placeholder};
+
+        // Filter out empty contact info and corresponding icons
+        List<String> filteredContactInfo = new ArrayList<>();
+        List<Bitmap> filteredIcons = new ArrayList<>();
+
+        for (int i = 0; i < contactInfo.length; i++) {
+            if (contactInfo[i] != null && !contactInfo[i].trim().isEmpty()) {
+                filteredContactInfo.add(contactInfo[i]);
+                filteredIcons.add(icons[i]);
+            }
+        }
+
+        // Draw the heading
+        String heading = "CONTACT";
+        float headingY = startY + paint.getTextSize() + 25; // Y position for heading
+        canvas.drawText(heading, marginLeft, headingY, paint);
+
+        // Set up paint for contact information
+        paint.setTextSize(10); // Smaller text size for contact information
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Normal typeface for contact information
 
         // Draw each line of contact information with its icon
-        for (int i = 0; i < contactInfo.length; i++) {
-            // Draw icon
-            if (icons[i] != null) {
-                float iconY = headingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * i - icons[i].getHeight() / 2;
-                canvas.drawBitmap(icons[i], newMarginLeft, iconY, null);
+        for (int i = 0; i < filteredContactInfo.size(); i++) {
+            // Calculate Y position for icon
+            if (filteredIcons.get(i) != null) {
+                float iconY = headingY + headingMarginBottom + elementMarginTop + (lineHeight * i) - (filteredIcons.get(i).getHeight() / 2);
+                canvas.drawBitmap(filteredIcons.get(i), marginLeft - filteredIcons.get(i).getWidth() - iconMarginRight, iconY, null);
             }
 
             // Draw text
-            paint.setTextSize(10); // Reset text size for contact information
-            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Reset typeface for contact information
-            float textY = headingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * i;
-            canvas.drawText(contactInfo[i], marginLeft, textY, paint);
+            float textY = headingY + headingMarginBottom + elementMarginTop + (lineHeight * i);
+            canvas.drawText(filteredContactInfo.get(i), marginLeft, textY, paint);
+        }
+
+        // Add margin below the last element
+        if (!filteredContactInfo.isEmpty()) {
+            float lastElementY = headingY + headingMarginBottom + elementMarginTop + (lineHeight * (filteredContactInfo.size() - 1)) + lastElementMarginBottom;
+            // Optionally, you could use this position for additional elements or just to ensure spacing
+            // canvas.drawText("Some footer text", marginLeft, lastElementY, paint); // Example footer text
         }
     }
 
 
 
-    private int drawCompetence(Canvas canvas, int startY) {
-        Paint paint = new Paint();
-        paint.setColor(Color.BLACK);
-        paint.setTextSize(20);
-        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
+    private void drawVerticalLine(Canvas canvas, int startY, int endY) {
+        Paint paint = new Paint();
+        paint.setColor(Color.BLACK); // Set the color of the line
+        paint.setStrokeWidth(2); // Set the thickness of the line
+
+        int x = 230; // X-coordinate where the vertical line starts
+
+        // Draw the vertical line
+        canvas.drawLine(x, startY, x, endY, paint);
+    }
+
+
+    private int drawCompetence(Canvas canvas, int startY) {
+        // Create and configure Paint object for headings
+        Paint headingPaint = new Paint();
+        headingPaint.setColor(Color.BLACK);
+        headingPaint.setTextSize(20);
+        headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+
+        // Create and configure Paint object for competence text
+        Paint textPaint = new Paint();
+        textPaint.setColor(Color.rgb(96, 96, 96)); // Set text color to gray
+        textPaint.setTextSize(15);
+        textPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+
+        // Define margins and spacing
         int marginLeft = 260;
         int headingMarginBottom = 10;
         int elementMarginTop = 20;
         int lineHeight = 25;
         int maxWidth = 250; // Maximum width before wrapping text
 
-
-        // Draw the "Compétence" heading
+        // Draw the "Profil" heading
         String heading = "Profil".toUpperCase();
-        float headingY = startY + paint.getTextSize();
-        canvas.drawText(heading, marginLeft, headingY, paint);
+        float headingY = startY + headingPaint.getTextSize();
+        canvas.drawText(heading, marginLeft, headingY, headingPaint);
 
-        // Competence information text (dummy data here; replace with actual data)
+        // Get the competence information
         ArrayList<InfoPersonnelle> aboutUser = dbInfoPersonnelle.getInfo();
 
-        // Draw each line of competence information
+        // Calculate the Y offset for competence information
         float currentY = headingY + headingMarginBottom + elementMarginTop;
-        paint.setTextSize(15);
-        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
-        for (int i = 0; i < aboutUser.size(); i++) {
-            String text = aboutUser.get(i).getAbout();
+        // Draw each line of competence information
+        for (InfoPersonnelle info : aboutUser) {
+            String text = info.getAbout();
+
+            // Skip empty text
+            if (text == null || text.trim().isEmpty()) {
+                continue;
+            }
+
+            // Wrap and draw text
             while (!text.isEmpty()) {
-                int charsToDraw = paint.breakText(text, true, maxWidth, null);
+                int charsToDraw = textPaint.breakText(text, true, maxWidth, null);
                 String line = text.substring(0, charsToDraw);
-                canvas.drawText(line, marginLeft, currentY, paint);
+                canvas.drawText(line, marginLeft, currentY, textPaint);
                 currentY += lineHeight; // Move to the next line
                 text = text.substring(charsToDraw); // Remaining text
             }
@@ -514,10 +563,59 @@ public class M12 extends AppCompatActivity {
 
 
 
+    private int drawSkills(Canvas canvas, int startY) {
+        // Create and configure the Paint object for the skills heading (bold and big)
+        Paint headingPaint = new Paint();
+        headingPaint.setColor(Color.BLACK);
+        headingPaint.setTextSize(20); // Adjust size as needed
+        headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+
+        // Create and configure the Paint object for skill items (normal)
+        Paint skillPaint = new Paint();
+        skillPaint.setColor(Color.rgb(40, 40, 40));
+        skillPaint.setTextSize(15); // Adjust size as needed
+        skillPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+
+        // Define margins and spacing
+        int marginLeft = 260;
+        int headingMarginBottom = 10;
+
+        // Get the skills information
+        ArrayList<String> skillsInfo = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getCompetanceArrayList(); // Assuming a method to fetch skills info
+
+        // If there are no skills, do not draw this section
+        if (skillsInfo == null || skillsInfo.isEmpty()) {
+            return startY; // Return the starting Y position without drawing anything
+        }
+
+        // Draw the "Skills" heading
+        String heading = "Skills".toUpperCase();
+        float headingY = startY + headingPaint.getTextSize();
+        canvas.drawText(heading, marginLeft, headingY, headingPaint);
+
+        // Combine all skills into a single line, separated by commas
+        StringBuilder combinedSkills = new StringBuilder();
+        for (int i = 0; i < skillsInfo.size(); i++) {
+            combinedSkills.append(skillsInfo.get(i));
+            if (i < skillsInfo.size() - 1) {
+                combinedSkills.append(", ");
+            }
+        }
+
+        // Draw the combined skills on the same line
+        float skillsY = headingY + headingMarginBottom + headingPaint.getTextSize();
+        canvas.drawText(combinedSkills.toString(), marginLeft, skillsY, skillPaint);
+
+        // Return the bottom Y position of this section
+        return (int) (skillsY + headingMarginBottom);
+    }
+
+
+
 
     private int drawExperienceDeTravail(Canvas canvas, int startY) {
         Paint headingPaint = new Paint();
-        headingPaint.setColor(Color.rgb(56, 56, 56));
+        headingPaint.setColor(Color.BLACK);
         headingPaint.setTextSize(20);
         headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
@@ -551,32 +649,52 @@ public class M12 extends AppCompatActivity {
 
         // Draw each piece of experience information
         for (InfoExperience info : experienceInfo) {
-            // Draw the company name and dates on the first line
-            String companyAndDates = info.getNomEntreprise() + " - " + info.getDateDébut() + " to " + info.getDateDeFin();
-            canvas.drawText(companyAndDates, marginLeft, yOffset, bulletPaint);
-            yOffset += lineHeight;
+            boolean hasContent = false;
 
-            // Draw the job title on the next line
-            canvas.drawText(info.getTitreDePoste(), marginLeft, yOffset, normalPaint);
-            yOffset += lineHeight;
-
-            // Draw the resume on the next line with a bullet point
-            String resume = "• " + info.getRésumé();
-
-            // Wrap the resume text to the next line if it exceeds 250 pixels in width
-            while (!resume.isEmpty()) {
-                int charsToDraw = normalPaint.breakText(resume, true, maxWidth, null);
-                String line = resume.substring(0, charsToDraw);
-                canvas.drawText(line, marginLeft + bulletMargin, yOffset, normalPaint);
-                yOffset += lineHeight; // Move to the next line
-                resume = resume.substring(charsToDraw); // Remaining text
+            // Check and draw the company name if not empty
+            String companyName = info.getNomEntreprise();
+            if (companyName != null && !companyName.trim().isEmpty()) {
+                canvas.drawText(companyName, marginLeft, yOffset, bulletPaint);
+                yOffset += lineHeight;
+                hasContent = true;
             }
 
-            // Add extra space after the resume and before the next experience
-            yOffset += lineHeight + 20;
+            // Check and draw the dates if not empty
+            String dates = (info.getDateDébut() != null ? info.getDateDébut() : "") +
+                    (info.getDateDeFin() != null ? " to " + info.getDateDeFin() : "");
+            if (!dates.trim().isEmpty()) {
+                canvas.drawText(dates, marginLeft, yOffset, normalPaint);
+                yOffset += lineHeight;
+                hasContent = true;
+            }
 
-            // Add space between different experiences
-            yOffset += elementMarginTop;
+            // Check and draw the job title if not empty
+            String jobTitle = info.getTitreDePoste();
+            if (jobTitle != null && !jobTitle.trim().isEmpty()) {
+                canvas.drawText(jobTitle, marginLeft, yOffset, normalPaint);
+                yOffset += lineHeight;
+                hasContent = true;
+            }
+
+            // Check and draw the resume if not empty
+            String resume = info.getRésumé();
+            if (resume != null && !resume.trim().isEmpty()) {
+                resume = "• " + resume;
+                while (!resume.isEmpty()) {
+                    int charsToDraw = normalPaint.breakText(resume, true, maxWidth, null);
+                    String line = resume.substring(0, charsToDraw);
+                    canvas.drawText(line, marginLeft + bulletMargin, yOffset, normalPaint);
+                    yOffset += lineHeight; // Move to the next line
+                    resume = resume.substring(charsToDraw); // Remaining text
+                }
+                yOffset += lineHeight + 20; // Add extra space after the resume
+                hasContent = true;
+            }
+
+            // Only add space between experiences if there was content drawn
+            if (hasContent) {
+                yOffset += elementMarginTop;
+            }
         }
 
         // Return the bottom Y position of this section
@@ -590,69 +708,90 @@ public class M12 extends AppCompatActivity {
 
 
 
+
+
     private int drawEducation(Canvas canvas, int startY) {
-        // Create and configure the Paint object for headings
+        // Create and configure the Paint objects for headings, school names, professions, and dates
         Paint headingPaint = new Paint();
         headingPaint.setColor(Color.BLACK);
         headingPaint.setTextSize(20);
         headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
-        // Create and configure the Paint object for school names (big and black)
         Paint schoolNamePaint = new Paint();
-        schoolNamePaint.setColor(Color.rgb(48,48,48));
+        schoolNamePaint.setColor(Color.rgb(48, 48, 48));
         schoolNamePaint.setTextSize(18); // Adjust size as needed
         schoolNamePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
-        // Create and configure the Paint object for professions (normal)
         Paint professionPaint = new Paint();
-        professionPaint.setColor(Color.rgb(40,40,40));
+        professionPaint.setColor(Color.rgb(40, 40, 40));
         professionPaint.setTextSize(15); // Adjust size as needed
         professionPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
+        Paint datePaint = new Paint();
+        datePaint.setColor(Color.rgb(96, 96, 96)); // Gray color for dates
+        datePaint.setTextSize(15); // Adjust size as needed
+        datePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+
         // Define margins and spacing
         int marginLeft = 260;
-        int bulletMarginLeft = 270; // Additional margin for bullet points
         int headingMarginBottom = 10;
         int elementMarginTop = 25;
         int lineHeight = 25;
-        int maxWidth = 250; // Maximum width before wrapping text
-
-        // Draw the "Éducation" heading
-        String heading = "Éducation".toUpperCase();
-        float headingY = startY + headingPaint.getTextSize();
-        canvas.drawText(heading, marginLeft, headingY, headingPaint);
 
         // Get the education information
         ArrayList<InfoEducation> educationInfo = dbInfoEducation.getAllInfoEducation();
+
+        // If there are no education entries, skip drawing this section
+        if (educationInfo.isEmpty()) {
+            return startY; // Return the starting Y position without drawing anything
+        }
+
+        // Draw the "Éducation" heading
+        String heading = "Éducation".toUpperCase();
+        float headingY = startY + headingPaint.getTextSize() - 50;
+        canvas.drawText(heading, marginLeft, headingY, headingPaint);
 
         // Calculate the Y offset for education information
         float currentY = headingY + headingMarginBottom + elementMarginTop;
 
         for (InfoEducation education : educationInfo) {
-            // Draw the school name and dates with text wrapping
-            String schoolNameAndDates = education.getShool() + " - " + education.getStartYier() + " to " + education.getEndYier();
-            String[] lines = wrapText(schoolNameAndDates, maxWidth, schoolNamePaint, marginLeft, currentY);
-            for (String line : lines) {
-                canvas.drawText(line, marginLeft, currentY, schoolNamePaint);
+            boolean hasContent = false;
+
+            // Check and draw the school name if not empty
+            String schoolName = education.getShool();
+            if (schoolName != null && !schoolName.trim().isEmpty()) {
+                canvas.drawText(schoolName, marginLeft, currentY, schoolNamePaint);
                 currentY += lineHeight;
+                hasContent = true;
             }
 
-            // Move to the next line for the job title with text wrapping
-            currentY += lineHeight;
-            String professionText = "• " + education.getMetier();
-            lines = wrapText(professionText, maxWidth, professionPaint, bulletMarginLeft, currentY);
-            for (String line : lines) {
-                canvas.drawText(line, bulletMarginLeft, currentY, professionPaint);
+            // Check and draw the profession (metier) if not empty
+            String profession = education.getMetier();
+            if (profession != null && !profession.trim().isEmpty()) {
+                canvas.drawText(profession, marginLeft, currentY, professionPaint);
                 currentY += lineHeight;
+                hasContent = true;
             }
 
-            // Move to the next section with padding
-            currentY += elementMarginTop;
+            // Check and draw the start and end dates if not empty
+            String dates = (education.getStartYier() != null ? education.getStartYier() : "") +
+                    (education.getEndYier() != null ? " to " + education.getEndYier() : "");
+            if (!dates.trim().isEmpty()) {
+                canvas.drawText(dates, marginLeft, currentY, datePaint);
+                currentY += lineHeight + elementMarginTop;
+                hasContent = true;
+            }
+
+            // Only add space between entries if there was content drawn
+            if (hasContent) {
+                currentY += elementMarginTop;
+            }
         }
 
         // Return the bottom Y position of this section
         return (int) currentY;
     }
+
 
     private String[] wrapText(String text, int maxWidth, Paint paint, int marginLeft, float startY) {
         // Split text into lines that fit within maxWidth
@@ -682,81 +821,85 @@ public class M12 extends AppCompatActivity {
         int headingMarginBottom = 10; // Space below the heading
         int elementMarginTop = 25; // Space between line and first element
         int lineHeight = 25; // Space between lines
+        int sectionMarginBottom = 30; // Margin below each section
 
-        // Draw the "Languages" heading
-        String heading = "Languages".toUpperCase();
-        float headingY = startY + paint.getTextSize() + 50; // Y position for heading
-        canvas.drawText(heading, marginLeft, headingY, paint);
+        float textY = startY + paint.getTextSize() + 50; // Initial Y position
 
-        // Measure the width of the heading text
-        float headingWidth = paint.measureText(heading);
-
-
-        // Language information text
+        // Draw "Languages" section if not empty
         ArrayList<String> languages = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getLangueArrayList();
+        if (languages != null && !languages.isEmpty()) {
+            String heading = "Languages".toUpperCase();
+            canvas.drawText(heading, marginLeft, textY, paint);
+            paint.setTextSize(15); // Text size for languages
+            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Normal typeface for languages
+            textY += headingMarginBottom + elementMarginTop;
 
-        // Draw each language
-        paint.setTextSize(15); // Reset text size for languages
-        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Reset typeface for languages
-        float textY = headingY + headingMarginBottom + elementMarginTop;
-        for (String language : languages) {
-            canvas.drawText("• " + language, marginLeft, textY, paint);
-            textY += lineHeight;
+            for (String language : languages) {
+                if (language != null && !language.trim().isEmpty()) {
+                    canvas.drawText("• " + language, marginLeft, textY, paint);
+                    textY += lineHeight;
+                }
+            }
+            textY += sectionMarginBottom; // Space below the languages section
         }
 
-        // Draw the "Soft Skills" heading below the languages
-        float softSkillsHeadingY = textY + 30; // Adjust Y position
-        canvas.drawText("Soft Skills".toUpperCase(), marginLeft, softSkillsHeadingY, paint);
-
-        // Measure the width of the Soft Skills heading text
-        float softSkillsHeadingWidth = paint.measureText("Soft Skills");
-
-
-        // Soft skills information text
+        // Draw "Soft Skills" section if not empty
         ArrayList<String> softSkills = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getSoftSkillsArrayList();
+        if (softSkills != null && !softSkills.isEmpty()) {
+            paint.setTextSize(20); // Text size for the heading
+            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface for the heading
+            canvas.drawText("Soft Skills".toUpperCase(), marginLeft, textY, paint);
+            paint.setTextSize(15); // Text size for soft skills
+            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Normal typeface for soft skills
+            textY += headingMarginBottom + elementMarginTop;
 
-        // Draw each soft skill
-        textY = softSkillsHeadingY + headingMarginBottom + elementMarginTop;
-        for (String softSkill : softSkills) {
-            canvas.drawText("• " + softSkill, marginLeft, textY, paint);
-            textY += lineHeight;
+            for (String softSkill : softSkills) {
+                if (softSkill != null && !softSkill.trim().isEmpty()) {
+                    canvas.drawText("• " + softSkill, marginLeft, textY, paint);
+                    textY += lineHeight;
+                }
+            }
+            textY += sectionMarginBottom; // Space below the soft skills section
         }
 
-        // Draw the "Loisirs" heading below the soft skills
-        float loisirsHeadingY = textY + 30; // Adjust Y position
-        canvas.drawText("Loisirs".toUpperCase(), marginLeft, loisirsHeadingY, paint);
-
-        // Measure the width of the Loisirs heading text
-        float loisirsHeadingWidth = paint.measureText("Loisirs");
-
-
-        // Loisirs information text
+        // Draw "Loisirs" section if not empty
         ArrayList<String> loisirs = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getLoisirArrayList();
+        if (loisirs != null && !loisirs.isEmpty()) {
+            paint.setTextSize(20); // Text size for the heading
+            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface for the heading
+            canvas.drawText("Loisirs".toUpperCase(), marginLeft, textY, paint);
+            paint.setTextSize(15); // Text size for loisirs
+            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Normal typeface for loisirs
+            textY += headingMarginBottom + elementMarginTop;
 
-        // Draw each loisir
-        textY = loisirsHeadingY + headingMarginBottom + elementMarginTop;
-        for (String loisir : loisirs) {
-            canvas.drawText("• " + loisir, marginLeft, textY, paint);
-            textY += lineHeight;
+            for (String loisir : loisirs) {
+                if (loisir != null && !loisir.trim().isEmpty()) {
+                    canvas.drawText("• " + loisir, marginLeft, textY, paint);
+                    textY += lineHeight;
+                }
+            }
+            textY += sectionMarginBottom; // Space below the loisirs section
         }
 
-        // Draw the "Certificate" heading below the loisirs
-        float certificateHeadingY = textY + 30; // Adjust Y position
-        canvas.drawText("Certificate".toUpperCase(), marginLeft, certificateHeadingY, paint);
-
-        // Measure the width of the Certificate heading text
-        float certificateHeadingWidth = paint.measureText("Certificate");
-
-        // Certificates information text
+        // Draw "Certificates" section if not empty
         ArrayList<String> certificates = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getCertificateArrayList();
+        if (certificates != null && !certificates.isEmpty()) {
+            paint.setTextSize(20); // Text size for the heading
+            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface for the heading
+            canvas.drawText("Certificate".toUpperCase(), marginLeft, textY, paint);
+            paint.setTextSize(15); // Text size for certificates
+            paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Normal typeface for certificates
+            textY += headingMarginBottom + elementMarginTop;
 
-        // Draw each certificate
-        textY = certificateHeadingY + headingMarginBottom + elementMarginTop;
-        for (String certificate : certificates) {
-            canvas.drawText("• " + certificate, marginLeft, textY, paint);
-            textY += lineHeight;
+            for (String certificate : certificates) {
+                if (certificate != null && !certificate.trim().isEmpty()) {
+                    canvas.drawText("• " + certificate, marginLeft, textY, paint);
+                    textY += lineHeight;
+                }
+            }
         }
     }
+
 
 
 
