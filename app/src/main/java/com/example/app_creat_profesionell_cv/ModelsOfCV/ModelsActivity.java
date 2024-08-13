@@ -39,8 +39,6 @@ public class ModelsActivity extends AppCompatActivity {
         images.add(R.drawable.m15);
         images.add(R.drawable.m16);
         images.add(R.drawable.m17);
-        images.add(R.drawable.m19);
-        images.add(R.drawable.m20);
         images.add(R.drawable.m21);
         images.add(R.drawable.m22);
         images.add(R.drawable.m23);
@@ -63,8 +61,6 @@ public class ModelsActivity extends AppCompatActivity {
         imageNames.add("m15");
         imageNames.add("m16");
         imageNames.add("m17");
-        imageNames.add("m19");
-        imageNames.add("m20");
         imageNames.add("m21");
         imageNames.add("m22");
         imageNames.add("m23");

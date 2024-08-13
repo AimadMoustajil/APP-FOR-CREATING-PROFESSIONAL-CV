@@ -106,7 +106,7 @@ public class AdapterOfImageCV extends RecyclerView.Adapter<AdapterOfImageCV.Imag
                     case "m17":
                         intent = new Intent(context, M13.class);
                         break;
-                    case "m19":
+                    case "m21":
                         intent = new Intent(context, M14.class);
                         break;
                 }
