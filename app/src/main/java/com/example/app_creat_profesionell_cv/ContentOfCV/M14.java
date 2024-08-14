@@ -230,6 +230,7 @@ public class M14 extends AppCompatActivity {
             Canvas canvas = page.getCanvas();
             Paint paint = createPaint();
 
+            drawBottomRectangle(canvas);
             drawColoredBackground(canvas);
             drawGreenBackground(canvas);
             // Draw header image and content
@@ -1054,6 +1055,21 @@ public class M14 extends AppCompatActivity {
     }
 
 
+
+    private void drawBottomRectangle(Canvas canvas) {
+        // Create and configure the Paint object for the rectangle
+        Paint rectanglePaint = new Paint();
+        rectanglePaint.setColor(Color.rgb(251, 217, 202)); // Set the desired color for the rectangle
+
+        // Define the coordinates for the rectangle
+        float startX = 0;
+        float startY = canvas.getHeight()-30;
+        float endX = canvas.getWidth();
+        float endY = canvas.getHeight();
+
+        // Draw the rectangle on the canvas
+        canvas.drawRect(startX, startY, endX, endY, rectanglePaint);
+    }
 
 
 

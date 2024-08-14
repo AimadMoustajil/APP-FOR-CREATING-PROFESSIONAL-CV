@@ -17,6 +17,9 @@
         android:theme="@style/Theme.App_creat_profesionell_cv"
         tools:targetApi="31">
         <activity
+            android:name=".ContentOfCV.M15"
+            android:exported="false" />
+        <activity
             android:name=".ContentOfCV.ContentOfInformationCv"
             android:exported="false" />
         <activity
