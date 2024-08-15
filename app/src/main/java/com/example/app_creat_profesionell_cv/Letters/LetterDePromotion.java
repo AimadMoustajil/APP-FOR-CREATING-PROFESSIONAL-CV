@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Intent;
@@ -22,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.app_creat_profesionell_cv.Adapters.AdaptersOfLetterDePromotion;
 import com.example.app_creat_profesionell_cv.R;
 import com.example.app_creat_profesionell_cv.ShowDocument.ShowDocumentActivity;
 
@@ -36,15 +39,45 @@ import java.util.ArrayList;
 
 public class LetterDePromotion extends AppCompatActivity {
 
-    ImageView showLetter;
-    EditText entete, corps, basDePage;
+    //ImageView showLetter;
+    //EditText entete, corps, basDePage;
+    ArrayList<String> nameOfTypeLetteresPromotion;
+    RecyclerView recLetterDePromotion;
+    AdaptersOfLetterDePromotion adapters;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_letter_de_promotion);
+        nameOfTypeLetteresPromotion = new ArrayList<>();
+        nameOfTypeLetteresPromotion.add("Research Manager Promotion");
+        nameOfTypeLetteresPromotion.add("Salary Hike After Degree");
+        nameOfTypeLetteresPromotion.add("Six Month Review");
+        nameOfTypeLetteresPromotion.add("Sample 1: Job Promotion");
+        nameOfTypeLetteresPromotion.add("Sample 2: Job Promotion");
+        nameOfTypeLetteresPromotion.add("Sample 3: Job Promotion");
+        nameOfTypeLetteresPromotion.add("Assistant Department Head Promotion");
+        nameOfTypeLetteresPromotion.add("Supervisor: Promotion and Salary Hike");
+        nameOfTypeLetteresPromotion.add("Software Develepement");
+        nameOfTypeLetteresPromotion.add("5 Years Experience : Job Promotion");
+        nameOfTypeLetteresPromotion.add("Marketing Head Promotion");
+        nameOfTypeLetteresPromotion.add("Senior Manager Promotion");
+
+        nameOfTypeLetteresPromotion.add("Salary Hike: Sample 1");
+        nameOfTypeLetteresPromotion.add("Salary Hike: Sample 2");
+        nameOfTypeLetteresPromotion.add("Project Head Promotion");
+        nameOfTypeLetteresPromotion.add("Enveronmental Solutions Surpervisor");
+        nameOfTypeLetteresPromotion.add("Editor Promotion");
+        nameOfTypeLetteresPromotion.add("Sales representative promotion");
+        nameOfTypeLetteresPromotion.add("Managers Promotion");
+        nameOfTypeLetteresPromotion.add("Salary Review : Account Executive");
+        recLetterDePromotion = findViewById(R.id.recLetterDePromotion);
+        recLetterDePromotion.setLayoutManager(new LinearLayoutManager(this));
+
+        adapters = new AdaptersOfLetterDePromotion(nameOfTypeLetteresPromotion);
+        recLetterDePromotion.setAdapter(adapters);
 
         // Initialize UI elements
-        showLetter = findViewById(R.id.showLetter);
+        /*showLetter = findViewById(R.id.showLetter);
         entete = findViewById(R.id.entete);
         corps = findViewById(R.id.corps);
         basDePage = findViewById(R.id.basDePage);
@@ -74,9 +107,9 @@ public class LetterDePromotion extends AppCompatActivity {
                     }
                 }
             }
-        });
+        });*/
     }
-    @Override
+   /* @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
@@ -276,5 +309,5 @@ public class LetterDePromotion extends AppCompatActivity {
         originalBitmap.recycle();
 
         return resizedBitmap;
-    }
+    }*/
 }
