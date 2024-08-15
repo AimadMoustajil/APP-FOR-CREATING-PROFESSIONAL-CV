@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ContentOfCV.M17">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Aquamarine"
+        app:title="Information CV"
+        tools:ignore="MissingConstraints" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar5">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_margin="15dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/infoPersonnel"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingStart="5dp"
+                android:background="@color/White"
+                android:gravity="center_vertical"
+                android:text="Information personnelles"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:id="@+id/checkInfoPersonnelles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/check" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_margin="15dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/éducation"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingStart="5dp"
+                android:background="@color/White"
+                android:gravity="center_vertical"
+                android:text="Education"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:id="@+id/checkEducation"
+                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/éducation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/éducation"
+                app:srcCompat="@drawable/check" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_margin="15dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/exDeTravaille"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/White"
+                android:paddingStart="5dp"
+                android:gravity="center_vertical"
+                android:text="Expérience de travail"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:id="@+id/checkExDeTravaile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/exDeTravaille"
+                app:layout_constraintTop_toTopOf="@+id/exDeTravaille"
+                app:srcCompat="@drawable/check" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_margin="15dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/projet"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingStart="5dp"
+                android:background="@color/White"
+                android:gravity="center_vertical"
+                android:text="Projet"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:id="@+id/checkProjet"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/projet"
+                app:layout_constraintEnd_toEndOf="@+id/projet"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/check" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/infoAdditionnelle"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="15dp"
+                android:paddingStart="5dp"
+                android:background="@color/White"
+                android:gravity="center_vertical"
+                android:text="Information additionnelle"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:id="@+id/checkInfoAdditionnelle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/infoAdditionnelle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/infoAdditionnelle"
+                app:srcCompat="@drawable/check" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/generateCV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Generate CV"
+        android:layout_margin="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
