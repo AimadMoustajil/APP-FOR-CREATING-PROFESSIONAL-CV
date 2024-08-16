@@ -17,6 +17,63 @@
         android:theme="@style/Theme.App_creat_profesionell_cv"
         tools:targetApi="31">
         <activity
+            android:name=".M_LetterDesPromorion.Salary_Review_Account_Executive"
+            android:exported="false" />
+        <activity
+            android:name=".M_LetterDesPromorion.Managers_Promotion"
+            android:exported="false" />
+        <activity
+            android:name=".M_LetterDesPromorion.Sales_representative_promotion"
+            android:exported="false" />
+        <activity
+            android:name=".M_LetterDesPromorion.Editor_Promotion"
+            android:exported="false" />
+        <activity
+            android:name=".M_LetterDesPromorion.Enveronmental_Solutions_Surpervisor"
+            android:exported="false" />
+        <activity
+            android:name=".M_LetterDesPromorion.Project_Head_Promotion"
+            android:exported="false" />
+        <activity
+            android:name=".M_LetterDesPromorion.Salary_Hike_Sample_2"
+            android:exported="false" />
+        <activity
+            android:name=".M_LetterDesPromorion.Salary_Hike_Sample"
+            android:exported="false" />
+        <activity
+            android:name=".M_LetterDesPromorion.Senior_Manager_Promotion"
+            android:exported="false" />
+        <activity
+            android:name=".M_LetterDesPromorion.Marketing_Head_Promotion"
+            android:exported="false" />
+        <activity
+            android:name=".M_LetterDesPromorion.Years_Experience_Job_Promotion"
+            android:exported="false" />
+        <activity
+            android:name=".M_LetterDesPromorion.Software_Develepement"
+            android:exported="false" />
+        <activity
+            android:name=".M_LetterDesPromorion.Supervisor_Promotion_and_Salary_Hike"
+            android:exported="false" />
+        <activity
+            android:name=".M_LetterDesPromorion.Assistant_Department_Head_Promotion"
+            android:exported="false" />
+        <activity
+            android:name=".M_LetterDesPromorion.Sample_3_Job_Promotion"
+            android:exported="false" />
+        <activity
+            android:name=".M_LetterDesPromorion.Sample_2_Job_Promotion"
+            android:exported="false" />
+        <activity
+            android:name=".M_LetterDesPromorion.Sample_1_Job_Promotion"
+            android:exported="false" />
+        <activity
+            android:name=".M_LetterDesPromorion.Six_Month_Review"
+            android:exported="false" />
+        <activity
+            android:name=".M_LetterDesPromorion.Research_Manager_Promotion"
+            android:exported="false" />
+        <activity
             android:name=".ContentOfCV.M20"
             android:exported="false" />
         <activity

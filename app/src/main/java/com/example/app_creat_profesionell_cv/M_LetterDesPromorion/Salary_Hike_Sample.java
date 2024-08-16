@@ -1,11 +1,9 @@
-package com.example.app_creat_profesionell_cv.Letters;
+package com.example.app_creat_profesionell_cv.M_LetterDesPromorion;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.content.Intent;
@@ -24,7 +22,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.app_creat_profesionell_cv.Adapters.AdaptersOfLetterDePromotion;
 import com.example.app_creat_profesionell_cv.R;
 import com.example.app_creat_profesionell_cv.ShowDocument.ShowDocumentActivity;
 
@@ -37,46 +34,17 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class LetterDePromotion extends AppCompatActivity {
+public class Salary_Hike_Sample extends AppCompatActivity {
 
-    //ImageView showLetter;
-    //EditText entete, corps, basDePage;
-    ArrayList<String> nameOfTypeLetteresPromotion;
-    RecyclerView recLetterDePromotion;
-    AdaptersOfLetterDePromotion adapters;
+    ImageView showLetter;
+    EditText entete, corps, basDePage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_letter_de_promotion);
-        nameOfTypeLetteresPromotion = new ArrayList<>();
-        nameOfTypeLetteresPromotion.add("Research Manager Promotion");
-        nameOfTypeLetteresPromotion.add("Six Month Review");
-        nameOfTypeLetteresPromotion.add("Sample 1: Job Promotion");
-        nameOfTypeLetteresPromotion.add("Sample 2: Job Promotion");
-        nameOfTypeLetteresPromotion.add("Sample 3: Job Promotion");
-        nameOfTypeLetteresPromotion.add("Assistant Department Head Promotion");
-        nameOfTypeLetteresPromotion.add("Supervisor: Promotion and Salary Hike");
-        nameOfTypeLetteresPromotion.add("Software Develepement");
-        nameOfTypeLetteresPromotion.add("5 Years Experience : Job Promotion");
-        nameOfTypeLetteresPromotion.add("Marketing Head Promotion");
-        nameOfTypeLetteresPromotion.add("Senior Manager Promotion");
-
-        nameOfTypeLetteresPromotion.add("Salary Hike: Sample 1");
-        nameOfTypeLetteresPromotion.add("Salary Hike: Sample 2");
-        nameOfTypeLetteresPromotion.add("Project Head Promotion");
-        nameOfTypeLetteresPromotion.add("Enveronmental Solutions Surpervisor");
-        nameOfTypeLetteresPromotion.add("Editor Promotion");
-        nameOfTypeLetteresPromotion.add("Sales representative promotion");
-        nameOfTypeLetteresPromotion.add("Managers Promotion");
-        nameOfTypeLetteresPromotion.add("Salary Review : Account Executive");
-        recLetterDePromotion = findViewById(R.id.recLetterDePromotion);
-        recLetterDePromotion.setLayoutManager(new LinearLayoutManager(this));
-
-        adapters = new AdaptersOfLetterDePromotion(this,nameOfTypeLetteresPromotion);
-        recLetterDePromotion.setAdapter(adapters);
+        setContentView(R.layout.activity_salary_hike_sample);
 
         // Initialize UI elements
-        /*showLetter = findViewById(R.id.showLetter);
+        showLetter = findViewById(R.id.showLetter);
         entete = findViewById(R.id.entete);
         corps = findViewById(R.id.corps);
         basDePage = findViewById(R.id.basDePage);
@@ -85,9 +53,9 @@ public class LetterDePromotion extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Check for permission to write to external storage
-                if (ContextCompat.checkSelfPermission(LetterDePromotion.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                if (ContextCompat.checkSelfPermission(Salary_Hike_Sample.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(LetterDePromotion.this,
+                    ActivityCompat.requestPermissions(Salary_Hike_Sample.this,
                             new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                             1);
                 } else {
@@ -97,7 +65,7 @@ public class LetterDePromotion extends AppCompatActivity {
                         ByteArrayOutputStream outputStream = savePDFToByteArray(document);
 
                         // Start ShowDocumentActivity to display the PDF
-                        Intent intent = new Intent(LetterDePromotion.this, ShowDocumentActivity.class);
+                        Intent intent = new Intent(Salary_Hike_Sample.this, ShowDocumentActivity.class);
                         intent.putExtra("pdfByteArray", outputStream.toByteArray());
                         startActivity(intent);
 
@@ -106,9 +74,9 @@ public class LetterDePromotion extends AppCompatActivity {
                     }
                 }
             }
-        });*/
+        });
     }
-   /* @Override
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
@@ -308,5 +276,5 @@ public class LetterDePromotion extends AppCompatActivity {
         originalBitmap.recycle();
 
         return resizedBitmap;
-    }*/
+    }
 }
