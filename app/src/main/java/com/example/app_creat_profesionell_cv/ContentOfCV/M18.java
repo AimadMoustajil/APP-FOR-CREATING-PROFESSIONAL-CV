@@ -232,8 +232,6 @@ public class M18 extends AppCompatActivity {
             page = document.startPage(pageInfo);
             Canvas canvas = page.getCanvas();
             Paint paint = createPaint();
-
-            drawGreenBackground(canvas);
             //drawBlueVerticalLine(canvas);
             drawBlueBackground(canvas);
             // Draw header image
@@ -317,11 +315,6 @@ public class M18 extends AppCompatActivity {
         // Measure the width of the heading text
         float headingWidth = paint.measureText(heading);
 
-        // Draw a line directly below the heading
-        Paint linePaint = new Paint();
-        linePaint.setColor(Color.rgb(96, 96, 96));
-        linePaint.setStrokeWidth(2); // Line width
-        canvas.drawLine(marginLeft, headingY + headingMarginBottom, 550, headingY + headingMarginBottom, linePaint);
 
         // Retrieve project information from database
         ArrayList<InfoProjet> projectInfo;
@@ -449,8 +442,6 @@ public class M18 extends AppCompatActivity {
             canvas.drawText(skillsHeader, marginLeft, startY, headerPaint);
             float currentY = startY + headingMarginBottom; // Move to the next line for the skills list
 
-            // Draw a line directly below the heading
-            canvas.drawLine(marginLeft, currentY, 550, currentY, linePaint);
 
             currentY += lineHeight; // Move below the line
 
@@ -524,17 +515,16 @@ public class M18 extends AppCompatActivity {
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface for the heading
 
         int marginLeft = 60; // Left margin for text (considering icon width)
-        int headingMarginBottom = 10; // Space below the heading
-        int elementMarginTop = 15; // Space between line and first element
+        int elementMarginTop = 15; // Space between elements
         int lineHeight = 50; // Space between lines
         int iconMarginRight = 10; // Space between icon and text
 
         // Load icons from resources
         Bitmap phoneIcon = BitmapFactory.decodeResource(getResources(), R.drawable.telephone);
         Bitmap emailIcon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_email);
-        Bitmap addressIcon = BitmapFactory.decodeResource(getResources(), R.drawable.social);
+        Bitmap addressIcon = BitmapFactory.decodeResource(getResources(), R.drawable.iconmonstr_linkedin);
         Bitmap placeholderIcon = BitmapFactory.decodeResource(getResources(), R.drawable.placeholder);
-
+        Bitmap contactIcon = BitmapFactory.decodeResource(getResources(), R.drawable.jk);
         if (phoneIcon == null || emailIcon == null || addressIcon == null) {
             // Handle missing icons, e.g., use a placeholder or log an error
             Log.e("DrawContactInfo", "One or more icons are missing.");
@@ -572,37 +562,35 @@ public class M18 extends AppCompatActivity {
         int iconWidth = phoneIcon.getWidth();
         int newMarginLeft = marginLeft - iconWidth - iconMarginRight;
 
-        // Draw the "Contact" heading
+        // Draw the "Contact" heading with an icon
         String heading = "Contact".toUpperCase();
         float headingY = startY + paint.getTextSize() + 10; // Y position for heading
-        canvas.drawText(heading, newMarginLeft, headingY, paint);
-
-        // Draw a line directly below the heading
-        Paint linePaint = new Paint();
-        linePaint.setColor(Color.WHITE);
-        linePaint.setStrokeWidth(2); // Line width
-        canvas.drawLine(newMarginLeft, headingY + headingMarginBottom, canvas.getWidth() - marginLeft, headingY + headingMarginBottom, linePaint);
+        if (placeholderIcon != null) {
+            canvas.drawBitmap(contactIcon, newMarginLeft, headingY - placeholderIcon.getHeight(), null);
+        }
+        canvas.drawText(heading, newMarginLeft + iconWidth + iconMarginRight, headingY, paint);
 
         // Draw each line of contact information with its icon
         for (int i = 0; i < contactInfo.size(); i++) {
             // Draw icon
             if (i < icons.size() && icons.get(i) != null) {
-                float iconY = headingY + headingMarginBottom + elementMarginTop + lineHeight * i - icons.get(i).getHeight() / 2;
+                float iconY = headingY + elementMarginTop + lineHeight * i - icons.get(i).getHeight() / 2;
                 canvas.drawBitmap(icons.get(i), newMarginLeft, iconY, null);
             }
 
             // Draw text
             paint.setTextSize(10); // Reset text size for contact information
             paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Reset typeface for contact information
-            float textY = headingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * i;
+            float textY = headingY + elementMarginTop + paint.getTextSize() + lineHeight * i;
             canvas.drawText(contactInfo.get(i), marginLeft, textY, paint);
         }
 
         // Calculate the bottom Y position of the last contact information line
-        int bottomY = (int) (headingY + headingMarginBottom + elementMarginTop + lineHeight * (contactInfo.size() - 1) + paint.getTextSize());
+        int bottomY = (int) (headingY + elementMarginTop + lineHeight * (contactInfo.size() - 1) + paint.getTextSize());
 
         return bottomY; // Return the bottom Y position
     }
+
 
 
     // Helper method to check if a string is null or empty
@@ -620,35 +608,42 @@ public class M18 extends AppCompatActivity {
 
         // Create and configure Paint object for competence text
         Paint textPaint = new Paint();
-        textPaint.setColor(Color.WHITE); // Set text color to gray
+        textPaint.setColor(Color.WHITE); // Set text color to white
         textPaint.setTextSize(15);
         textPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
         // Define margins and spacing
         int marginLeft = 24;
+        int iconMarginRight = 10; // Space between the icon and the heading text
         int headingMarginBottom = 10;
         int elementMarginTop = 20;
         int lineHeight = 25;
         int competenceMaxWidth = 190; // Maximum width for competence text
 
+        // Load the icon (assuming it's in the drawable resources)
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.userprofile);
+
+        // Calculate positions
+        int iconWidth = icon.getWidth();
+        int iconHeight = icon.getHeight();
+        float iconY = startY; // Position icon at the startY
+        float headingY = startY + headingPaint.getTextSize();
+
+        // Draw the icon before the heading
+        canvas.drawBitmap(icon, marginLeft, iconY, null);
+
+        // Adjust the position of the heading text
+        float textX = marginLeft + iconWidth + iconMarginRight;
+
         // Draw the "Compétence" heading
         String heading = "Compétence".toUpperCase();
-        float headingY = startY + headingPaint.getTextSize();
+        canvas.drawText(heading, textX, headingY, headingPaint);
 
         // Retrieve competence information from database
         ArrayList<InfoPersonnelle> aboutUser = dbInfoPersonnelle.getInfo();
 
         // Check if there is any competence information to display
         if (aboutUser != null && !aboutUser.isEmpty()) {
-            // Draw the "Compétence" heading
-            canvas.drawText(heading, marginLeft, headingY, headingPaint);
-
-            // Draw a line directly below the heading
-            Paint linePaint = new Paint();
-            linePaint.setColor(Color.WHITE);
-            linePaint.setStrokeWidth(2);
-            canvas.drawLine(marginLeft, headingY + headingMarginBottom, 550, headingY + headingMarginBottom, linePaint);
-
             // Competence information text
             int yOffset = (int) (headingY + headingMarginBottom + elementMarginTop);
 
@@ -697,6 +692,7 @@ public class M18 extends AppCompatActivity {
 
 
 
+
     private int drawExperienceDeTravail(Canvas canvas, int startY) {
         // Create and configure Paint object for heading
         Paint headingPaint = new Paint();
@@ -738,12 +734,6 @@ public class M18 extends AppCompatActivity {
         float headingY = startY + headingPaint.getTextSize();
         canvas.drawText(heading, marginLeft, headingY, headingPaint);
 
-        // Draw a line directly below the heading
-        Paint linePaint = new Paint();
-        linePaint.setColor(Color.BLACK);
-        linePaint.setStrokeWidth(2);
-        canvas.drawLine(marginLeft, headingY + headingMarginBottom,
-                550, headingY + headingMarginBottom, linePaint);
 
         // Calculate the Y offset for experience information
         float yOffset = headingY + headingMarginBottom + elementMarginTop;
@@ -853,9 +843,6 @@ public class M18 extends AppCompatActivity {
         float headingY = startY + headingPaint.getTextSize();
         canvas.drawText(heading, marginLeft, headingY, headingPaint);
 
-        // Draw a line below the heading
-        float lineEndX = 550;
-        canvas.drawLine(marginLeft, headingY + headingMarginBottom, lineEndX, headingY + headingMarginBottom, linePaint);
 
         // Draw each piece of education information
         float currentY = headingY + headingMarginBottom + elementMarginTop;
@@ -905,12 +892,6 @@ public class M18 extends AppCompatActivity {
             // Measure the width of the heading text
             float headingWidth = paint.measureText(heading);
 
-            // Draw a line directly below the heading
-            Paint linePaint = new Paint();
-            linePaint.setColor(Color.WHITE);
-            linePaint.setStrokeWidth(2); // Line width
-            canvas.drawLine(marginLeft, headingY + headingMarginBottom, canvas.getWidth() - marginLeft, headingY + headingMarginBottom, linePaint);
-
             // Draw each language
             paint.setTextSize(15); // Reset text size for languages
             paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Reset typeface for languages
@@ -933,12 +914,6 @@ public class M18 extends AppCompatActivity {
             paint.setTextSize(15); // Text size for the heading
             paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
-            // Draw a line directly below the Soft Skills heading
-            Paint linePaint = new Paint();
-            linePaint.setColor(Color.WHITE);
-            linePaint.setStrokeWidth(2); // Line width
-            canvas.drawLine(marginLeft, softSkillsHeadingY + headingMarginBottom, canvas.getWidth() - marginLeft, softSkillsHeadingY + headingMarginBottom, linePaint);
-
             // Draw each soft skill
             float textY = softSkillsHeadingY + headingMarginBottom + elementMarginTop;
             for (String softSkill : softSkills) {
@@ -959,12 +934,6 @@ public class M18 extends AppCompatActivity {
             paint.setTextSize(15); // Text size for the heading
             paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
-            // Draw a line directly below the Loisirs heading
-            Paint linePaint = new Paint();
-            linePaint.setColor(Color.WHITE);
-            linePaint.setStrokeWidth(2); // Line width
-            canvas.drawLine(marginLeft, loisirsHeadingY + headingMarginBottom, canvas.getWidth() - marginLeft, loisirsHeadingY + headingMarginBottom, linePaint);
-
             // Draw each loisir
             float textY = loisirsHeadingY + headingMarginBottom + elementMarginTop;
             for (String loisir : loisirs) {
@@ -984,12 +953,6 @@ public class M18 extends AppCompatActivity {
             canvas.drawText(certificateHeading, marginLeft, certificateHeadingY, paint);
             paint.setTextSize(15); // Text size for the heading
             paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
-
-            // Draw a line directly below the Certificate heading
-            Paint linePaint = new Paint();
-            linePaint.setColor(Color.WHITE);
-            linePaint.setStrokeWidth(2); // Line width
-            canvas.drawLine(marginLeft, certificateHeadingY + headingMarginBottom, canvas.getWidth() - marginLeft, certificateHeadingY + headingMarginBottom, linePaint);
 
             // Draw each certificate
             float textY = certificateHeadingY + headingMarginBottom + elementMarginTop;
@@ -1148,7 +1111,7 @@ public class M18 extends AppCompatActivity {
         float textX = ((canvas.getWidth() - textWidth)+128) / 2;
 
         // Draw the text at the calculated position
-        canvas.drawText(userName, textX, 128, paint);
+        canvas.drawText(userName, textX, 90, paint);
     }
 
     private void drawUserJobTitle(Canvas canvas, float nameTextX, float nameTextY) {
@@ -1165,7 +1128,7 @@ public class M18 extends AppCompatActivity {
         float spaceBelowName = 10; // Adjust this value as needed
 
         // Calculate the vertical position for the job title
-        float jobTitleTextY = nameTextY + spaceBelowName + paint.getTextSize();
+        float jobTitleTextY = (nameTextY + spaceBelowName + paint.getTextSize())-33;
 
         // Calculate the horizontal position for the job title (center horizontally)
         float jobTitleTextX = ((canvas.getWidth() - jobTitleWidth+15)) / 2;
@@ -1177,6 +1140,7 @@ public class M18 extends AppCompatActivity {
     private void drawCircularImage(Canvas canvas, Bitmap bitmap, int x, int y) {
         // Define fixed width for the circular image
         int imageSize = 200;
+        int borderWidth = 3; // Width of the border in pixels
 
         // Calculate the aspect ratio of the original image
         float aspectRatio = (float) bitmap.getWidth() / bitmap.getHeight();
@@ -1203,15 +1167,22 @@ public class M18 extends AppCompatActivity {
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         circularCanvas.drawBitmap(resizedBitmap, rect, rectF, paint);
 
+        // Draw the border around the circular image
+        Paint borderPaint = new Paint();
+        borderPaint.setColor(Color.BLACK); // Border color
+        borderPaint.setStyle(Paint.Style.STROKE); // Set to stroke to draw border
+        borderPaint.setStrokeWidth(borderWidth); // Set border width
+        borderPaint.setAntiAlias(true);
+
+        circularCanvas.drawCircle(imageSize / 2, imageSize / 2, (imageSize / 2) - borderWidth / 2, borderPaint);
+
         // Draw the circular bitmap on the main canvas
-        canvas.drawBitmap(circularBitmap, x-40, y-50, null);
+        canvas.drawBitmap(circularBitmap, x - 40, y - 50, null);
 
         // Recycle bitmaps to free up memory
         resizedBitmap.recycle();
         circularBitmap.recycle();
     }
-
-
 
 
     private void drawBlueBackground(Canvas canvas) {
@@ -1227,22 +1198,6 @@ public class M18 extends AppCompatActivity {
         // Draw the rectangle
         canvas.drawRect(startX, startY, endX, endY, paint);
     }
-
-    private void drawGreenBackground(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setColor(Color.rgb(	240	,240	,240)); // Set the background color to green
-
-        // Define the rectangle area to fill
-        int startX = 0; // Start x position
-        int startY = 0; // Start y position (top of the canvas)
-        int endX = canvas.getWidth(); // End x position (full width of the canvas)
-        int endY = 200; // End y position (200 pixels from the top)
-
-        // Draw the rectangle
-        canvas.drawRect(startX, startY, endX, endY, paint);
-    }
-
-
 
     // Helper method to capitalize the first letter of each word
     public static String capitalizeFirstLetterOfEachWord(String str) {
