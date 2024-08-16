@@ -24,6 +24,7 @@ import com.example.app_creat_profesionell_cv.ContentOfCV.M17;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M18;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M19;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M2;
+import com.example.app_creat_profesionell_cv.ContentOfCV.M20;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M3;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M4;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M5;
@@ -128,6 +129,9 @@ public class AdapterOfImageCV extends RecyclerView.Adapter<AdapterOfImageCV.Imag
                         break;
                     case "m28":
                         intent = new Intent(context, M19.class);
+                        break;
+                    case "m29":
+                        intent = new Intent(context, M20.class);
                         break;
                 }
 
