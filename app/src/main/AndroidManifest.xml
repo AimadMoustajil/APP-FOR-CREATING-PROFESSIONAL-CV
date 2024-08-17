@@ -17,6 +17,159 @@
         android:theme="@style/Theme.App_creat_profesionell_cv"
         tools:targetApi="31">
         <activity
+            android:name=".M_LettersDesDémission.Web_Designer"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Senior_Assistant_Accountant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Sales_Support"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Deputy_Manager_HR"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Sales_Manager_and_Marketing"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Lecture_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Board_Of_Industry_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Administrative_Assistant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Assistant_Manager_Of_Operation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Director_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Marketing_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Marketing_Manager_With_Reasons"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Retirement_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Senior_Sales_Executive_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Technical_Executive_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Writer_Resignation_Letter"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Doctor_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Assistant_Sales_Manager_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Personal_Reason_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Employee_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Email_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.New_Job_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Medical_Assistant_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Sample_2_Immediate_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Sample_1_Immediate_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Bank_Employee_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Content_Creator_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Data_Analyst_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Customer_Service_Manager_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Analyst_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Accountant_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Promotion_Letter_of_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Career_Change_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Church_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Police_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Board_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Nurse_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Teacher_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Sample_3_Professional_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Sample_2_Professional_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Sample_1_Professional_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Formal_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Sample_2_Simple_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Sample_1_Simple_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Sample_2_Short_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Sample_1_Short_Resignation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Sample_1_One_Month_Notice"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Sample_3_Two_Week_Notice"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Sample_2_Two_Week_Notice"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.Sample_1_Two_Week_Notice"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesDémission.One_Week_Notice_Sales_Executive"
+            android:exported="false" />
+        <activity
             android:name=".M_LetterDesPromorion.Salary_Review_Account_Executive"
             android:exported="false" />
         <activity
