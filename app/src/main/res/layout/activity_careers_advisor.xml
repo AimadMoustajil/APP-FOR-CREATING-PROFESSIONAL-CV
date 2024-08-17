@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".M_LettersDesMotivation.Careers_Advisor">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Aquamarine"
+        app:title="Letter de motivation"
+        tools:ignore="MissingConstraints" />
+    <ImageView
+        android:id="@+id/showLetter"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar10"
+        app:srcCompat="@drawable/eyes" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar10"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:text="Entéte"
+                android:textSize="30dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/entete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Alan Walker\nAlameda Street, Los Angeles, United States\n+1-541-754-3010\nyourEmailId@gmail.com\n\njuil. 25, 2024\n\nM. [Nom du gestionnaire recruteur]\nCadre XYZ\nNom de la société XYZ, Inc.\nAdresse complète de la société" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Corps"
+                android:textSize="30dp"
+                android:layout_margin="30dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/corps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dear Mr/Ms. [Hiring Manager's Last-Name],\n\nIn response to your recent advertisement on the Profyl.ORG website, I am sending you my job application for the position of Careers Advisor, as I believe I am an ideal candidate for your vacancy.\n\nI come to you as an articulate, proactive and ambitious professional who is committed to helping people make a fresh start. I understand that finding the right job can have a huge impact on a person's confidence, health and ability to lead fulfilling, independent lives. I can quickly understand the needs of people and have a track record of helping them to secure their desired outcome as quickly as possible.\n\nI believe I have the passion it takes to help unemployed people into employment by providing them with bespoke one-to-one advice, guidance or coaching. I am also not afraid to give delegates ‘tough love' and keep them on track to achieve their career goals.\n\nFor the last two years I have been with .........., where I work with both local and national employers, universities and colleges to establish relationships that my clients can benefit from. Through my work I have gained a strong understanding of the recruitment market. In addition to this I have learnt how to provide pupils with experience of a modern workplace and now know how to further develop their employability and social skills.\n\nFinally, I would like to say that I have heard many good reports about your company, and am keen to join you and contribute to your future success.\n\nPlease do not hesitate to contact me to arrange an interview at a suitably convenient time.\n\nSincerely,"
+                    />            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:layout_margin="30dp"
+                android:text="Bas de page" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/basDePage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:text="Alan Walker" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

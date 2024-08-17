@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".M_LettersDesMotivation.CaseManager">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Aquamarine"
+        app:title="Letter de motivation"
+        tools:ignore="MissingConstraints" />
+    <ImageView
+        android:id="@+id/showLetter"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar10"
+        app:srcCompat="@drawable/eyes" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar10"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:text="Entéte"
+                android:textSize="30dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/entete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Alan Walker\nAlameda Street, Los Angeles, United States\n+1-541-754-3010\nyourEmailId@gmail.com\n\njuil. 25, 2024\n\nM. [Nom du gestionnaire recruteur]\nCadre XYZ\nNom de la société XYZ, Inc.\nAdresse complète de la société" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Corps"
+                android:textSize="30dp"
+                android:layout_margin="30dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/corps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dear Mr/Ms. [Hiring Manager's Last-Name],\n\nThank you for the opportunity to apply for the Case Manager position at Clean-World. My dual educational background in nursing and counseling have allowed me to deliver exceptional individual and group support services, and I am thrilled at the opportunity to use these talents to serve Clean-World’s psychiatric unit.\n\nFor the last four years, I have served as Case Manager at Profyl.ORG in both the psychiatric and geriatric care units with an average weekly caseload of 40 to 50 patients. I was responsible for collaborating with interdisciplinary clinical teams to coordinate, evaluate and monitor treatment plans to ensure optimal care for every patient. I coordinated post-care communication with patients and their families and provided follow-up evaluations through face-to-face visits and digital outreach.\n\nAs a longtime Case Manager for psychiatric patients, I understand the importance of providing compassionate and personalized care. In addition to my nursing background, I have earned my associate’s degree in human services, and I’ve received extensive training in conflict resolution and de-escalation techniques. I pride myself on my ability to develop trusted relationships with patients. As evidence of that, I’ve earned five “Employee of the Month” awards for superior patient care.\n\nI would appreciate the opportunity to meet with you to discuss the Case Manager opportunity at Clean-World. I’m eager to discuss how I can use my talents, experience and expertise to help Clean-World continue to be a leader in outstanding psychiatric patient care.\n\nSincerely,"
+                    />            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:layout_margin="30dp"
+                android:text="Bas de page" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/basDePage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:text="Alan Walker" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".M_LettersDesMotivation.Air_Traffic_Controller">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Aquamarine"
+        app:title="Letter de motivation"
+        tools:ignore="MissingConstraints" />
+    <ImageView
+        android:id="@+id/showLetter"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar10"
+        app:srcCompat="@drawable/eyes" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar10"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:text="Entéte"
+                android:textSize="30dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/entete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Alan Walker\nAlameda Street, Los Angeles, United States\n+1-541-754-3010\nyourEmailId@gmail.com\n\njuil. 25, 2024\n\nM. [Nom du gestionnaire recruteur]\nCadre XYZ\nNom de la société XYZ, Inc.\nAdresse complète de la société" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Corps"
+                android:textSize="30dp"
+                android:layout_margin="30dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/corps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dear Mr/Ms. [Hiring Manager's Last-Name],\n\nYour posting on Profyl.ORG for an Air Traffic Controller position caught my eye because I am currently looking for just such an opening.\n\nI come to you as someone who can ensure the safe, orderly and expeditious flow of air traffic, both on the ground and flying in the vicinity of an airport. You can rely on me for the smooth and efficient running of a control room, and for providing an excellent level of service to pilots, work colleagues and related third parties.\n\nFor the last two years I have been employed by ........... in a role similar to the one you are advertising. At work I am primarily responsible for maintaining radar and visual contact with aircraft to ensure their safety during approach, landing, take-off, and when taxiing around the airport.\n\nI have the confident personality needed to work at ‘ground level' influencing what is going on immediately around me. I am also able to adapt plans and make decisions quickly and safely in a fast changing scenario.\n\nOn a personal level I am willing to take responsibility for my own decisions, can work under my own direction, make tough choices, and also provide others with clear direction. I feel confident enough to undertake all tasks required of me by this role.\n\nI would very much like the opportunity to discuss my skills and abilities in more detail with you and am available for an interview at your earliest convenience. In closing I would like to thank you in advance for taking the time to review my application, and look forward to hearing from you.\n\nSincerely,"
+                    />            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:layout_margin="30dp"
+                android:text="Bas de page" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/basDePage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:text="Alan Walker" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

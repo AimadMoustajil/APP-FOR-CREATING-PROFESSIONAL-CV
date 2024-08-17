@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".M_LettersDesMotivation.Autocentre_Manager">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Aquamarine"
+        app:title="Letter de motivation"
+        tools:ignore="MissingConstraints" />
+    <ImageView
+        android:id="@+id/showLetter"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar10"
+        app:srcCompat="@drawable/eyes" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar10"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:text="Entéte"
+                android:textSize="30dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/entete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Alan Walker\nAlameda Street, Los Angeles, United States\n+1-541-754-3010\nyourEmailId@gmail.com\n\njuil. 25, 2024\n\nM. [Nom du gestionnaire recruteur]\nCadre XYZ\nNom de la société XYZ, Inc.\nAdresse complète de la société" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Corps"
+                android:textSize="30dp"
+                android:layout_margin="30dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/corps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dear Mr/Ms. [Hiring Manager's Last-Name],\n\nI noticed your advertisement for the Autocentre Manager position and think I would make an excellent candidate for it.\n\nFor the last two years I have been employed in a similar position with .......... In my role, I am charged with delivering a first class customer experience within a busy and demanding environment, whilst also providing vital support to a team of talented Technicians in the workshop. I am proud to say that I have been at the forefront of leading and influencing the Autocentres transformation by getting to know customers, providing the very best service to them and by getting involved with the running of every aspect of the centre.\n\nYou can rely on me to change, improve and sustain employee engagement and also achieve performance excellence. I am someone who can make a difference to both a company and its employees by working collaboratively with colleagues and by acting as a professional lead.\n\nCoaching, developing and inspiring a team is of second nature to me.\n\nMy core skills lie in my ability to make key commercial decision and run a centre independently with confidence. In addition to this I also up to speed with using the latest in vehicle diagnostic equipment to ensure that I can service any make or model of car.\n\nRight now, I am ready for the next stage of my career and would like to join a company that works hard to bring out the best in its people.\n\nI would be grateful for the opportunity to demonstrate my capabilities further at an interview so please do not hesitate to contact me to arrange one.\n\nSincerely,"
+                    />            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:layout_margin="30dp"
+                android:text="Bas de page" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/basDePage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:text="Alan Walker" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

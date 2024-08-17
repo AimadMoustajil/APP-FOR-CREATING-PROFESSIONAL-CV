@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".M_LettersDesMotivation.Cashier">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/Aquamarine"
+        app:title="Letter de motivation"
+        tools:ignore="MissingConstraints" />
+    <ImageView
+        android:id="@+id/showLetter"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar10"
+        app:srcCompat="@drawable/eyes" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar10"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="30dp"
+                android:text="Entéte"
+                android:textSize="30dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/entete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Alan Walker\nAlameda Street, Los Angeles, United States\n+1-541-754-3010\nyourEmailId@gmail.com\n\njuil. 25, 2024\n\nM. [Nom du gestionnaire recruteur]\nCadre XYZ\nNom de la société XYZ, Inc.\nAdresse complète de la société" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Corps"
+                android:textSize="30dp"
+                android:layout_margin="30dp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/corps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dear Mr/Ms. [Hiring Manager's Last-Name],\n\nIt is a pleasure to be applying for the Cashier position at Retail Ocean. I believe my years of experience as a cashier and passion for healthy living will prove me a great candidate as a cashier at Retail Ocean. I admire the company’s commitment to providing consumers with healthful, whole products that will increase their quality and length of life.\n\nAs a young candidate, I have high energy and an eagerness to learn. During my tenure at my local farmers’ market, I worked for hours on my feet while attending high school full-time, keeping up with my grades, and being involved in several sports. I enjoyed working with the fresh produce and doing a job where I could be active.\n\nI am currently attending Coral Springs University and studying chiropractic care with a minor in alternative medicine. I am a firm believer in the healing power of a whole-food, organic, and plant-based diet. My parents taught me the value of health and always said that “health is wealth.” I come from a very active, hardworking family. My father is a personal trainer and my mother is a florist. My upbringing lit a fire inside of me to be successful and to be healthy. I strongly believe that a healthy body is more efficient and can produce better results at school, on the field, and at work.\n\nThank you for reviewing my application for the Cashier position at Retail Ocean. I am confident that my high energy, optimal health, and background with plant-based and whole foods will make me a valuable team player at your company. I look forward to learning more about Retail Ocean.\n\nSincerely,"
+                    />            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30dp"
+                android:layout_margin="30dp"
+                android:text="Bas de page" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/basDePage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:text="Alan Walker" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
