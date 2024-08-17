@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -23,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.app_creat_profesionell_cv.Adapters.AdapterOfLettreDeMotivation;
 import com.example.app_creat_profesionell_cv.R;
 import com.example.app_creat_profesionell_cv.ShowDocument.ShowDocumentActivity;
 
@@ -37,17 +40,217 @@ import java.util.ArrayList;
 
 public class letterDeMotivation extends AppCompatActivity {
 
-    ImageView showLetter;
-    EditText entete, corps, basDePage;
+    /*ImageView showLetter;
+    EditText entete, corps, basDePage;*/
 
+    RecyclerView recyclerView;
+    ArrayList<String> arrayList;
+    AdapterOfLettreDeMotivation adapter;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_letter_de_motivation);
+        recyclerView = findViewById(R.id.recyclerViewOfLettreDeMotivation);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        arrayList = new ArrayList<>();
+        arrayList.add("Acadimic Advisor");
+        arrayList.add("Acadimic Coach");
+        arrayList.add("Acadimic Coordinator");
+        arrayList.add("Acadimic Tutor");
+        arrayList.add("Account Executive");
+        arrayList.add("Account Manager");
+        arrayList.add("Accountant ");
+        arrayList.add("Accounting Intern");
+        arrayList.add("Accounting Manager");
+        arrayList.add("Accounts Paybale");
+        arrayList.add("Actor");
+        arrayList.add("Admissions Officers");
+        arrayList.add("Administrator");
+        arrayList.add("Admissions Counselor");
+        arrayList.add("Air Traffic Controller");
+        arrayList.add("Analyst");
+        arrayList.add("Architect");
+        arrayList.add("Art Teacher");
+        arrayList.add("Artist");
+        arrayList.add("Assistant Buyer");
+        arrayList.add("Assistant Principal");
+        arrayList.add("Attorney");
+        arrayList.add("Author Assistant");
+        arrayList.add("Autocentre Manager");
+        arrayList.add("Automotive Sales Manager");
+        arrayList.add("Babysitter");
+        arrayList.add("Banker");
+        arrayList.add("Bank Manager");
+        arrayList.add("Barista");
+        arrayList.add("Bartender");
+        arrayList.add("Bid Writer");
+        arrayList.add("Bookkeeper");
+        arrayList.add("Business Analyst");
+        arrayList.add("Business Support Manager");
+        arrayList.add("Careers Advisor");
+        arrayList.add("Caregiver");
+        arrayList.add("Case Manager");
+        arrayList.add("Cashier");
+        arrayList.add("Chef");
+        arrayList.add("Chiropractor");
+        arrayList.add("Civil Engineer");
+        arrayList.add("Coach");
+        arrayList.add("Consultant");
+        arrayList.add("Controller");
+        arrayList.add("Copywriter");
+        arrayList.add("Cosmetologist");
+        arrayList.add("Counselor");
+        arrayList.add("Credit Analyst");
+        arrayList.add("Curriculum Developer");
+        arrayList.add("Custodian");
+        arrayList.add("Customer Experience Manager");
+        arrayList.add("Customer Service Respresentative");
+        arrayList.add("Data Analyst");
+        arrayList.add("Data Science");
+        arrayList.add("Database Analyst");
+        arrayList.add("Dental Assistant");
+        arrayList.add("Dental Hygienist");
+        arrayList.add("Dentist");
+        arrayList.add("Designer");
+        arrayList.add("Design Manager");
+        arrayList.add("Distribution Manager");
+        arrayList.add("Diversity Manager");
+        arrayList.add("Ecologist");
+        arrayList.add("Electrical Engineer");
+        arrayList.add("Engineer");
+        arrayList.add("Engineering Intern");
+        arrayList.add("Esthetician");
+        arrayList.add("Event Coordinator");
+        arrayList.add("Event Manager");
+        arrayList.add("Event Planner");
+        arrayList.add("Executive Assistant");
+        arrayList.add("Finance Intern");
+        arrayList.add("Finance Analyst");
+        arrayList.add("Fleet Manager");
+        arrayList.add("Firefighter");
+        arrayList.add("Flight Attendant");
+        arrayList.add("Freelance Writer");
+        arrayList.add("Furniture Design");
+        arrayList.add("Graduate Assistant");
+        arrayList.add("Graphic Designer");
+        arrayList.add("Guest Relations Manager");
+        arrayList.add("Hair Stylist");
+        arrayList.add("Head of Marketing");
+        arrayList.add("Head of Operation");
+        arrayList.add("Housekeeper");
+        arrayList.add("Human Resources Assistant");
+        arrayList.add("Human Resources Generalist");
+        arrayList.add("Human Resources Manager");
+        arrayList.add("Intern ");
+        arrayList.add("IT Project Manager");
+        arrayList.add("Laboratory Technician");
+        arrayList.add("Lead Case Manager");
+        arrayList.add("Legal Assistant");
+        arrayList.add("Legal Intern ");
+        arrayList.add("Libratian");
+        arrayList.add("Library Assistant ");
+        arrayList.add("Management Consultant");
+        arrayList.add("Manager");
+        arrayList.add("Marketer");
+        arrayList.add("Marketing");
+        arrayList.add("Marketing Coordinator");
+        arrayList.add("Marketing Intern");
+        arrayList.add("Marketing Manager");
+        arrayList.add("Message Therapist");
+        arrayList.add("Mechanical Engineer");
+        arrayList.add("Medical Assistant ");
+        arrayList.add("Medical Receptionist");
+        arrayList.add("Microbiologist");
+        arrayList.add("Nanny");
+        arrayList.add("Nurse Practitioner");
+        arrayList.add("Nursing Assistant");
+        arrayList.add("Nursing Student ");
+        arrayList.add("Occupational Therapist");
+        arrayList.add("Office Administrator");
+        arrayList.add("Office Assistant");
+        arrayList.add("Office Manager");
+        arrayList.add("Operation Manager");
+        arrayList.add("Outreach Worker");
+        arrayList.add("Paralegal");
+        arrayList.add("Paraprofessional");
+        arrayList.add("Partnership Manager");
+        arrayList.add("Parts Advisor");
+        arrayList.add("Personal Assistant");
+        arrayList.add("Personal Banker");
+        arrayList.add("Pest Control");
+        arrayList.add("Pharmacist");
+        arrayList.add("Pharmacy Technician");
+        arrayList.add("Photographer");
+        arrayList.add("Physician");
+        arrayList.add("Physician Assistant");
+        arrayList.add("Pilot");
+        arrayList.add("Platform Engineer");
+        arrayList.add("Police Officer");
+        arrayList.add("Preshool Teacher");
+        arrayList.add("Product Manager");
+        arrayList.add("Production Assistant");
+        arrayList.add("Program Coordinator");
+        arrayList.add("Program Manager");
+        arrayList.add("Project Coordinator");
+        arrayList.add("Project Manager");
+        arrayList.add("Property Manager");
+        arrayList.add("Psychologist");
+        arrayList.add("Quality Manager");
+        arrayList.add("Receptionist");
+        arrayList.add("Recruiter");
+        arrayList.add("Recruitment Coordinator");
+        arrayList.add("Recruitment Manager");
+        arrayList.add("Regional Operational Manager");
+        arrayList.add("Registered Nurse");
+        arrayList.add("Research Assistant");
+        arrayList.add("Resident Assistant ");
+        arrayList.add("Residentail Assistant");
+        arrayList.add("Restaurant Manager");
+        arrayList.add("Risk Manager");
+        arrayList.add("Sales");
+        arrayList.add("Sales Manager");
+        arrayList.add("Sales Representative");
+        arrayList.add("School Counselor");
+        arrayList.add("School Social Worker");
+        arrayList.add("Scientist");
+        arrayList.add("Secretary");
+        arrayList.add("Secutity");
+        arrayList.add("Security Guard");
+        arrayList.add("Security Office");
+        arrayList.add("Senior Social Worker");
+        arrayList.add("Server");
+        arrayList.add("Server Coordinator");
+        arrayList.add("Shift Supervisor");
+        arrayList.add("Shift Technician");
+        arrayList.add("Showroom Manager");
+        arrayList.add("Social Media Marketing Manager");
+        arrayList.add("Social Worker");
+        arrayList.add("Software Developer");
+        arrayList.add("Software Engineer");
+        arrayList.add("Special Education Teacher");
+        arrayList.add("Speech Language Pathologist");
+        arrayList.add("Substitute Teacher");
+        arrayList.add("Supervisor");
+        arrayList.add("Teacher Aide");
+        arrayList.add("Teaching Assistant");
+        arrayList.add("Teachnical Support");
+        arrayList.add("Training Developer");
+        arrayList.add("Veterinarian");
+        arrayList.add("Veterinary Assistant");
+        arrayList.add("Veterinary Technician");
+        arrayList.add("Warehouse");
+        arrayList.add("Web Developer");
+        arrayList.add("Web Manager");
+        arrayList.add("Welder");
+        arrayList.add("Writer");
+
+
+        adapter = new AdapterOfLettreDeMotivation(arrayList,this);
+        recyclerView.setAdapter(adapter);
 
         // Initialize UI elements
-        showLetter = findViewById(R.id.showLetter);
+        /*showLetter = findViewById(R.id.showLetter);
         entete = findViewById(R.id.entete);
         corps = findViewById(R.id.corps);
         basDePage = findViewById(R.id.basDePage);
@@ -77,10 +280,10 @@ public class letterDeMotivation extends AppCompatActivity {
                     }
                 }
             }
-        });
+        });*/
     }
 
-    @Override
+   /* @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
@@ -280,5 +483,5 @@ public class letterDeMotivation extends AppCompatActivity {
         originalBitmap.recycle();
 
         return resizedBitmap;
-    }
+    }*/
 }
