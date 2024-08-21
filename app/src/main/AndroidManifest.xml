@@ -17,6 +17,462 @@
         android:theme="@style/Theme.App_creat_profesionell_cv"
         tools:targetApi="31">
         <activity
+            android:name=".M_LettersDesMotivation.Writer"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Welder"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Web_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Web_Developer"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Warehouse_Worker"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Veterinary_Technician"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Veterinary_Assistant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Veterinarian"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Training_Developer"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Technical_Support"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Teaching_Assistant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Teacher_Aide"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Supervisor"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Substitute_Teacher"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Speech_Language_Pathologist"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Special_Education_Teacher"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Software_Engineer"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Software_Developer"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Social_Worker"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Social_Media_Marketing_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Showroom_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Shift_Technician"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Shift_Supervisor"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Server_Coordinator"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Server"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Senior_Social_Worker"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Security_Officer"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Security_Guard"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Security"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Secretary"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Scientist"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.School_Social_Worker"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.School_Counselor"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Sales_Representative"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Sales_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Sales"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Risk_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Restaurant_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Residential_Assistant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Resident_Assistant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Research_Assistant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Registered_Nurse"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Regional_Operational_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Recruitment_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Recruitment_Coordinator"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Recruiter"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Receptionist"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Quality_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Psychologist"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Property_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Project_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Project_Coordinator"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Program_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Program_Coordinator"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Production_Assistant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Product_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Preschool_Teacher"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Police_Officer"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Platform_Engineer"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Pilot"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Physician_Assistant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Physician"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Photographer"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Pharmacy_Technician"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Pharmacist"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Pest_Control"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Personal_Banker"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Personal_Assistant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Parts_Advisor"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Partnership_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Paraprofessional"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Paralegal"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Outreach_Worker"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Operation_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Office_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Office_Assistant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Office_Administrator"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Occupational_Therapist"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Nursing_Student"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Nursing_Assistant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Nurse_Practitioner"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Nanny"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Microbiologist"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Medical_Receptionist"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.M_LettersDesMotivation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Medical_Assistant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Mechanical_Engineer"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Massage_Therapist"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Marketing_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Marketing_Intern"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Marketing_Coordinator"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Marketing"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Marketer"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Management_Consultant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Library_Assistant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Librarian"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Legal_Intern"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Legal_Assistant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Lead_Case_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Laboratory_Technician"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.IT_Project_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Intern"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Human_Resources_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Human_Resources_Generalist"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Human_Resources_Assistant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Housekeeper"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Head_of_Operation"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Head_of_Marketing"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Hair_Stylist"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Guest_Relations_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Graphic_Designer"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Graduate_Assistant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Furniture_Designer"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Freelance_Writer"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Flight_Attendant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Firefighter"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Fleet_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Finance_Analyst"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Finance_Intern"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Executive_Assistant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Event_Planner"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Event_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Event_Coordinator"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Esthetician"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Engineering_Intern"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Engineer"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Electrical_Engineer"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Ecologist"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Diversity_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Distribution_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Design_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Designer"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Dentist"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Dental_Hygienist"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Dental_Assistant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Database_Analyst"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Data_Scientist"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Data_Analyst"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Customer_Service_Representative"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Customer_Experience_Manager"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Custodian"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Curriculum_Developer"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Credit_Analyst"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Counselor"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Cosmetologist"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Copywriter"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Controller"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Consultant"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Coach"
+            android:exported="false" />
+        <activity
+            android:name=".M_LettersDesMotivation.Civil_Engineer"
+            android:exported="false" />
+        <activity
             android:name=".M_LettersDesMotivation.Chiropractor"
             android:exported="false" />
         <activity
