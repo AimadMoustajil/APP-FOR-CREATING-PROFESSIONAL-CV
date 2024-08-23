@@ -17,7 +17,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Collége/Université">
+            android:hint="@string/coll_ge_universit">
 
             <EditText
                 android:id="@+id/nameOfSchool"
@@ -28,7 +28,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Titre de degré">
+            android:hint="@string/titre_de_degr">
 
             <EditText
                 android:id="@+id/yourMetier"
@@ -52,7 +52,7 @@
                 <TextView
                     android:id="@+id/start"
                     android:layout_width="match_parent"
-                    android:hint="Date de début"
+                    android:hint="@string/date_de_d_but"
                     android:layout_gravity="start"
                     android:gravity="center"
                     android:background="@color/WhiteSmoke"
@@ -70,7 +70,7 @@
                 <TextView
                     android:id="@+id/Finich"
                     android:layout_width="match_parent"
-                    android:hint="Date de fin"
+                    android:hint="@string/date_de_fin"
                     android:layout_gravity="start"
                     android:gravity="center"
                     android:background="@color/WhiteSmoke"

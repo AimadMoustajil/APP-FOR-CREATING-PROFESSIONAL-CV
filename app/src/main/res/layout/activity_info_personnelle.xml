@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/Aqua"
-        app:title="Inforamtion Personnell" />
+        app:title="Inforamtion Personnel" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -39,7 +39,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
-                android:hint="First Name"
+                android:hint="@string/first_name"
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/firstName"
@@ -50,7 +50,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
-                android:hint="Last Name"
+                android:hint="@string/last_name"
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/lastName"
@@ -60,7 +60,7 @@
         </LinearLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:hint="Number Phone"
+            android:hint="@string/number_phone"
             android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/numberPhone"
@@ -71,7 +71,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:hint="Email"
+            android:hint="@string/email"
             android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/emailOfUSer"
@@ -87,7 +87,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
-                android:hint="Pays"
+                android:hint="@string/pays"
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/paysOfUser"
@@ -98,7 +98,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
-                android:hint="Ville"
+                android:hint="@string/ville"
                 android:layout_height="wrap_content">
                 <EditText
                     android:id="@+id/villeOfUSer"
@@ -108,7 +108,7 @@
         </LinearLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:hint="Job"
+            android:hint="@string/job"
             android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/jobOfUSer"
@@ -117,7 +117,7 @@
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:hint="About"
+            android:hint="@string/about"
             android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/AboutUSer"

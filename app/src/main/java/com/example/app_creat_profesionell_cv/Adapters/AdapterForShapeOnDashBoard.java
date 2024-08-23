@@ -50,22 +50,29 @@ public class AdapterForShapeOnDashBoard extends RecyclerView.Adapter<AdapterForS
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Objects.equals(shape.getDesc(), "creat cv")){
+                if (Objects.equals(shape.getDesc(), R.string.creat_cv)){
                     v.getContext().startActivity(new Intent(v.getContext(),ModelsActivity.class));
-                } else if (Objects.equals(shape.getDesc(), "creat letter de motivation")){
+                } else if (Objects.equals(shape.getDesc(), R.string.creat_letter_de_motivation)){
                     v.getContext().startActivity(new Intent(v.getContext(), letterDeMotivation.class));
-                }else if (Objects.equals(shape.getDesc(), "creat letter de dimission")){
+                }else if (Objects.equals(shape.getDesc(), R.string.creat_letter_de_dimission)){
                     v.getContext().startActivity(new Intent(v.getContext(), LetterDeDimidion.class));
-                }else if (Objects.equals(shape.getDesc(), "creat letter de promotion")){
+                }else if (Objects.equals(shape.getDesc(), R.string.creat_letter_de_promotion)){
                     v.getContext().startActivity(new Intent(v.getContext(), LetterDePromotion.class));
-                } else if (Objects.equals(shape.getDesc(), "Question d'entrevue")){
+                } else if (Objects.equals(shape.getDesc(), R.string.Question_d_entrevue)){
                     v.getContext().startActivity(new Intent(v.getContext(),QuestionForEnterviewActivity.class));
-                }else if (Objects.equals(shape.getDesc(), "Books")){
+                }else if (Objects.equals(shape.getDesc(), R.string.Books)){
                     v.getContext().startActivity(new Intent(v.getContext(), BooksActivity.class));
                 }
             }
         });
     }
+
+    /*myShapesInDashBoard.add(new Shapes("cv",R.string.creat_cv));
+        myShapesInDashBoard.add(new Shapes("note",R.string.creat_letter_de_motivation));
+        myShapesInDashBoard.add(new Shapes("resign",R.string.creat_letter_de_dimission));
+        myShapesInDashBoard.add(new Shapes("promotion",R.string.creat_letter_de_promotion));
+        myShapesInDashBoard.add(new Shapes("ask",R.string.Question_d_entrevue));
+        myShapesInDashBoard.add(new Shapes("book",R.string.Books));*/
 
     @Override
     public int getItemCount() {

@@ -2,9 +2,9 @@ package com.example.app_creat_profesionell_cv.Classes;
 
 public class Shapes {
     String image;
-    String desc;
+    int desc;
 
-    public Shapes(String image, String desc) {
+    public Shapes(String image, int desc) {
         this.image = image;
         this.desc = desc;
     }
@@ -17,11 +17,11 @@ public class Shapes {
         this.image = image;
     }
 
-    public String getDesc() {
+    public int getDesc() {
         return desc;
     }
 
-    public void setDesc(String desc) {
+    public void setDesc(int desc) {
         this.desc = desc;
     }
 }

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="creat_cv" translatable="false">Lebenslauf erstellen</string>
+    <string name="creat_letter_de_motivation" translatable="false">Motivationsschreiben erstellen</string>
+    <string name="creat_letter_de_dimission" translatable="false">Kündigungsschreiben erstellen</string>
+    <string name="creat_letter_de_promotion" translatable="false">Beförderungsschreiben erstellen</string>
+    <string name="Question_d_entrevue" translatable="false">Vorstellungsgespräch Fragen</string>
+    <string name="Books" translatable="false">Bücher</string>
+    <string name="entète">Kopfzeile</string>
+    <string name="corps">Hauptteil</string>
+    <string name="bas_de_page">Fußzeile</string>
+    <string name="ent_te">Kopfzeile</string>
+    <string name="letter_de_motivation">Motivationsschreiben</string>
+    <string name="Letter_de_dimidion">Kündigungsschreiben</string>
+    <string name="letter_de_promotion">Beförderungsschreiben</string>
+    <string name="Books_For_Interview">Bücher für Vorstellungsgespräch</string>
+    <string name="Information_CV">Lebenslauf Informationen</string>
+    <string name="information_personnelles">Persönliche Informationen</string>
+    <string name="education">Bildung</string>
+    <string name="exp_rience_de_travail">Berufserfahrung</string>
+    <string name="projet">Projekt</string>
+    <string name="information_additionnelle">Zusätzliche Informationen</string>
+    <string name="generate_cv">Lebenslauf erstellen</string>
+    <string name="Info_Experince">Erfahrungsinformationen</string>
+    <string name="coll_ge_universit">Hochschule/Universität</string>
+    <string name="titre_de_degr">Abschluss</string>
+    <string name="date_de_d_but">Anfangsdatum</string>
+    <string name="date_de_fin">Enddatum</string>
+    <string name="Info_Education">Bildungsinformationen</string>
+    <string name="Inforamtion_Personnel">Persönliche Informationen</string>
+    <string name="first_name">Vorname</string>
+    <string name="last_name">Nachname</string>
+    <string name="number_phone">Telefonnummer</string>
+    <string name="email">E-Mail</string>
+    <string name="pays">Land</string>
+    <string name="ville">Stadt</string>
+    <string name="job">Beruf</string>
+    <string name="about">Über mich</string>
+    <string name="Info_Of_Projet">Projektinformationen</string>
+    <string name="les_comp_tance">Fähigkeiten</string>
+    <string name="les_com_tance_compertamentale">Verhaltensfähigkeiten</string>
+    <string name="les_langue">Sprachen</string>
+    <string name="loisir">Hobby</string>
+    <string name="certificat">Zertifikat</string>
+    <string name="linkdin">LinkedIn</string>
+    <string name="Information_additional">Zusätzliche Informationen</string>
+    <string name="english">Englisch</string>
+    <string name="french">Französisch</string>
+    <string name="german">Deutsch</string>
+    <string name="italian">Italienisch</string>
+    <string name="russian">Russisch</string>
+    <string name="modeles_of_cv">Lebenslauf Vorlagen</string>
+    <string name="CV">Lebenslauf</string>
+    <string name="Question">Frage</string>
+    <string name="nom_de_l_entreprise">Firmenname</string>
+    <string name="titre_de_poste">Stellenbezeichnung</string>
+    <string name="r_sum">Zusammenfassung</string>
+    <string name="titre_de_projet">Projekttitel</string>
+
+</resources>

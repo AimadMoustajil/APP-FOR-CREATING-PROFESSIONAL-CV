@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/PaleTurquoise"
-        app:title="modeles of cv" />
+        app:title="@string/modeles_of_cv" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_margin="10dp"

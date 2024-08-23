@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/Aquamarine"
-        app:title="Information CV"
+        app:title="@string/Information_CV"
         tools:ignore="MissingConstraints" />
 
     <LinearLayout
@@ -34,7 +34,7 @@
                 android:paddingStart="5dp"
                 android:background="@color/White"
                 android:gravity="center_vertical"
-                android:text="Information personnelles"
+                android:text="@string/Inforamtion_Personnel"
                 android:textSize="20dp" />
 
             <ImageView
@@ -59,7 +59,7 @@
                 android:paddingStart="5dp"
                 android:background="@color/White"
                 android:gravity="center_vertical"
-                android:text="Education"
+                android:text="@string/education"
                 android:textSize="20dp" />
 
             <ImageView
@@ -84,7 +84,7 @@
                 android:background="@color/White"
                 android:paddingStart="5dp"
                 android:gravity="center_vertical"
-                android:text="Expérience de travail"
+                android:text="@string/exp_rience_de_travail"
                 android:textSize="20dp" />
 
             <ImageView
@@ -109,7 +109,7 @@
                 android:paddingStart="5dp"
                 android:background="@color/White"
                 android:gravity="center_vertical"
-                android:text="Projet"
+                android:text="@string/projet"
                 android:textSize="20dp" />
 
             <ImageView
@@ -134,7 +134,7 @@
                 android:paddingStart="5dp"
                 android:background="@color/White"
                 android:gravity="center_vertical"
-                android:text="Information additionnelle"
+                android:text="@string/information_additionnelle"
                 android:textSize="20dp" />
 
             <ImageView
@@ -160,6 +160,5 @@
         app:layout_constraintEnd_toEndOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="@+id/linearLayout"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

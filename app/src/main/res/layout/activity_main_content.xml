@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/PaleTurquoise"
-        app:title="CV maker professional"
+        app:title="cv maker"
         tools:ignore="MissingConstraints">
 
     </androidx.appcompat.widget.Toolbar>
@@ -19,11 +19,19 @@
         android:id="@+id/rec"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar2"
+        app:layout_constraintTop_toTopOf="@+id/toolbar2"
+        app:srcCompat="@drawable/change" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

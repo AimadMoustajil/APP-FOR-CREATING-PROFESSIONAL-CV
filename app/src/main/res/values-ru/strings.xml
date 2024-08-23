@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="creat_cv" translatable="false">Создать резюме</string>
+    <string name="creat_letter_de_motivation" translatable="false">Создать мотивационное письмо</string>
+    <string name="creat_letter_de_dimission" translatable="false">Создать заявление об увольнении</string>
+    <string name="creat_letter_de_promotion" translatable="false">Создать письмо о повышении</string>
+    <string name="Question_d_entrevue" translatable="false">Вопросы на собеседовании</string>
+    <string name="Books" translatable="false">Книги</string>
+    <string name="entète">Заголовок</string>
+    <string name="corps">Тело</string>
+    <string name="bas_de_page">Нижний колонтитул</string>
+    <string name="ent_te">Заголовок</string>
+    <string name="letter_de_motivation">Мотивационное письмо</string>
+    <string name="Letter_de_dimidion">Заявление об увольнении</string>
+    <string name="letter_de_promotion">Письмо о повышении</string>
+    <string name="Books_For_Interview">Книги для собеседования</string>
+    <string name="Information_CV">Информация о резюме</string>
+    <string name="information_personnelles">Личная информация</string>
+    <string name="education">Образование</string>
+    <string name="exp_rience_de_travail">Опыт работы</string>
+    <string name="projet">Проект</string>
+    <string name="information_additionnelle">Дополнительная информация</string>
+    <string name="generate_cv">Создать резюме</string>
+    <string name="Info_Experince">Информация об опыте</string>
+    <string name="coll_ge_universit">Колледж/Университет</string>
+    <string name="titre_de_degr">Название степени</string>
+    <string name="date_de_d_but">Дата начала</string>
+    <string name="date_de_fin">Дата окончания</string>
+    <string name="Info_Education">Информация об образовании</string>
+    <string name="Inforamtion_Personnel">Личная информация</string>
+    <string name="first_name">Имя</string>
+    <string name="last_name">Фамилия</string>
+    <string name="number_phone">Номер телефона</string>
+    <string name="email">Электронная почта</string>
+    <string name="pays">Страна</string>
+    <string name="ville">Город</string>
+    <string name="job">Работа</string>
+    <string name="about">О себе</string>
+    <string name="Info_Of_Projet">Информация о проекте</string>
+    <string name="les_comp_tance">Навыки</string>
+    <string name="les_com_tance_compertamentale">Поведенческие навыки</string>
+    <string name="les_langue">Языки</string>
+    <string name="loisir">Хобби</string>
+    <string name="certificat">Сертификат</string>
+    <string name="linkdin">LinkedIn</string>
+    <string name="Information_additional">Дополнительная информация</string>
+    <string name="english">Английский</string>
+    <string name="french">Французский</string>
+    <string name="german">Немецкий</string>
+    <string name="italian">Итальянский</string>
+    <string name="russian">Русский</string>
+    <string name="modeles_of_cv">Шаблоны резюме</string>
+    <string name="CV">Резюме</string>
+    <string name="Question">Вопрос</string>
+    <string name="nom_de_l_entreprise">Название компании</string>
+    <string name="titre_de_poste">Название должности</string>
+    <string name="r_sum">Резюме</string>
+    <string name="titre_de_projet">Название проекта</string>
+
+</resources>

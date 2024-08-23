@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/Aquamarine"
-        app:title="Letter de motivation"
+        app:title="@string/letter_de_motivation"
         tools:ignore="MissingConstraints" />
     <ImageView
         android:id="@+id/showLetter"
@@ -25,10 +25,12 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar10"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
-                android:text="Entéte"
+                android:text="@string/ent_te"
                 android:textSize="30dp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -59,9 +61,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Corps"
-                android:textSize="30dp"
-                android:layout_margin="30dp" />
+                android:layout_margin="30dp"
+                android:text="@string/corps"
+                android:textSize="30dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -73,15 +75,15 @@
                     android:id="@+id/corps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Dear Mr/Ms. [Hiring Manager's Last-Name],\n\nI believe in good products. More than that, I believe in making good products into good brands. How your brand is perceived can drastically impact how your product sells. That’s where I come in. I have a proven track record at reviving brands, and I want to put those skills to use at Retail Ocean. I believe Retail Ocean could be huge, and I believe I have the knowledge and skills to help the company reach its full potential as its new Marketing Coordinator.\n\nAt Coral Springs University, I majored in Marketing with a minor in Sales and Copywriting. While there, I became the lead columnist for our school paper, launching a new column called “Being the Brand” that featured different students and how they branded themselves for post-university life. Even in college, it became increasingly important to me to share the importance of brand awareness to the public, so I made it my mission to do so.\n\nAfter graduating summa cum laude from Coral Springs, I held a year-long marketing internship with one of the best and the brightest minds in marketing while working for Profyl.ORG Industries. There, I honed my skills as a quick-witted and creative thinker, and now I am ready to start my very own marketing career under the umbrella of Retail Ocean. I believe with a little ingenuity, Retail Ocean can increase sales exponentially and leave a mark on the sales industry, and I am ready to roll my sleeves up and work until it happens.\n\nThank you for your consideration, and I look forward to hearing from you to schedule an interview. I can be reached at either mrabb@email.com or (123) 456-7891.\n\nSincerely,"
-                    />            </com.google.android.material.textfield.TextInputLayout>
+                    android:text="Dear Mr/Ms. [Hiring Manager's Last-Name],\n\nI believe in good products. More than that, I believe in making good products into good brands. How your brand is perceived can drastically impact how your product sells. That’s where I come in. I have a proven track record at reviving brands, and I want to put those skills to use at Retail Ocean. I believe Retail Ocean could be huge, and I believe I have the knowledge and skills to help the company reach its full potential as its new Marketing Coordinator.\n\nAt Coral Springs University, I majored in Marketing with a minor in Sales and Copywriting. While there, I became the lead columnist for our school paper, launching a new column called “Being the Brand” that featured different students and how they branded themselves for post-university life. Even in college, it became increasingly important to me to share the importance of brand awareness to the public, so I made it my mission to do so.\n\nAfter graduating summa cum laude from Coral Springs, I held a year-long marketing internship with one of the best and the brightest minds in marketing while working for Profyl.ORG Industries. There, I honed my skills as a quick-witted and creative thinker, and now I am ready to start my very own marketing career under the umbrella of Retail Ocean. I believe with a little ingenuity, Retail Ocean can increase sales exponentially and leave a mark on the sales industry, and I am ready to roll my sleeves up and work until it happens.\n\nThank you for your consideration, and I look forward to hearing from you to schedule an interview. I can be reached at either mrabb@email.com or (123) 456-7891.\n\nSincerely," />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30dp"
                 android:layout_margin="30dp"
-                android:text="Bas de page" />
+                android:text="@string/bas_de_page"
+                android:textSize="30dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"

@@ -17,7 +17,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nom de l'entreprise">
+            android:hint="@string/nom_de_l_entreprise">
 
             <EditText
                 android:id="@+id/nameOfSchool"
@@ -28,7 +28,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Titre de poste">
+            android:hint="@string/titre_de_poste">
 
             <EditText
                 android:id="@+id/yourMetier"
@@ -55,7 +55,7 @@
                     android:layout_height="50dp"
                     android:layout_gravity="start"
                     android:gravity="center"
-                    android:hint="Date de début" />
+                    android:hint="@string/date_de_d_but" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -72,7 +72,7 @@
                     android:layout_height="50dp"
                     android:layout_gravity="start"
                     android:gravity="center"
-                    android:hint="Date de fin" />
+                    android:hint="@string/date_de_fin" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
         <com.google.android.material.textfield.TextInputLayout
@@ -81,7 +81,7 @@
             <EditText
                 android:id="@+id/rs"
                 android:layout_width="match_parent"
-                android:hint="Résumé"
+                android:hint="@string/r_sum"
                 android:gravity="start"
                 android:layout_height="100dp"/>
         </com.google.android.material.textfield.TextInputLayout>

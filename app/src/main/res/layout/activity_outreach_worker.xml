@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/Aquamarine"
-        app:title="Letter de motivation"
+        app:title="@string/letter_de_motivation"
         tools:ignore="MissingConstraints" />
     <ImageView
         android:id="@+id/showLetter"
@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
-                android:text="Entéte"
+                android:text="@string/ent_te"
                 android:textSize="30dp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -59,7 +59,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Corps"
+                android:text="@string/corps"
                 android:textSize="30dp"
                 android:layout_margin="30dp" />
 
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="30dp"
                 android:layout_margin="30dp"
-                android:text="Bas de page" />
+                android:text="@string/bas_de_page" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"

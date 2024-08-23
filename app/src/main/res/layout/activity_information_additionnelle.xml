@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/Aquamarine"
-        app:title="Information additionnelle" />
+        app:title="@string/information_additionnelle" />
 
     <ScrollView
         android:id="@+id/scrollView3"
@@ -44,7 +44,7 @@
                         android:id="@+id/competance"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="les compétance"/>
+                        android:hint="@string/les_comp_tance"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,7 +81,7 @@
                         android:id="@+id/softskills"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="les cométance compertamentale"/>
+                        android:hint="@string/les_com_tance_compertamentale"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -117,7 +117,7 @@
                         android:id="@+id/langue"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="les langue"/>
+                        android:hint="@string/les_langue"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -153,7 +153,7 @@
                         android:id="@+id/loisir"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Loisir"/>
+                        android:hint="@string/loisir"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -196,7 +196,7 @@
                         android:id="@+id/certificate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Certificat"/>
+                        android:hint="@string/certificat"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -241,7 +241,7 @@
                     android:id="@+id/linkdin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Linkdin"/>
+                    android:hint="@string/linkdin"/>
 
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>

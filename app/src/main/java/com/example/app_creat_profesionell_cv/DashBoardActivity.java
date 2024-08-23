@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.app_creat_profesionell_cv.Adapters.AdapterForShapeOnDashBoard;
@@ -26,21 +27,30 @@ public class DashBoardActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     RecyclerView rec;
     AdapterForShapeOnDashBoard adapter;
+    ImageView transletLanguage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
         drawerLayout = findViewById(R.id.dr);
         rec = findViewById(R.id.rec);
+        transletLanguage =findViewById(R.id.imageView4);
+
+        transletLanguage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DashBoardActivity.this, Languages.class));
+            }
+        });
 
         //RecycleView with Adapter
         ArrayList<Shapes> myShapesInDashBoard = new ArrayList<>();
-        myShapesInDashBoard.add(new Shapes("cv","creat cv"));
-        myShapesInDashBoard.add(new Shapes("note","creat letter de motivation"));
-        myShapesInDashBoard.add(new Shapes("resign","creat letter de dimission"));
-        myShapesInDashBoard.add(new Shapes("promotion","creat letter de promotion"));
-        myShapesInDashBoard.add(new Shapes("ask","Question d'entrevue"));
-        myShapesInDashBoard.add(new Shapes("book","Books"));
+        myShapesInDashBoard.add(new Shapes("cv",R.string.creat_cv));
+        myShapesInDashBoard.add(new Shapes("note",R.string.creat_letter_de_motivation));
+        myShapesInDashBoard.add(new Shapes("resign",R.string.creat_letter_de_dimission));
+        myShapesInDashBoard.add(new Shapes("promotion",R.string.creat_letter_de_promotion));
+        myShapesInDashBoard.add(new Shapes("ask",R.string.Question_d_entrevue));
+        myShapesInDashBoard.add(new Shapes("book",R.string.Books));
 
         // Initialize and set adapter
         adapter = new AdapterForShapeOnDashBoard(myShapesInDashBoard, this);
