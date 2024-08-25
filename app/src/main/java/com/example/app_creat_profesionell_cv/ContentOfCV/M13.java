@@ -788,7 +788,7 @@ public class M13 extends AppCompatActivity {
         for (InfoEducation education : educationInfo) {
             // Draw the dates on the first line
             String dateRange = (education.getStartYier() != null ? education.getStartYier() : "") +
-                    (education.getEndYier() != null ? " to " + education.getEndYier() : "");
+                    (education.getEndYier() != null ? " - " + education.getEndYier() : "");
             canvas.drawText(dateRange, marginLeft, currentY, professionPaint);
 
             // Move to the next line for the school name

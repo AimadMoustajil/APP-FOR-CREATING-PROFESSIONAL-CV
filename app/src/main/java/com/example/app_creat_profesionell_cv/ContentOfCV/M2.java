@@ -199,35 +199,6 @@ public class M2 extends AppCompatActivity {
     }
 
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        dbInfoPersonnelle.clearAllData();
-        dbInfoEducation.clearAllData();
-        dbProjet.clearAllData();
-        dbInformationAitionnelle.clearAllData();
-        dbExperienceDeTravaille.clearAllData();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        dbInfoPersonnelle.clearAllData();
-        dbInfoEducation.clearAllData();
-        dbProjet.clearAllData();
-        dbInformationAitionnelle.clearAllData();
-        dbExperienceDeTravaille.clearAllData();
-    }
-
-
-
-
-
-
-
-
-
-
 
 
     private static final int START_Y_POSITION = 270;
@@ -271,7 +242,7 @@ public class M2 extends AppCompatActivity {
             int educationY = drawEducation(canvas, 370);
 
             // Draw skills section
-            int skillsY = drawSkills(canvas, educationY + 20); // Adjust spacing as needed
+            //int skillsY = drawSkills(canvas, educationY + 20); // Adjust spacing as needed
 
             // Draw user name and job title
             int logoBottomY = IMAGE_MARGIN + (int) (canvas.getWidth() * IMAGE_SIZE_PERCENT / 100);
@@ -292,16 +263,16 @@ public class M2 extends AppCompatActivity {
 
             // Draw projects section
             int projectsY = drawProjects(canvas, experienceY + 20); // Adjust spacing as needed
-
+            int skillsY = drawSkills(canvas, projectsY - 10);
             // Draw languages section
-            int languagesY = drawLanguages(canvas, projectsY + 20); // Adjust spacing as needed
+            int drawerLanguage = drawLanguages(canvas, educationY-40); // Adjust spacing as needed
 
             // Draw certification section
-            int certificationsY = drawCertifications(canvas, languagesY + 20); // Adjust spacing as needed
+            int certificationsY = drawCertifications(canvas, drawerLanguage + 20); // Adjust spacing as needed
 
             // Draw loisirs section
-            int loisirsY = drawLoisirs(canvas, certificationsY + 20); // Adjust spacing as needed
-
+            int loisirsY = drawLoisirs(canvas, skillsY); // Adjust spacing as needed
+            drawerLs(canvas,certificationsY);
             document.finishPage(page); // Finish the page before returning
 
             // Don't close the document here, close it after saving or sending
@@ -499,7 +470,7 @@ public class M2 extends AppCompatActivity {
         }
 
         // Common parameters
-        int marginLeft = 50; // Adjust if necessary
+        int marginLeft = canvas.getWidth() / 2 - 25; // Adjust if necessary
         int headingMarginBottom = 10;
         int elementMarginTop = 20; // Increased space between lines
         int lineHeight = 30; // Increased line height for more space
@@ -655,6 +626,65 @@ public class M2 extends AppCompatActivity {
     }
 
 
+    private int drawerLs(Canvas canvas, int startY) {
+        // Fetch certifications information (dummy data here; replace with actual data)
+        ArrayList<String> softSkills = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getLoisirArrayList();
+
+        // Check if the certificationInfo list is empty
+        if (softSkills.isEmpty()) {
+            // Return the startY unchanged if there's nothing to draw
+            return startY;
+        }
+
+        Paint paint = new Paint();
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(20);
+        paint.setTypeface(Typeface.MONOSPACE);
+
+        // Common parameters
+        int marginLeft = 50;
+        int headingMarginBottom = 10;
+        int elementMarginTop = 20;
+        int lineHeight = 30;
+        int bulletMarginLeft = 4; // Margin for the bullet point
+
+        // Draw the "Certifications" heading
+        String heading = "Loisir".toUpperCase();
+        float headingY = startY + paint.getTextSize();
+        canvas.drawText(heading, marginLeft, headingY, paint);
+
+        // Draw a line directly below the heading
+        Paint linePaint = new Paint();
+        linePaint.setColor(Color.BLACK);
+        linePaint.setStrokeWidth(2);
+        canvas.drawLine(marginLeft, headingY + headingMarginBottom, marginLeft + paint.measureText(heading), headingY + headingMarginBottom, linePaint);
+
+        // Draw each line of certification information
+        Paint certificationPaint = new Paint();
+        certificationPaint.setColor(Color.rgb(48, 48, 48));
+        certificationPaint.setTextSize(18);
+        certificationPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+
+        // Start drawing from 30 pixels below the heading
+        float textY = headingY + headingMarginBottom + 30;
+
+        for (int i = 0; i < softSkills.size(); i++) {
+            // Draw bullet point
+            String bullet = "•";
+            canvas.drawText(bullet, marginLeft, textY, certificationPaint);
+
+            // Draw certification name
+            float bulletWidth = certificationPaint.measureText(bullet);
+            canvas.drawText(softSkills.get(i), marginLeft + bulletWidth + bulletMarginLeft, textY, certificationPaint);
+
+            textY += lineHeight - 10; // Move to next line
+        }
+
+        // Return the bottom Y position of this section
+        return (int) (textY + elementMarginTop); // The last textY value will be the bottom position
+    }
+
+
     private int drawExperience(Canvas canvas, int startY) {
         Paint paint = new Paint();
         paint.setColor(Color.BLACK);
@@ -667,6 +697,7 @@ public class M2 extends AppCompatActivity {
         int elementMarginTop = 20;
         int lineHeight = 30;
         int bulletMarginLeft = 20; // Margin for bullet points
+        int maxLineWidth = 250; // Maximum width for a line before wrapping
 
         // Draw the "Experience" heading
         String heading = "Experience".toUpperCase();
@@ -732,10 +763,16 @@ public class M2 extends AppCompatActivity {
                 canvas.drawText(exp.getTitreDePoste(), marginLeft, textY, detailsPaint);
 
                 // Draw each bullet point for the summary
-                String[] lines = exp.getRésumé().split("\n");
+                String[] lines = wrapText(exp.getRésumé(), maxLineWidth, bulletPaint);
+                boolean firstLine = true;
                 for (String line : lines) {
                     textY += lineHeight - 10; // Move to next line
-                    canvas.drawText("• " + line, marginLeft + bulletMarginLeft, textY, bulletPaint);
+                    if (firstLine) {
+                        canvas.drawText("• " + line, marginLeft + bulletMarginLeft, textY, bulletPaint);
+                        firstLine = false;
+                    } else {
+                        canvas.drawText(line, marginLeft+25, textY, detailsPaint);
+                    }
                 }
 
                 textY += elementMarginTop; // Space between entries
@@ -745,7 +782,6 @@ public class M2 extends AppCompatActivity {
         // Return the bottom Y position of this section
         return (int) (textY + elementMarginTop); // The last textY value plus extra space
     }
-
 
 
 
@@ -763,6 +799,7 @@ public class M2 extends AppCompatActivity {
         int elementMarginTop = 20; // Increased space between lines
         int lineHeight = 30; // Increased line height for more space
         int bulletMarginLeft = 20; // Margin for bullet points
+        int maxLineWidth = 250; // Maximum width for a line before wrapping
 
         // Draw the "Projects" heading
         String heading = "Projects".toUpperCase();
@@ -827,11 +864,17 @@ public class M2 extends AppCompatActivity {
                 textY += lineHeight - 10; // Move to next line
                 canvas.drawText(project.getTitreProjet(), marginLeft, textY, detailsPaint);
 
-                // Draw project summary with bullet points
-                String[] lines = project.getResume().split("\n");
+                // Draw project summary with bullet points only on the first line
+                String[] lines = wrapText(project.getResume(), maxLineWidth, bulletPaint);
+                boolean firstLine = true;
                 for (String line : lines) {
                     textY += lineHeight - 10; // Move to next line
-                    canvas.drawText("• " + line, marginLeft + bulletMarginLeft, textY, bulletPaint);
+                    if (firstLine) {
+                        canvas.drawText("• " + line, marginLeft + bulletMarginLeft, textY, bulletPaint);
+                        firstLine = false;
+                    } else {
+                        canvas.drawText(line, marginLeft+30, textY, detailsPaint);
+                    }
                 }
 
                 textY += elementMarginTop; // Space between different project entries
@@ -841,6 +884,33 @@ public class M2 extends AppCompatActivity {
         // Return the bottom Y position of this section
         return (int) (textY + elementMarginTop); // The last textY value plus extra space
     }
+
+
+
+
+    private String[] wrapText(String text, int maxLineWidth, Paint paint) {
+        ArrayList<String> lines = new ArrayList<>();
+        String[] words = text.split(" ");
+        StringBuilder line = new StringBuilder();
+
+        for (String word : words) {
+            String testLine = line.toString() + (line.length() > 0 ? " " : "") + word;
+            if (paint.measureText(testLine) > maxLineWidth) {
+                if (line.length() > 0) {
+                    lines.add(line.toString());
+                    line = new StringBuilder(word);
+                }
+            } else {
+                line.append((line.length() > 0 ? " " : "") + word);
+            }
+        }
+        if (line.length() > 0) {
+            lines.add(line.toString());
+        }
+
+        return lines.toArray(new String[0]);
+    }
+
 
 
 

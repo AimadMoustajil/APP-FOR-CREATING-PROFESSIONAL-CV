@@ -260,7 +260,7 @@ public class M20 extends AppCompatActivity {
             drawBackground(canvas);
             drawRotatedEquilateralTriangle(canvas);
             drawHeaderImage(canvas);
-            drawContactInfo(canvas,220);
+            drawContactInfo(canvas,245);
             // Draw Competence and get the Y position where the next section should start
             int competenceEndY = drawCompetence(canvas, 245);
 
@@ -599,29 +599,36 @@ public class M20 extends AppCompatActivity {
 
 
     private int drawExperienceDeTravail(Canvas canvas, int startY) {
+        // Paint configurations
         Paint headingPaint = new Paint();
         headingPaint.setColor(Color.rgb(56, 56, 56));
         headingPaint.setTextSize(20);
         headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
         Paint normalPaint = new Paint();
-        normalPaint.setColor(Color.rgb(96, 96, 96)); // Set text color to gray
+        normalPaint.setColor(Color.rgb(96, 96, 96));
         normalPaint.setTextSize(15);
         normalPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
         Paint bulletPaint = new Paint();
-        bulletPaint.setColor(Color.rgb(48, 48, 48)); // Set text color to dark gray
+        bulletPaint.setColor(Color.rgb(48, 48, 48));
         bulletPaint.setTextSize(15);
         bulletPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
-        int marginLeft = 260;
+        Paint verticalLinePaint = new Paint();
+        verticalLinePaint.setColor(Color.rgb(48, 48, 48)); // Dark gray for vertical line
+        verticalLinePaint.setStrokeWidth(4); // Width of the vertical line
+
+        int marginLeft = 260; // Margin for text from the left edge
+        int experienceMarginLeft = 280; // Margin for experience details from the left edge
         int headingMarginBottom = 10;
         int elementMarginTop = 25;
         int lineHeight = 25;
         int bulletMargin = 20;
         int maxWidth = 250; // Maximum width before wrapping text
+        int verticalLineXOffset = 0; // Horizontal offset of the vertical line from the text
 
-        // Draw the "Expérience de Travail" heading
+        // Draw the heading
         String heading = "Expérience de Travail".toUpperCase();
         float headingY = startY + headingPaint.getTextSize();
         canvas.drawText(heading, marginLeft, headingY, headingPaint);
@@ -634,33 +641,44 @@ public class M20 extends AppCompatActivity {
 
         // Draw each piece of experience information
         for (InfoExperience info : experienceInfo) {
+            // Define X for the vertical line and bullet
+            int verticalLineX = marginLeft - verticalLineXOffset;
+
             // Draw the dates and company name
             String dateRange = info.getDateDébut() + " to " + info.getDateDeFin();
             String companyName = info.getNomEntreprise();
 
-            // Draw the date range on the first line
-            canvas.drawText(dateRange, marginLeft, yOffset, bulletPaint);
+            // Draw the date range on the first line with added margin
+            canvas.drawText(dateRange, experienceMarginLeft, yOffset, bulletPaint);
+
+            // Draw the vertical line starting from the date
+            float lineStartY = yOffset - lineHeight;
+            float lineEndY = yOffset + lineHeight + elementMarginTop;
+            canvas.drawLine(verticalLineX, yOffset - lineHeight / 2, verticalLineX, yOffset + elementMarginTop + lineHeight, verticalLinePaint);
+
+            // Draw the bullet point at the top of the line, aligned with the date
+            canvas.drawCircle(verticalLineX, yOffset - lineHeight / 2, 5, bulletPaint);
+
             yOffset += lineHeight;
 
-            // Draw the company name on the next line
-            canvas.drawText(companyName, marginLeft, yOffset, normalPaint);
+            // Draw the company name on the next line with added margin
+            canvas.drawText(companyName, experienceMarginLeft, yOffset, normalPaint);
             yOffset += lineHeight;
 
-            // Draw the resume only if it is not empty
+            // Draw the resume if available and handle text wrapping
             String resume = info.getRésumé();
             if (resume != null && !resume.trim().isEmpty()) {
                 resume = "• " + resume;
-                // Wrap the resume text to the next line if it exceeds maxWidth
                 while (!resume.isEmpty()) {
                     int charsToDraw = normalPaint.breakText(resume, true, maxWidth, null);
                     String line = resume.substring(0, charsToDraw);
-                    canvas.drawText(line, marginLeft + bulletMargin, yOffset, normalPaint);
-                    yOffset += lineHeight; // Move to the next line
-                    resume = resume.substring(charsToDraw); // Remaining text
+                    canvas.drawText(line, experienceMarginLeft + bulletMargin, yOffset, normalPaint);
+                    yOffset += lineHeight;
+                    resume = resume.substring(charsToDraw);
                 }
             }
 
-            // Add extra space after the resume and before the next experience if resume was drawn
+            // Add extra space after the resume and before the next entry
             if (resume != null && !resume.trim().isEmpty()) {
                 yOffset += elementMarginTop;
             }
@@ -672,6 +690,8 @@ public class M20 extends AppCompatActivity {
         // Return the bottom Y position of this section
         return (int) yOffset;
     }
+
+
 
     private int drawEducation(Canvas canvas, int startY) {
         // Create and configure the Paint objects

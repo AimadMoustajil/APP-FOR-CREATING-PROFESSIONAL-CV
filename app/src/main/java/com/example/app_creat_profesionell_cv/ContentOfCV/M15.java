@@ -323,6 +323,7 @@ public class M15 extends AppCompatActivity {
         int lineHeight = 25;
         int maxTextWidth = 250; // Maximum width for wrapping text
         int lineWidth = 2; // Thickness of the line
+        int dateMargin = 50; // Margin between company name and start date
 
         // Retrieve project information from database
         ArrayList<InfoProjet> projects = dbProjet.getAllInfoProjets();
@@ -364,12 +365,18 @@ public class M15 extends AppCompatActivity {
 
         // Draw each piece of project information
         for (InfoProjet project : validProjects) {
-            // Draw the project name and dates on the first line
-            String projectHeader = project.getNomEntreprise() + " - " + project.getDateDebut() + " to " + project.getDateFin();
-            canvas.drawText(projectHeader, marginLeft, yOffset, normalPaint);
+            // Draw the project name and dates on the first line with a 50-pixel margin
+            String companyName = project.getNomEntreprise();
+            String projectDates = project.getDateDebut() + " - " + project.getDateFin();
+            float companyNameWidth = normalPaint.measureText(companyName);
+
+            // Draw the company name
+            canvas.drawText(companyName, marginLeft, yOffset, normalPaint);
+
+            // Draw the dates with the 50-pixel margin from the end of the company name
+            canvas.drawText(projectDates, marginLeft + companyNameWidth + dateMargin, yOffset, normalPaint);
             yOffset += lineHeight;
 
-            normalPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
             // Draw the project title on the next line with a gray background
             String projectTitle = project.getTitreProjet();
             Paint titlePaint = new Paint(normalPaint);
@@ -389,6 +396,7 @@ public class M15 extends AppCompatActivity {
         // Return the bottom Y position of this section
         return (int) yOffset;
     }
+
 
 
 
@@ -799,13 +807,13 @@ public class M15 extends AppCompatActivity {
 
         // Paint settings for normal text
         Paint normalPaint = new Paint();
-        normalPaint.setColor(Color.BLACK); // Set text color to gray
+        normalPaint.setColor(Color.BLACK);
         normalPaint.setTextSize(15);
         normalPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
         // Paint settings for bullet points
         Paint bulletPaint = new Paint();
-        bulletPaint.setColor(Color.BLACK); // Set text color to gray
+        bulletPaint.setColor(Color.BLACK);
         bulletPaint.setTextSize(15);
         bulletPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
@@ -816,6 +824,7 @@ public class M15 extends AppCompatActivity {
         int lineHeight = 25;
         int bulletMargin = 20;
         int maxTextWidth = 300; // Maximum width for text before wrapping
+        int dateMargin = 50; // Margin between company name and start date
 
         // Retrieve experience information from database
         ArrayList<InfoExperience> experienceInfo = dbExperienceDeTravaille.getAllInfoExperience();
@@ -855,9 +864,16 @@ public class M15 extends AppCompatActivity {
 
         // Draw each piece of experience information
         for (InfoExperience info : validExperienceInfo) {
-            // Draw the company name and dates on the first line
-            String companyAndDates = info.getNomEntreprise() + " - " + info.getDateDébut() + " to " + info.getDateDeFin();
-            canvas.drawText(companyAndDates, marginLeft, yOffset, bulletPaint);
+            // Draw the company name and start date with a 50-pixel margin
+            String company = info.getNomEntreprise();
+            String dates = info.getDateDébut() + " - " + info.getDateDeFin();
+            float companyWidth = bulletPaint.measureText(company);
+
+            // Draw the company name
+            canvas.drawText(company, marginLeft, yOffset, bulletPaint);
+
+            // Draw the dates with the 50-pixel margin from the end of the company name
+            canvas.drawText(dates, marginLeft + companyWidth + dateMargin, yOffset, bulletPaint);
             yOffset += lineHeight;
 
             // Draw the job title on the next line
@@ -873,6 +889,7 @@ public class M15 extends AppCompatActivity {
         // Return the bottom Y position of this section
         return (int) yOffset;
     }
+
 
 
 
@@ -1225,7 +1242,8 @@ public class M15 extends AppCompatActivity {
 
 
     private Bitmap drawCircularImage(Canvas canvas, Bitmap bitmap, int x, int y) {
-        int imageSize = (int) (canvas.getWidth() * IMAGE_SIZE_PERCENT / 100);
+        // Increase the image size by a larger percentage of the canvas width
+        int imageSize = (int) (canvas.getWidth() * (IMAGE_SIZE_PERCENT + 8) / 100);
         int borderWidth = 0;
         int padding = 0;
         int totalSize = imageSize + 2 * (borderWidth + padding);
@@ -1248,7 +1266,7 @@ public class M15 extends AppCompatActivity {
 
         // Draw the blue border around the circular image
         Paint borderPaint = new Paint();
-        borderPaint.setColor(Color.rgb(	108	,154	,195));
+        borderPaint.setColor(Color.rgb(108, 154, 195));
         borderPaint.setStyle(Paint.Style.STROKE);
         borderPaint.setStrokeWidth(borderWidth);
         borderPaint.setAntiAlias(true);
@@ -1259,6 +1277,7 @@ public class M15 extends AppCompatActivity {
 
         return circularBitmap;
     }
+
 
 
     // Helper method to capitalize the first letter of each word

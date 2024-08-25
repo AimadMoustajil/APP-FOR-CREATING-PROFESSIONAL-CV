@@ -306,7 +306,7 @@ public class M16 extends AppCompatActivity {
         // Create and configure the Paint object for the projects heading (big and black)
         Paint headingPaint = new Paint();
         headingPaint.setColor(Color.rgb(45, 62, 150));
-        headingPaint.setTextSize(20); // Adjust size as needed
+        headingPaint.setTextSize(15); // Adjust size as needed
         headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
         // Create and configure the Paint object for project details (normal)
@@ -323,8 +323,9 @@ public class M16 extends AppCompatActivity {
         int lineHeight = 25;
         int maxTextWidth = 240; // Maximum width for wrapping text
         int lineWidth = 315; // Fixed width of the line below the heading
+        int dateMargin = 50; // Margin between project name and start date
 
-        // Retrieve project information from database
+        // Retrieve project information from the database
         ArrayList<InfoProjet> projects = dbProjet.getAllInfoProjets();
 
         // Filter out empty or invalid projects
@@ -363,13 +364,21 @@ public class M16 extends AppCompatActivity {
 
         // Draw each piece of project information
         for (InfoProjet project : validProjects) {
-            // Draw the project name and dates on the first line
-            String projectHeader = project.getNomEntreprise() + " - " + project.getDateDebut() + " to " + project.getDateFin();
-            canvas.drawText(projectHeader, marginLeft, yOffset, headingPaint);
+            // Draw the project name and dates on the first line with a 50-pixel margin
+            String projectName = project.getNomEntreprise();
+            String projectDates = project.getDateDebut() + " - " + project.getDateFin();
+            float projectNameWidth = headingPaint.measureText(projectName);
+
+            // Draw the project name
+            canvas.drawText(projectName, marginLeft, yOffset, headingPaint);
+
+            // Draw the dates with the 50-pixel margin from the end of the project name
+            canvas.drawText(projectDates, marginLeft + projectNameWidth + dateMargin, yOffset, headingPaint);
             yOffset += lineHeight;
 
             normalPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
-            // Draw the project title on the next line with a gray background
+
+            // Draw the project title on the next line with a gray color
             String projectTitle = project.getTitreProjet();
             Paint titlePaint = new Paint(normalPaint);
             titlePaint.setColor(Color.rgb(124, 122, 122)); // Gray color for the title
@@ -385,6 +394,7 @@ public class M16 extends AppCompatActivity {
         // Return the bottom Y position of this section
         return (int) yOffset;
     }
+
 
 
 
@@ -820,7 +830,7 @@ public class M16 extends AppCompatActivity {
         // Paint settings for heading
         Paint headingPaint = new Paint();
         headingPaint.setColor(Color.rgb(45, 62, 150)); // Blue color for the heading
-        headingPaint.setTextSize(20); // Text size for the heading
+        headingPaint.setTextSize(15); // Text size for the heading
         headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface for the heading
 
         // Paint settings for normal text
@@ -842,6 +852,7 @@ public class M16 extends AppCompatActivity {
         int lineHeight = 25;
         int bulletMargin = 20;
         int maxTextWidth = 315; // Maximum width for text before wrapping
+        int dateMargin = 50; // Margin between company name and start date
 
         // Retrieve experience information from database
         ArrayList<InfoExperience> experienceInfo = dbExperienceDeTravaille.getAllInfoExperience();
@@ -884,9 +895,16 @@ public class M16 extends AppCompatActivity {
 
         // Draw each piece of experience information
         for (InfoExperience info : validExperienceInfo) {
-            // Draw the company name and dates on the first line
-            String companyAndDates = info.getNomEntreprise() + " - " + info.getDateDébut() + " to " + info.getDateDeFin();
-            canvas.drawText(companyAndDates, marginLeft, yOffset, headingPaint);
+            // Draw the company name and dates on the first line with a 50-pixel margin
+            String companyName = info.getNomEntreprise();
+            String experienceDates = info.getDateDébut() + " - " + info.getDateDeFin();
+            float companyNameWidth = headingPaint.measureText(companyName);
+
+            // Draw the company name
+            canvas.drawText(companyName, marginLeft, yOffset, headingPaint);
+
+            // Draw the dates with the 50-pixel margin from the end of the company name
+            canvas.drawText(experienceDates, marginLeft + companyNameWidth + dateMargin, yOffset, headingPaint);
             yOffset += lineHeight;
 
             // Draw the job title on the next line

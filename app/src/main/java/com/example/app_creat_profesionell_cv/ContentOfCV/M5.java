@@ -314,12 +314,7 @@ public class M5 extends AppCompatActivity {
         int elementMarginTop = 25;
         int lineHeight = 25;
         int maxTextWidth = 250; // Maximum width for wrapping text
-
-        /*int headingMarginBottom = 10;
-        int elementMarginTop = 25;
-        int lineHeight = 25;
-        int bulletMargin = 20;
-        int maxTextWidth = 250; */
+        int dateMargin = 50; // Margin between date and project name
 
         // Draw the "Projects" heading
         String heading = "Projects".toUpperCase();
@@ -334,9 +329,17 @@ public class M5 extends AppCompatActivity {
 
         // Draw each piece of project information
         for (InfoProjet project : projects) {
-            // Draw the project name and dates on the first line
-            String projectHeader = project.getNomEntreprise() + " - " + project.getDateDebut() + " to " + project.getDateFin();
-            canvas.drawText(projectHeader, marginLeft, yOffset, normalPaint);
+            // Draw the project name and dates with margin
+            String projectName = project.getNomEntreprise();
+            String projectDates = project.getDateDebut() + " - " + project.getDateFin();
+
+            // Draw the project name and dates with margin
+            float projectNameX = marginLeft;
+            float datesX = marginLeft + dateMargin+50;
+            normalPaint.setColor(Color.BLACK);
+            canvas.drawText(projectName, projectNameX, yOffset, normalPaint);
+            canvas.drawText(projectDates, datesX, yOffset, normalPaint);
+
             yOffset += lineHeight;
 
             // Draw the project title on the next line with a gray background
@@ -346,7 +349,8 @@ public class M5 extends AppCompatActivity {
             Paint.FontMetrics fontMetrics = titlePaint.getFontMetrics();
             canvas.drawRect(marginLeft - 10, yOffset - fontMetrics.bottom, canvas.getWidth() - 10, yOffset + fontMetrics.top, titlePaint);
             titlePaint.setColor(Color.BLACK); // Text color
-            canvas.drawText(projectTitle, marginLeft, yOffset, titlePaint);
+            normalPaint.setColor(Color.rgb(96,96,96));
+            canvas.drawText(projectTitle, marginLeft, yOffset, normalPaint);
             yOffset += lineHeight;
 
             // Draw the project description on the next line with a bullet point, wrapping if necessary
@@ -358,6 +362,7 @@ public class M5 extends AppCompatActivity {
         // Return the bottom Y position of this section
         return (int) yOffset;
     }
+
 
 
 
@@ -732,17 +737,17 @@ public class M5 extends AppCompatActivity {
 
     private int drawExperienceDeTravail(Canvas canvas, int startY) {
         Paint headingPaint = new Paint();
-        headingPaint.setColor(Color.rgb(56,56,56));
+        headingPaint.setColor(Color.rgb(56, 56, 56));
         headingPaint.setTextSize(20);
         headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
         Paint normalPaint = new Paint();
-        normalPaint.setColor(Color.rgb(96,96,96)); // Set text color to gray
+        normalPaint.setColor(Color.rgb(96, 96, 96)); // Set text color to gray
         normalPaint.setTextSize(15);
         normalPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
         Paint bulletPaint = new Paint();
-        bulletPaint.setColor(Color.rgb(48,48,48)); // Set text color to gray
+        bulletPaint.setColor(Color.rgb(48, 48, 48)); // Set text color to gray
         bulletPaint.setTextSize(15);
         bulletPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
@@ -752,6 +757,7 @@ public class M5 extends AppCompatActivity {
         int lineHeight = 25;
         int bulletMargin = 20;
         int maxTextWidth = 250; // Maximum width for text before wrapping
+        int dateMargin = 50; // Margin between date and company name
 
         // Retrieve experience information from database
         ArrayList<InfoExperience> experienceInfo = dbExperienceDeTravaille.getAllInfoExperience();
@@ -783,9 +789,16 @@ public class M5 extends AppCompatActivity {
 
         // Draw each piece of experience information
         for (InfoExperience info : validExperienceInfo) {
-            // Draw the company name and dates on the first line
-            String companyAndDates = info.getNomEntreprise() + " - " + info.getDateDébut() + " to " + info.getDateDeFin();
-            canvas.drawText(companyAndDates, marginLeft, yOffset, bulletPaint);
+            // Draw the company name and dates with margin
+            String companyName = info.getNomEntreprise();
+            String experienceDates = info.getDateDébut() + " - " + info.getDateDeFin();
+
+            // Draw the company name and dates with margin
+            float companyNameX = marginLeft;
+            float datesX = marginLeft + dateMargin+50;
+            canvas.drawText(companyName, companyNameX, yOffset, bulletPaint);
+            canvas.drawText(experienceDates, datesX, yOffset, bulletPaint);
+
             yOffset += lineHeight;
 
             // Draw the job title on the next line
@@ -1112,7 +1125,7 @@ public class M5 extends AppCompatActivity {
 
 
     private Bitmap drawCircularImage(Canvas canvas, Bitmap bitmap, int x, int y) {
-        int imageSize = (int) (canvas.getWidth() * IMAGE_SIZE_PERCENT / 100);
+        int imageSize = (int) (canvas.getWidth() * IMAGE_SIZE_PERCENT / 100)+30;
         int borderWidth = 5;
         int padding = 5;
         int totalSize = imageSize + 2 * (borderWidth + padding);
@@ -1142,7 +1155,7 @@ public class M5 extends AppCompatActivity {
         circularCanvas.drawCircle(radius, radius, radius - borderWidth / 2f, borderPaint);
 
         // Draw the resulting circular bitmap with border onto the original canvas
-        canvas.drawBitmap(circularBitmap, x, y, null);
+        canvas.drawBitmap(circularBitmap, x-25, y, null);
 
         return circularBitmap;
     }
@@ -1173,39 +1186,3 @@ public class M5 extends AppCompatActivity {
 
 }
 
-/*
-* private Bitmap drawCircularImage(Canvas canvas, Bitmap bitmap, int x, int y) {
-        int imageSize = (int) (canvas.getWidth() * IMAGE_SIZE_PERCENT / 100);
-        int borderWidth = 5;
-        int padding = 5;
-        int totalSize = imageSize + 2 * (borderWidth + padding);
-
-        Bitmap circularBitmap = Bitmap.createBitmap(totalSize, totalSize, Bitmap.Config.ARGB_8888);
-        Canvas circularCanvas = new Canvas(circularBitmap);
-
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
-
-        // Draw the circular mask
-        float radius = totalSize / 2f;
-        circularCanvas.drawCircle(radius, radius, radius - borderWidth - padding, paint);
-
-        // Set the Xfermode to SRC_IN to draw the bitmap only within the circular mask
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        Rect srcRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-        Rect destRect = new Rect(padding + borderWidth, padding + borderWidth, totalSize - (padding + borderWidth), totalSize - (padding + borderWidth));
-        circularCanvas.drawBitmap(bitmap, srcRect, destRect, paint);
-
-        // Draw the blue border around the circular image
-        Paint borderPaint = new Paint();
-        borderPaint.setColor(Color.rgb(	108	,154	,195));
-        borderPaint.setStyle(Paint.Style.STROKE);
-        borderPaint.setStrokeWidth(borderWidth);
-        borderPaint.setAntiAlias(true);
-        circularCanvas.drawCircle(radius, radius, radius - borderWidth / 2f, borderPaint);
-
-        // Draw the resulting circular bitmap with border onto the original canvas
-        canvas.drawBitmap(circularBitmap, x, y, null);
-
-        return circularBitmap;
-    }*/

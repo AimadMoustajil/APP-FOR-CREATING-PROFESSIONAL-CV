@@ -31,7 +31,6 @@ public class ModelsActivity extends AppCompatActivity {
         images.add(R.drawable.m3);
         images.add(R.drawable.m4);
         images.add(R.drawable.m5);
-        images.add(R.drawable.m7);
         images.add(R.drawable.m10);
         images.add(R.drawable.m11);
         images.add(R.drawable.m12);
@@ -43,8 +42,6 @@ public class ModelsActivity extends AppCompatActivity {
         images.add(R.drawable.m22);
         images.add(R.drawable.m23);
         images.add(R.drawable.m26);
-        images.add(R.drawable.m27);
-        images.add(R.drawable.m28);
         images.add(R.drawable.m29);
 
         ArrayList<String> imageNames = new ArrayList<>();
@@ -53,7 +50,6 @@ public class ModelsActivity extends AppCompatActivity {
         imageNames.add("m3");
         imageNames.add("m4");
         imageNames.add("m5");
-        imageNames.add("m7");
         imageNames.add("m10");
         imageNames.add("m11");
         imageNames.add("m12");
@@ -65,8 +61,6 @@ public class ModelsActivity extends AppCompatActivity {
         imageNames.add("m22");
         imageNames.add("m23");
         imageNames.add("m26");
-        imageNames.add("m27");
-        imageNames.add("m28");
         imageNames.add("m29");
 
         rec.setLayoutManager(new GridLayoutManager(this, 2));

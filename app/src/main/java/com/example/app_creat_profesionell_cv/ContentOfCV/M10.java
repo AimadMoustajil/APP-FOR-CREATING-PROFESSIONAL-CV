@@ -287,7 +287,7 @@ public class M10 extends AppCompatActivity {
             paintForJobTitle.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
             // Draw job title
-            drawUserJobTitle(canvas, (canvas.getWidth() - paint.measureText(dbInfoPersonnelle.getInfo().get(0).getJob())) / 2, logoBottomY - 50);
+            drawUserJobTitle(canvas, ((canvas.getWidth() - paint.measureText(dbInfoPersonnelle.getInfo().get(0).getJob())) / 2), logoBottomY - 50);
 
             document.finishPage(page); // Finish the page before returning
 
@@ -370,7 +370,7 @@ public class M10 extends AppCompatActivity {
 
             // Draw the project dates on the first line if not empty
             String dates = (info.getDateDebut() != null ? info.getDateDebut() : "") +
-                    (info.getDateFin() != null ? " to " + info.getDateFin() : "");
+                    (info.getDateFin() != null ? " - " + info.getDateFin() : "");
             if (!dates.trim().isEmpty()) {
                 canvas.drawText(dates, marginLeft, yOffset, titlePaint);
                 yOffset += lineHeight;
@@ -568,7 +568,7 @@ public class M10 extends AppCompatActivity {
         // Draw each piece of experience information
         for (InfoExperience info : experienceInfo) {
             // Draw the dates and company name
-            String dateRange = info.getDateDébut() + " to " + info.getDateDeFin();
+            String dateRange = info.getDateDébut() + " - " + info.getDateDeFin();
             String companyName = info.getNomEntreprise();
 
             // Draw the date range on the first line
@@ -652,7 +652,7 @@ public class M10 extends AppCompatActivity {
 
             // Prepare to draw the dates
             String dates = (education.getStartYier() != null ? education.getStartYier() : "") +
-                    (education.getEndYier() != null ? " to " + education.getEndYier() : "");
+                    (education.getEndYier() != null ? " - " + education.getEndYier() : "");
             if (!dates.isEmpty()) {
                 canvas.drawText(dates, marginLeft, currentY, schoolNamePaint);
                 currentY += lineHeight;
@@ -1004,7 +1004,7 @@ public class M10 extends AppCompatActivity {
         float lineY = jobTitleTextY + 10; // Adjust the spacing as needed
 
         // Draw the line below the job title
-        canvas.drawLine(jobTitleTextX, lineY, jobTitleTextX + jobTitleWidth+180, lineY, linePaint);
+        canvas.drawLine(jobTitleTextX, lineY, jobTitleTextX + jobTitleWidth+120, lineY, linePaint);
     }
 
 
@@ -1016,19 +1016,52 @@ public class M10 extends AppCompatActivity {
 
 
     private void drawCircularImage(Canvas canvas, Bitmap bitmap, int x, int y) {
-        int imageSize = (int) (canvas.getWidth() * IMAGE_SIZE_PERCENT / 100);
+        // Define fixed width for the circular image
+        int imageSize = 150;
+        int borderWidth = 3; // Width of the border in pixels
+
+        // Calculate the aspect ratio of the original image
+        float aspectRatio = (float) bitmap.getWidth() / bitmap.getHeight();
+
+        // Determine new height based on the aspect ratio and fixed width
+        int newHeight = (int) (imageSize / aspectRatio);
+
+        // Create a resized bitmap with fixed width and calculated height
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, imageSize, newHeight, false);
+
+        // Create a circular bitmap with fixed size
         Bitmap circularBitmap = Bitmap.createBitmap(imageSize, imageSize, Bitmap.Config.ARGB_8888);
         Canvas circularCanvas = new Canvas(circularBitmap);
         Paint paint = new Paint();
         paint.setAntiAlias(true);
-        Rect rect = new Rect(0, 0, imageSize, imageSize);
-        RectF rectF = new RectF(rect);
+
+        // Define rectangle and circle for drawing
+        Rect rect = new Rect(0, 0, resizedBitmap.getWidth(), resizedBitmap.getHeight());
+        RectF rectF = new RectF(0, 0, imageSize, imageSize);
+
+        // Draw the circular bitmap
         circularCanvas.drawARGB(0, 0, 0, 0);
         circularCanvas.drawCircle(imageSize / 2, imageSize / 2, imageSize / 2, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        circularCanvas.drawBitmap(bitmap, rect, rect, paint);
-        canvas.drawBitmap(circularBitmap, x, y, null);
+        circularCanvas.drawBitmap(resizedBitmap, rect, rectF, paint);
+
+        // Draw the border around the circular image
+        Paint borderPaint = new Paint();
+        borderPaint.setColor(Color.WHITE); // Border color
+        borderPaint.setStyle(Paint.Style.STROKE); // Set to stroke to draw border
+        borderPaint.setStrokeWidth(borderWidth); // Set border width
+        borderPaint.setAntiAlias(true);
+
+        circularCanvas.drawCircle(imageSize / 2, imageSize / 2, (imageSize / 2) - borderWidth / 2, borderPaint);
+
+        // Draw the circular bitmap on the main canvas
+        canvas.drawBitmap(circularBitmap, x -10, y , null);
+
+        // Recycle bitmaps to free up memory
+        resizedBitmap.recycle();
+        circularBitmap.recycle();
     }
+
 
 
 

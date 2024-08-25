@@ -1224,18 +1224,50 @@ public class M9 extends AppCompatActivity {
 
 
     private void drawCircularImage(Canvas canvas, Bitmap bitmap, int x, int y) {
-        int imageSize = (int) (canvas.getWidth() * IMAGE_SIZE_PERCENT / 100);
+        // Define fixed width for the circular image
+        int imageSize = 150;
+        int borderWidth = 3; // Width of the border in pixels
+
+        // Calculate the aspect ratio of the original image
+        float aspectRatio = (float) bitmap.getWidth() / bitmap.getHeight();
+
+        // Determine new height based on the aspect ratio and fixed width
+        int newHeight = (int) (imageSize / aspectRatio);
+
+        // Create a resized bitmap with fixed width and calculated height
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, imageSize, newHeight, false);
+
+        // Create a circular bitmap with fixed size
         Bitmap circularBitmap = Bitmap.createBitmap(imageSize, imageSize, Bitmap.Config.ARGB_8888);
         Canvas circularCanvas = new Canvas(circularBitmap);
         Paint paint = new Paint();
         paint.setAntiAlias(true);
-        Rect rect = new Rect(0, 0, imageSize, imageSize);
-        RectF rectF = new RectF(rect);
+
+        // Define rectangle and circle for drawing
+        Rect rect = new Rect(0, 0, resizedBitmap.getWidth(), resizedBitmap.getHeight());
+        RectF rectF = new RectF(0, 0, imageSize, imageSize);
+
+        // Draw the circular bitmap
         circularCanvas.drawARGB(0, 0, 0, 0);
         circularCanvas.drawCircle(imageSize / 2, imageSize / 2, imageSize / 2, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        circularCanvas.drawBitmap(bitmap, rect, rect, paint);
-        canvas.drawBitmap(circularBitmap, x, y, null);
+        circularCanvas.drawBitmap(resizedBitmap, rect, rectF, paint);
+
+        // Draw the border around the circular image
+        Paint borderPaint = new Paint();
+        borderPaint.setColor(Color.WHITE); // Border color
+        borderPaint.setStyle(Paint.Style.STROKE); // Set to stroke to draw border
+        borderPaint.setStrokeWidth(borderWidth); // Set border width
+        borderPaint.setAntiAlias(true);
+
+        circularCanvas.drawCircle(imageSize / 2, imageSize / 2, (imageSize / 2) - borderWidth / 2, borderPaint);
+
+        // Draw the circular bitmap on the main canvas
+        canvas.drawBitmap(circularBitmap, x -10, y , null);
+
+        // Recycle bitmaps to free up memory
+        resizedBitmap.recycle();
+        circularBitmap.recycle();
     }
 
     // Helper method to capitalize the first letter of each word

@@ -200,37 +200,6 @@ public class M3 extends AppCompatActivity {
     }
 
 
-    /*@Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        dbInfoPersonnelle.clearAllData();
-        dbInfoEducation.clearAllData();
-        dbProjet.clearAllData();
-        dbInformationAitionnelle.clearAllData();
-        dbExperienceDeTravaille.clearAllData();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        dbInfoPersonnelle.clearAllData();
-        dbInfoEducation.clearAllData();
-        dbProjet.clearAllData();
-        dbInformationAitionnelle.clearAllData();
-        dbExperienceDeTravaille.clearAllData();
-    }*/
-
-
-
-
-
-
-
-
-
-
-
-
     private static final int START_Y_POSITION = 270;
     private static final int LINE_SPACING = 25;
     private static final int COLUMN_PRICE_X = 50;
@@ -315,13 +284,13 @@ public class M3 extends AppCompatActivity {
     private int drawProjet(Canvas canvas, int startY) {
         // Create and configure Paint object for heading
         Paint paint = new Paint();
-        paint.setColor(Color.rgb(96, 96, 96));
+        paint.setColor(Color.BLACK);
         paint.setTextSize(20); // Heading text size
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface
 
         Paint titleT = new Paint();
         titleT.setColor(Color.rgb(40, 40, 40));
-        titleT.setTextSize(20); // Heading text size
+        titleT.setTextSize(15); // Heading text size
         titleT.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface
 
         // Define margins and spacing
@@ -360,8 +329,8 @@ public class M3 extends AppCompatActivity {
 
         // Configure Paint object for project information text
         Paint grayPaint = new Paint();
-        grayPaint.setColor(Color.rgb(48, 48, 48)); // Gray text color
-        grayPaint.setTextSize(10); // Text size for project information
+        grayPaint.setColor(Color.rgb(96, 96, 96)); // Gray text color
+        grayPaint.setTextSize(15); // Text size for project information
         grayPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Normal typeface
 
         // Configure Paint object for project title
@@ -390,7 +359,7 @@ public class M3 extends AppCompatActivity {
                 String formattedTitle = capitalizeFirstLetterOfEachWord(info.getNomEntreprise());
                 String dates = (info.getDateDebut() != null ? info.getDateDebut() : "") +
                         (info.getDateFin() != null ? " - " + info.getDateFin() : "");
-                canvas.drawText(dates + " " + formattedTitle, marginLeft, yOffset, titleT);
+                canvas.drawText(formattedTitle + " " + dates, marginLeft, yOffset, titleT);
                 yOffset += lineHeight;
             }
 
@@ -537,7 +506,7 @@ public class M3 extends AppCompatActivity {
             }
 
             // Draw text
-            paint.setTextSize(10); // Reset text size for contact information
+            paint.setTextSize(13); // Reset text size for contact information
             paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Reset typeface for contact information
             String infoText = contactInfo.get(i) != null ? contactInfo.get(i) : ""; // Ensure text is not null
             float textY = headingY + headingMarginBottom + elementMarginTop + paint.getTextSize() + lineHeight * i;
@@ -567,7 +536,7 @@ public class M3 extends AppCompatActivity {
         linePaint.setStrokeWidth(2);
 
         Paint normalPaint = new Paint();
-        normalPaint.setColor(Color.BLACK);
+        normalPaint.setColor(Color.rgb(96, 96, 96));
         normalPaint.setTextSize(15);
         normalPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
@@ -622,7 +591,7 @@ public class M3 extends AppCompatActivity {
         normalPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
         Paint bulletPaint = new Paint();
-        bulletPaint.setColor(Color.rgb(48, 48, 48)); // Set text color to gray
+        bulletPaint.setColor(Color.rgb(48, 48, 48)); // Set bullet color to gray
         bulletPaint.setTextSize(15);
         bulletPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
@@ -651,7 +620,7 @@ public class M3 extends AppCompatActivity {
         linePaint.setColor(Color.BLACK);
         linePaint.setStrokeWidth(2);
         canvas.drawLine(marginLeft, headingY + headingMarginBottom,
-                550, headingY + headingMarginBottom, linePaint);
+                marginLeft + 550, headingY + headingMarginBottom, linePaint);
 
         // Calculate the Y offset for experience information
         float yOffset = headingY + headingMarginBottom + elementMarginTop;
@@ -659,7 +628,7 @@ public class M3 extends AppCompatActivity {
         // Draw each piece of experience information
         for (InfoExperience info : experienceInfo) {
             // Draw the company name and dates
-            String companyAndDates = info.getNomEntreprise() + " - " + info.getDateDébut() + " to " + info.getDateDeFin();
+            String companyAndDates = info.getNomEntreprise() + "   " + info.getDateDébut() + " - " + info.getDateDeFin();
             canvas.drawText(companyAndDates, marginLeft, yOffset, bulletPaint);
             yOffset += lineHeight;
 
@@ -674,14 +643,20 @@ public class M3 extends AppCompatActivity {
 
             String[] words = resumeText.split(" ");
             StringBuilder line = new StringBuilder();
-            float startX = marginLeft + bulletMargin;
+            boolean isFirstLine = true;
 
             for (String word : words) {
                 String testLine = line.toString() + word + " ";
                 textWidth = normalPaint.measureText(testLine);
 
                 if (textWidth > maxLineWidth) {
-                    canvas.drawText(line.toString().trim(), startX, yOffset, normalPaint);
+                    // Draw the previous line with bullet point if it is the first line
+                    if (isFirstLine) {
+                        canvas.drawText("• " + line.toString().trim(), marginLeft, yOffset, normalPaint);
+                        isFirstLine = false; // Subsequent lines will not have a bullet point
+                    } else {
+                        canvas.drawText(line.toString().trim(), marginLeft, yOffset, normalPaint);
+                    }
                     yOffset += lineHeight;
                     line.setLength(0); // Clear the line
                 }
@@ -689,14 +664,14 @@ public class M3 extends AppCompatActivity {
             }
 
             if (line.length() > 0) {
-                canvas.drawText(line.toString().trim(), startX, yOffset, normalPaint);
+                // Draw the last line of the resume
+                if (isFirstLine) {
+                    canvas.drawText("• " + line.toString().trim(), marginLeft+20, yOffset, normalPaint);
+                } else {
+                    canvas.drawText(line.toString().trim(), marginLeft, yOffset, normalPaint);
+                }
                 yOffset += lineHeight;
             }
-
-            // Draw the resume with a bullet point
-            canvas.drawText("•", marginLeft, yOffset, bulletPaint);
-            canvas.drawText(info.getRésumé(), marginLeft + bulletMargin, yOffset, normalPaint);
-            yOffset += lineHeight + 20; // Add extra space after resume
 
             // Add space between different experiences
             yOffset += elementMarginTop;
@@ -705,6 +680,7 @@ public class M3 extends AppCompatActivity {
         // Return the bottom Y position of this section
         return (int) yOffset;
     }
+
 
 
 
@@ -784,7 +760,7 @@ public class M3 extends AppCompatActivity {
 
         for (InfoEducation education : educationInfo) {
             // Draw the school name and dates on the first line
-            String schoolNameAndDates = education.getShool() + " - " + education.getStartYier() + " to " + education.getEndYier();
+            String schoolNameAndDates = education.getShool() + "  " + education.getStartYier() + " - " + education.getEndYier();
             canvas.drawText(schoolNameAndDates, marginLeft, currentY, schoolNamePaint);
 
             // Move to the next line for the job title
@@ -907,10 +883,11 @@ public class M3 extends AppCompatActivity {
         // Loisirs information text
         ArrayList<String> loisirs = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getLoisirArrayList();
 
+        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
         // Draw each loisir
         textY = loisirsHeadingY + headingMarginBottom + elementMarginTop;
         for (String loisir : loisirs) {
-            canvas.drawText("• " + loisir, marginLeft, textY, linePaint);
+            canvas.drawText("• " + loisir, marginLeft, textY, paint);
             textY += lineHeight;
         }
 
@@ -927,7 +904,7 @@ public class M3 extends AppCompatActivity {
         // Certificates information text
         ArrayList<String> certificates = dbInformationAitionnelle.getInfoAdditionnelle().get(0).getCertificateArrayList();
 
-        paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+       // paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
         // Draw each certificate
         textY = certificateHeadingY + headingMarginBottom + elementMarginTop;
         for (String certificate : certificates) {
@@ -1129,7 +1106,7 @@ public class M3 extends AppCompatActivity {
 
 
 
-    private void drawCircularImage(Canvas canvas, Bitmap bitmap, int x, int y) {
+    /*private void drawCircularImage(Canvas canvas, Bitmap bitmap, int x, int y) {
         int imageSize = (int) (canvas.getWidth() * IMAGE_SIZE_PERCENT / 100);
         Bitmap circularBitmap = Bitmap.createBitmap(imageSize, imageSize, Bitmap.Config.ARGB_8888);
         Canvas circularCanvas = new Canvas(circularBitmap);
@@ -1142,7 +1119,54 @@ public class M3 extends AppCompatActivity {
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         circularCanvas.drawBitmap(bitmap, rect, rect, paint);
         canvas.drawBitmap(circularBitmap, x, y, null);
+    }*/
+    private void drawCircularImage(Canvas canvas, Bitmap bitmap, int x, int y) {
+        // Define fixed width for the circular image
+        int imageSize = 150;
+        int borderWidth = 3; // Width of the border in pixels
+
+        // Calculate the aspect ratio of the original image
+        float aspectRatio = (float) bitmap.getWidth() / bitmap.getHeight();
+
+        // Determine new height based on the aspect ratio and fixed width
+        int newHeight = (int) (imageSize / aspectRatio);
+
+        // Create a resized bitmap with fixed width and calculated height
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, imageSize, newHeight, false);
+
+        // Create a circular bitmap with fixed size
+        Bitmap circularBitmap = Bitmap.createBitmap(imageSize, imageSize, Bitmap.Config.ARGB_8888);
+        Canvas circularCanvas = new Canvas(circularBitmap);
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+
+        // Define rectangle and circle for drawing
+        Rect rect = new Rect(0, 0, resizedBitmap.getWidth(), resizedBitmap.getHeight());
+        RectF rectF = new RectF(0, 0, imageSize, imageSize);
+
+        // Draw the circular bitmap
+        circularCanvas.drawARGB(0, 0, 0, 0);
+        circularCanvas.drawCircle(imageSize / 2, imageSize / 2, imageSize / 2, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        circularCanvas.drawBitmap(resizedBitmap, rect, rectF, paint);
+
+        // Draw the border around the circular image
+        Paint borderPaint = new Paint();
+        borderPaint.setColor(Color.WHITE); // Border color
+        borderPaint.setStyle(Paint.Style.STROKE); // Set to stroke to draw border
+        borderPaint.setStrokeWidth(borderWidth); // Set border width
+        borderPaint.setAntiAlias(true);
+
+        circularCanvas.drawCircle(imageSize / 2, imageSize / 2, (imageSize / 2) - borderWidth / 2, borderPaint);
+
+        // Draw the circular bitmap on the main canvas
+        canvas.drawBitmap(circularBitmap, x -10, y , null);
+
+        // Recycle bitmaps to free up memory
+        resizedBitmap.recycle();
+        circularBitmap.recycle();
     }
+
 
     private void drawBlueBackground(Canvas canvas) {
         Paint paint = new Paint();
@@ -1150,7 +1174,7 @@ public class M3 extends AppCompatActivity {
 
         // Define the rectangle area to fill
         int startX = 0; // Start x position
-        int endX = 220; // End x position
+        int endX = 230; // End x position
         int startY = 0; // Start y position (top of the canvas)
         int endY = canvas.getHeight(); // End y position (bottom of the canvas)
 

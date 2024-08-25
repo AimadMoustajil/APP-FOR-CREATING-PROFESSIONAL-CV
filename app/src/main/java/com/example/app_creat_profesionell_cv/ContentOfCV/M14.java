@@ -357,9 +357,16 @@ public class M14 extends AppCompatActivity {
                 continue; // Skip this project entry
             }
 
-            // Draw the project name and dates on the first line
-            String projectHeader = project.getNomEntreprise() + " - " + project.getDateDebut() + " to " + project.getDateFin();
-            canvas.drawText(projectHeader, marginLeft, yOffset, normalPaint);
+            // Calculate the width of the company name
+            float companyWidth = normalPaint.measureText(project.getNomEntreprise());
+
+            // Draw the company name
+            canvas.drawText(project.getNomEntreprise(), marginLeft, yOffset, normalPaint);
+
+            // Draw the start and end dates with a 50-pixel margin between them
+            float dateX = marginLeft + companyWidth + 50;
+            String dateText = project.getDateDebut() + " - " + project.getDateFin();
+            canvas.drawText(dateText, dateX, yOffset, normalPaint);
             yOffset += lineHeight;
 
             // Draw the project title on the next line with a gray background
@@ -382,6 +389,7 @@ public class M14 extends AppCompatActivity {
         // Return the bottom Y position of this section
         return (int) yOffset;
     }
+
 
 
 
@@ -559,7 +567,7 @@ public class M14 extends AppCompatActivity {
 
                 // Move to the next line for the date range
                 currentY += lineHeight;
-                String dateRange = education.getStartYier() + " to " + education.getEndYier();
+                String dateRange = education.getStartYier() + " - " + education.getEndYier();
                 canvas.drawText(dateRange, marginLeft, currentY, dateRangePaint);
 
                 // Move to the next section with padding
@@ -736,12 +744,12 @@ public class M14 extends AppCompatActivity {
         headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
         Paint normalPaint = new Paint();
-        normalPaint.setColor(Color.BLACK); // Set text color to gray
+        normalPaint.setColor(Color.BLACK); // Set text color to black
         normalPaint.setTextSize(15);
         normalPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
         Paint bulletPaint = new Paint();
-        bulletPaint.setColor(Color.BLACK); // Set text color to gray
+        bulletPaint.setColor(Color.BLACK); // Set text color to black
         bulletPaint.setTextSize(15);
         bulletPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
@@ -782,9 +790,16 @@ public class M14 extends AppCompatActivity {
 
         // Draw each piece of experience information
         for (InfoExperience info : validExperienceInfo) {
-            // Draw the company name and dates on the first line
-            String companyAndDates = info.getNomEntreprise() + " - " + info.getDateDébut() + " to " + info.getDateDeFin();
-            canvas.drawText(companyAndDates, marginLeft, yOffset, bulletPaint);
+            // Calculate the width of the company name
+            float companyWidth = bulletPaint.measureText(info.getNomEntreprise());
+
+            // Draw the company name
+            canvas.drawText(info.getNomEntreprise(), marginLeft, yOffset, bulletPaint);
+
+            // Draw the start and end dates with a 50-pixel margin between them
+            float dateX = marginLeft + companyWidth + 50;
+            String dateText = info.getDateDébut() + " - " + info.getDateDeFin();
+            canvas.drawText(dateText, dateX, yOffset, bulletPaint);
             yOffset += lineHeight;
 
             // Draw the job title on the next line
@@ -801,6 +816,7 @@ public class M14 extends AppCompatActivity {
         // Return the bottom Y position of this section
         return (int) yOffset;
     }
+
 
     private float drawWrappedText(Canvas canvas, String text, float x, float startY, Paint paint, int maxWidth) {
         float y = startY;

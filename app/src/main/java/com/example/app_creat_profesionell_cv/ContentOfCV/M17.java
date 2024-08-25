@@ -295,7 +295,7 @@ public class M17 extends AppCompatActivity {
 
         Paint titleT = new Paint();
         titleT.setColor(Color.rgb(40, 40, 40));
-        titleT.setTextSize(20); // Heading text size
+        titleT.setTextSize(15); // Heading text size
         titleT.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface
 
         Paint grayPaint = new Paint();
@@ -322,6 +322,7 @@ public class M17 extends AppCompatActivity {
         final int bulletTextMargin = 5; // Margin between bullet and text
         final int smallMarginTop = 10; // Small margin before next project
         final int resumeMaxWidth = 300; // Maximum width for resume text
+        final int dateMargin = 50; // Margin between company name and date
 
         // Draw the "Projet" heading with an icon
         Bitmap iconBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.project); // Replace with your icon resource
@@ -349,12 +350,16 @@ public class M17 extends AppCompatActivity {
 
         // Draw each piece of project information
         for (InfoProjet info : projectInfo) {
-            // Draw the project title and dates on the same line
+            // Draw the project title and dates on the same line with a 50-pixel margin
             if (info.getNomEntreprise() != null) {
                 String formattedTitle = capitalizeFirstLetterOfEachWord(info.getNomEntreprise());
                 String dates = (info.getDateDebut() != null ? info.getDateDebut() : "") +
                         (info.getDateFin() != null ? " - " + info.getDateFin() : "");
-                canvas.drawText(formattedTitle + "," + dates, marginLeft, yOffset, titleT);
+                canvas.drawText(formattedTitle, marginLeft, yOffset, titleT);
+
+                // Draw the dates with the 50-pixel margin from the end of the company name
+                float titleWidth = titleT.measureText(formattedTitle);
+                canvas.drawText(dates, marginLeft + titleWidth + dateMargin, yOffset, titleT);
                 yOffset += lineHeight;
             }
 
@@ -409,6 +414,7 @@ public class M17 extends AppCompatActivity {
         // Return the bottom Y position of this section
         return yOffset;
     }
+
 
 
 
@@ -850,35 +856,35 @@ public class M17 extends AppCompatActivity {
     private int drawEducation(Canvas canvas, int startY) {
         // Create and configure the Paint object for headings
         Paint headingPaint = new Paint();
-        headingPaint.setColor(Color.rgb(41,45,45));
+        headingPaint.setColor(Color.rgb(41, 45, 45));
         headingPaint.setTextSize(20);
         headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
         // Create and configure the Paint object for school names (big and black)
         Paint schoolNamePaint = new Paint();
-        schoolNamePaint.setColor(Color.rgb(41, 45, 45)); // Set text color to gray
+        schoolNamePaint.setColor(Color.rgb(41, 45, 45)); // Set text color to dark gray
         schoolNamePaint.setTextSize(15);
         schoolNamePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 
         // Create and configure the Paint object for date ranges (small and gray)
         Paint dateRangePaint = new Paint();
-        dateRangePaint.setColor(Color.GRAY); // Change color to gray for date ranges
+        dateRangePaint.setColor(Color.BLACK); // Set color to gray for date ranges
         dateRangePaint.setTextSize(14); // Adjust size as needed
         dateRangePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
         // Create and configure the Paint object for professions (normal)
         Paint professionPaint = new Paint();
-        professionPaint.setColor(Color.rgb(41, 45, 45)); // Set text color to gray
+        professionPaint.setColor(Color.rgb(41, 45, 45)); // Set text color to dark gray
         professionPaint.setTextSize(15);
         professionPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
         // Define margins and spacing
-        int marginLeft = 290;
-        int iconMarginRight = 10; // Space between icon and heading text
-        int bulletMarginLeft = 270; // Additional margin for bullet points
-        int headingMarginBottom = 10;
-        int elementMarginTop = 25;
-        int lineHeight = 25;
+        final int marginLeft = 290;
+        final int bulletMarginLeft = 270; // Additional margin for bullet points
+        final int headingMarginBottom = 10;
+        final int elementMarginTop = 25;
+        final int lineHeight = 25;
+        final int dateMargin = 50; // Margin between school name and date
 
         // Load the icon for the heading
         Bitmap educationIcon = BitmapFactory.decodeResource(getResources(), R.drawable.book_open);
@@ -899,7 +905,7 @@ public class M17 extends AppCompatActivity {
         float headingY = startY + headingPaint.getTextSize();
 
         // Draw the icon
-        canvas.drawBitmap(educationIcon, marginLeft - iconWidth - iconMarginRight, headingY - iconHeight + 5, null);
+        canvas.drawBitmap(educationIcon, marginLeft - iconWidth - 10, headingY - iconHeight + 5, null);
 
         // Draw the heading text next to the icon
         canvas.drawText(heading, marginLeft, headingY, headingPaint);
@@ -908,15 +914,22 @@ public class M17 extends AppCompatActivity {
         float currentY = headingY + headingMarginBottom + elementMarginTop;
 
         for (InfoEducation education : educationInfo) {
-            // Draw the school name and dates on the first line
-            String schoolNameAndDates = education.getShool() + " " + education.getStartYier() + " - " + education.getEndYier();
-            canvas.drawText(schoolNameAndDates, marginLeft, currentY, schoolNamePaint);
+            // Draw the school name
+            String schoolName = education.getShool();
+            canvas.drawText(schoolName, marginLeft, currentY, schoolNamePaint);
+
+            // Measure the width of the school name
+            float schoolNameWidth = schoolNamePaint.measureText(schoolName);
+
+            // Draw the dates with a 50-pixel margin from the end of the school name
+            String dates = education.getStartYier() + " - " + education.getEndYier();
+            canvas.drawText(dates, marginLeft + schoolNameWidth + dateMargin, currentY, dateRangePaint);
 
             // Move to the next line for the job title
             currentY += lineHeight;
 
-            // Draw the job title on the next line with additional margin for bullet point
-            canvas.drawText("• " + education.getMetier(), bulletMarginLeft+30, currentY, professionPaint);
+            // Draw the job title with a bullet point
+            canvas.drawText("• " + education.getMetier(), bulletMarginLeft + 30, currentY, professionPaint);
 
             // Move to the next section with padding
             currentY += lineHeight + elementMarginTop;
@@ -925,6 +938,7 @@ public class M17 extends AppCompatActivity {
         // Return the bottom Y position of this section
         return (int) currentY;
     }
+
 
 
 
@@ -1236,9 +1250,12 @@ public class M17 extends AppCompatActivity {
 
 
 
+    private static final int SIZE_INCREASE_PERCENT = 10; // Percentage to increase the size
+
     private void drawSquareImage(Canvas canvas, Bitmap bitmap, int x, int y) {
         // Define the size of the square image as a percentage of the canvas width
-        int imageSize = (int) (canvas.getWidth() * IMAGE_SIZE_PERCENT / 100);
+        int baseSize = (int) (canvas.getWidth() * IMAGE_SIZE_PERCENT / 100);
+        int imageSize = (int) (baseSize * (1 + SIZE_INCREASE_PERCENT / 100.0));
 
         // Create a new bitmap with square dimensions
         Bitmap squareBitmap = Bitmap.createBitmap(imageSize, imageSize, Bitmap.Config.ARGB_8888);

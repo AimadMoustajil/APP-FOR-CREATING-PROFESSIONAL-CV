@@ -192,33 +192,6 @@ public class M1 extends AppCompatActivity {
             }
         });
     }
-    /*@Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        dbInfoPersonnelle.clearAllData();
-        dbInfoEducation.clearAllData();
-        dbProjet.clearAllData();
-        dbInformationAitionnelle.clearAllData();
-        dbExperienceDeTravaille.clearAllData();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        dbInfoPersonnelle.clearAllData();
-        dbInfoEducation.clearAllData();
-        dbProjet.clearAllData();
-        dbInformationAitionnelle.clearAllData();
-        dbExperienceDeTravaille.clearAllData();
-    }*/
-
-
-
-
-
-
-
-
 
 
 
@@ -276,7 +249,7 @@ public class M1 extends AppCompatActivity {
             drawEducation(canvas, projetEndY + 30);
 
 
-            drawLanguages(canvas, 430);
+            drawLanguages(canvas, 450);
 
             // Draw user name and job title
             int logoBottomY =100;
@@ -573,7 +546,7 @@ public class M1 extends AppCompatActivity {
         };
 
         // Configure Paint object for contact information
-        headingPaint.setTextSize(10);
+        headingPaint.setTextSize(13);
         headingPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
         // Draw each line of contact information with its icon
@@ -592,6 +565,7 @@ public class M1 extends AppCompatActivity {
         // Calculate section bottom Y position
         sectionBottomY = (int) (headingY + headingMarginBottom + elementMarginTop + headingPaint.getTextSize() + lineHeight * contactInfo.length);
 
+        headingPaint.setStrokeWidth(2);
         // Draw horizontal line below section from icon position to 240x
         float iconLineX = newMarginLeft + iconWidth + 10;
         canvas.drawLine(iconLineX - 40, sectionBottomY, 240, sectionBottomY, headingPaint);
@@ -749,13 +723,9 @@ public class M1 extends AppCompatActivity {
         bulletPaint.setColor(Color.BLACK);
         bulletPaint.setTextSize(17); // Text size for bullet points
 
-        Paint grayBackgroundPaint = new Paint();
-        grayBackgroundPaint.setColor(Color.GRAY);
-        grayBackgroundPaint.setStyle(Paint.Style.FILL);
-
         final int marginLeft = 260;
         final int headingMarginBottom = 10;
-        final int elementMarginTop = 10;
+        final int elementMarginTop = 25;
         final int lineHeight = 25;
         final int verticalLineX = 240;
         final int lineLength = 240;
@@ -815,21 +785,27 @@ public class M1 extends AppCompatActivity {
                     yOffset += lineHeight;
                 }
 
-                // Draw the resume with bullet point and wrapping
+                // Draw the resume with bullet point only on the first line, and wrap the rest
                 if (info.getRésumé() != null && !info.getRésumé().isEmpty()) {
-                    String resumeText = "• " + info.getRésumé();
+                    String resumeText = info.getRésumé();
                     int maxWidth = 300;
                     List<String> lines = wrapText(resumeText, normalPaint, maxWidth);
 
-                    for (String line : lines) {
-                        // Adjust X position for bullet point with margin
-                        String bulletPoint = "• "; // Bullet point character
-                        float bulletPointX = marginLeft + bulletPointMargin;
-                        canvas.drawText(bulletPoint, bulletPointX, yOffset, bulletPaint);
+                    for (int i = 0; i < lines.size(); i++) {
+                        String line = lines.get(i);
+                        if (i == 0) {
+                            // Draw bullet point only on the first line
+                            String bulletPoint = "• "; // Bullet point character
+                            float bulletPointX = marginLeft + bulletPointMargin;
+                            canvas.drawText(bulletPoint, bulletPointX, yOffset, bulletPaint);
 
-                        // Draw the resume text, adjusting X position to be after the bullet point
-                        float bulletPointWidth = bulletPaint.measureText(bulletPoint);
-                        canvas.drawText(line, bulletPointX + bulletPointWidth, yOffset, normalPaint);
+                            // Draw the first line of resume text after the bullet point
+                            float bulletPointWidth = bulletPaint.measureText(bulletPoint);
+                            canvas.drawText(line, bulletPointX + bulletPointWidth, yOffset, normalPaint);
+                        } else {
+                            // Draw the remaining lines without bullet point
+                            canvas.drawText(line, marginLeft + bulletPointMargin, yOffset, normalPaint);
+                        }
                         yOffset += lineHeight;
                     }
 
@@ -849,6 +825,7 @@ public class M1 extends AppCompatActivity {
         // Return the bottom Y position of this section
         return (int) yOffset;
     }
+
 
     // Helper method to wrap text to the next line if it exceeds the specified width
 
@@ -1066,15 +1043,15 @@ public class M1 extends AppCompatActivity {
 
             // Draw the background circle for the first letter
             float softSkillsHeadingFirstLetterX = marginLeft; // X position for the first letter
-            canvas.drawCircle(softSkillsHeadingFirstLetterX + circleRadius / 2, softSkillsHeadingY - paint.getTextSize() / 2, circleRadius, backgroundPaint);
+            canvas.drawCircle(softSkillsHeadingFirstLetterX + circleRadius / 2, (softSkillsHeadingY - paint.getTextSize() / 2)+20, circleRadius, backgroundPaint);
 
             // Draw the first letter of the heading with white color
             paint.setColor(Color.BLACK); // Text color for the first letter
-            canvas.drawText(String.valueOf("Soft Skills".charAt(0)).toUpperCase(), softSkillsHeadingFirstLetterX - circleRadius / 2, softSkillsHeadingY, paint);
+            canvas.drawText(String.valueOf("Soft Skills".charAt(0)).toUpperCase(), softSkillsHeadingFirstLetterX - circleRadius / 2, softSkillsHeadingY+20, paint);
 
             // Reset text color and draw the remaining part of the heading
             //paint.setColor(Color.BLACK);
-            canvas.drawText("Soft Skills".substring(1).toUpperCase(), softSkillsHeadingFirstLetterX + circleRadius / 2, softSkillsHeadingY, paint);
+            canvas.drawText("Soft Skills".substring(1).toUpperCase(), softSkillsHeadingFirstLetterX + circleRadius / 2, softSkillsHeadingY+20, paint);
 
             // Measure the width of the Soft Skills heading text
             float softSkillsHeadingWidth = paint.measureText("Soft Skills");
@@ -1110,15 +1087,15 @@ public class M1 extends AppCompatActivity {
 
             // Draw the background circle for the first letter
             float loisirsHeadingFirstLetterX = marginLeft; // X position for the first letter
-            canvas.drawCircle(loisirsHeadingFirstLetterX + circleRadius / 2, loisirsHeadingY - paint.getTextSize() / 2, circleRadius, backgroundPaint);
+            canvas.drawCircle(loisirsHeadingFirstLetterX + circleRadius / 2, (loisirsHeadingY - paint.getTextSize() / 2)+20, circleRadius, backgroundPaint);
 
             // Draw the first letter of the heading with white color
             //paint.setColor(Color.BLACK); // Text color for the first letter
-            canvas.drawText(String.valueOf("Loisirs".charAt(0)).toUpperCase(), loisirsHeadingFirstLetterX - circleRadius / 2, loisirsHeadingY, paint);
+            canvas.drawText(String.valueOf("Loisirs".charAt(0)).toUpperCase(), loisirsHeadingFirstLetterX - circleRadius / 2, loisirsHeadingY+20, paint);
 
             // Reset text color and draw the remaining part of the heading
             //paint.setColor(Color.BLACK);
-            canvas.drawText("Loisirs".substring(1).toUpperCase(), loisirsHeadingFirstLetterX + circleRadius / 2, loisirsHeadingY, paint);
+            canvas.drawText("Loisirs".substring(1).toUpperCase(), loisirsHeadingFirstLetterX + circleRadius / 2, loisirsHeadingY+20, paint);
 
             // Measure the width of the Loisirs heading text
             float loisirsHeadingWidth = paint.measureText("Loisirs");
@@ -1256,9 +1233,16 @@ public class M1 extends AppCompatActivity {
         linePaint.setColor(Color.BLACK);
         linePaint.setStrokeWidth(2); // Line width
 
-        Paint circlePaint = new Paint();
-        circlePaint.setColor(Color.BLACK);
-        circlePaint.setStyle(Paint.Style.FILL); // Solid fill for circles
+        // Paint for the circle's fill (red background)
+        Paint circleFillPaint = new Paint();
+        circleFillPaint.setColor(Color.rgb(219,239,255));
+        circleFillPaint.setStyle(Paint.Style.FILL); // Solid fill for circles
+
+        // Paint for the circle's border (black border)
+        Paint circleBorderPaint = new Paint();
+        circleBorderPaint.setColor(Color.BLACK);
+        circleBorderPaint.setStyle(Paint.Style.STROKE); // Border style for circles
+        circleBorderPaint.setStrokeWidth(2); // Border width
 
         // Define positions for lines
         float startX = 0; // Start of the first line (left edge of the canvas)
@@ -1269,14 +1253,19 @@ public class M1 extends AppCompatActivity {
 
         // Draw the line from the start of the canvas to the left edge of the text
         canvas.drawLine(startX, textY, textX - 50, textY, linePaint); // Draw line with 50px distance from text
-        // Draw a small circle at the end of the first line
-        canvas.drawCircle(textX - 50, textY, circleRadius, circlePaint);
+
+        // Draw the circle with red fill and black border at the end of the first line
+        canvas.drawCircle(textX - 50, textY, circleRadius, circleFillPaint);
+        canvas.drawCircle(textX - 50, textY, circleRadius, circleBorderPaint);
 
         // Draw the line from the right edge of the text to the end of the canvas
         canvas.drawLine(textX + textWidth + 50, textY, endX, textY, linePaint); // Draw line with 50px distance from text
-        // Draw a small circle at the beginning of the second line
-        canvas.drawCircle(textX + textWidth + 50, textY, circleRadius, circlePaint);
+
+        // Draw the circle with red fill and black border at the beginning of the second line
+        canvas.drawCircle(textX + textWidth + 50, textY, circleRadius, circleFillPaint);
+        canvas.drawCircle(textX + textWidth + 50, textY, circleRadius, circleBorderPaint);
     }
+
 
 
 

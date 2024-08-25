@@ -21,15 +21,11 @@ import com.example.app_creat_profesionell_cv.ContentOfCV.M14;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M15;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M16;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M17;
-import com.example.app_creat_profesionell_cv.ContentOfCV.M18;
-import com.example.app_creat_profesionell_cv.ContentOfCV.M19;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M2;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M20;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M3;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M4;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M5;
-import com.example.app_creat_profesionell_cv.ContentOfCV.M6;
-import com.example.app_creat_profesionell_cv.ContentOfCV.M7;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M8;
 import com.example.app_creat_profesionell_cv.ContentOfCV.M9;
 import com.example.app_creat_profesionell_cv.R;
@@ -88,12 +84,6 @@ public class AdapterOfImageCV extends RecyclerView.Adapter<AdapterOfImageCV.Imag
                     case "m5":
                         intent = new Intent(context, M5.class);
                         break;
-                    case "m7":
-                        intent = new Intent(context, M6.class);
-                        break;
-                    case "m10":
-                        intent = new Intent(context, M7.class);
-                        break;
                     case "m11":
                         intent = new Intent(context, M8.class);
                         break;
@@ -123,12 +113,6 @@ public class AdapterOfImageCV extends RecyclerView.Adapter<AdapterOfImageCV.Imag
                         break;
                     case "m26":
                         intent = new Intent(context, M17.class);
-                        break;
-                    case "m27":
-                        intent = new Intent(context, M18.class);
-                        break;
-                    case "m28":
-                        intent = new Intent(context, M19.class);
                         break;
                     case "m29":
                         intent = new Intent(context, M20.class);

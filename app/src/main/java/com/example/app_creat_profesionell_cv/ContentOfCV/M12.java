@@ -257,9 +257,9 @@ public class M12 extends AppCompatActivity {
             Canvas canvas = page.getCanvas();
             Paint paint = createPaint();
 
-            drawContactInfo(canvas,220);
+            drawContactInfo(canvas,180);
             // Draw Competence and get the Y position where the next section should start
-            int competenceEndY = drawCompetence(canvas, 245);
+            int competenceEndY = drawCompetence(canvas, 200);
             int skillsEndY = drawSkills(canvas,competenceEndY+30);
             // Draw Experience de Travail section starting just below Competence
             //drawExperienceDeTravail(canvas, skillsEndY + 30);
@@ -269,7 +269,7 @@ public class M12 extends AppCompatActivity {
             //drawProjet(canvas, experienceEndY + 30);
             int projetEndY = drawProjet(canvas, experienceEndY + 30);
             int drwarEducationY = drawEducation(canvas, projetEndY + 30);
-            drawVerticalLine(canvas,250,drwarEducationY);
+            drawVerticalLine(canvas,180,drwarEducationY);
 
 
             drawLanguages(canvas, 430);
@@ -464,7 +464,7 @@ public class M12 extends AppCompatActivity {
         // Draw the heading
         String heading = "CONTACT";
         float headingY = startY + paint.getTextSize() + 25; // Y position for heading
-        canvas.drawText(heading, marginLeft, headingY, paint);
+        canvas.drawText(heading, marginLeft-40, headingY, paint);
 
         // Set up paint for contact information
         paint.setTextSize(10); // Smaller text size for contact information
@@ -661,7 +661,7 @@ public class M12 extends AppCompatActivity {
 
             // Check and draw the dates if not empty
             String dates = (info.getDateDébut() != null ? info.getDateDébut() : "") +
-                    (info.getDateDeFin() != null ? " to " + info.getDateDeFin() : "");
+                    (info.getDateDeFin() != null ? " - " + info.getDateDeFin() : "");
             if (!dates.trim().isEmpty()) {
                 canvas.drawText(dates, marginLeft, yOffset, normalPaint);
                 yOffset += lineHeight;
@@ -775,7 +775,7 @@ public class M12 extends AppCompatActivity {
 
             // Check and draw the start and end dates if not empty
             String dates = (education.getStartYier() != null ? education.getStartYier() : "") +
-                    (education.getEndYier() != null ? " to " + education.getEndYier() : "");
+                    (education.getEndYier() != null ? " - " + education.getEndYier() : "");
             if (!dates.trim().isEmpty()) {
                 canvas.drawText(dates, marginLeft, currentY, datePaint);
                 currentY += lineHeight + elementMarginTop;

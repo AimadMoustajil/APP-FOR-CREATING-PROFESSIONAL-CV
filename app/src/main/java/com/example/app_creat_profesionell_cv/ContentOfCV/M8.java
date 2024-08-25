@@ -318,8 +318,8 @@ public class M8 extends AppCompatActivity {
         paint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface
 
         Paint titleT = new Paint();
-        titleT.setColor(Color.rgb(40, 40, 40));
-        titleT.setTextSize(20); // Heading text size
+        titleT.setColor(Color.BLACK);
+        titleT.setTextSize(15); // Heading text size
         titleT.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface
 
         // Define margins and spacing
@@ -332,14 +332,12 @@ public class M8 extends AppCompatActivity {
         final int bulletTextMargin = 5; // Margin between bullet and text
         final int smallMarginTop = 10; // Small margin before next project
         final int resumeMaxWidth = 300; // Maximum width for resume text
+        final int titleDateMargin = 50; // Margin between project title and date range
 
         // Draw the "Projet" heading
         String heading = "Projet".toUpperCase();
         float headingY = startY + paint.getTextSize();  // Y position for heading
         canvas.drawText(heading, marginLeft, headingY, paint);
-
-        // Measure the width of the heading text
-        float headingWidth = paint.measureText(heading);
 
         // Draw a line directly below the heading
         Paint linePaint = new Paint();
@@ -363,7 +361,7 @@ public class M8 extends AppCompatActivity {
         grayPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Normal typeface
 
         Paint titlePaint = new Paint();
-        titlePaint.setColor(Color.GRAY); // Gray text color
+        titlePaint.setColor(Color.rgb(48, 48, 48)); // Gray text color
         titlePaint.setTextSize(15); // Text size for title
         titlePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Bold typeface
 
@@ -381,7 +379,13 @@ public class M8 extends AppCompatActivity {
                 String formattedTitle = capitalizeFirstLetterOfEachWord(info.getNomEntreprise());
                 String dates = (info.getDateDebut() != null ? info.getDateDebut() : "") +
                         (info.getDateFin() != null ? " - " + info.getDateFin() : "");
-                canvas.drawText(formattedTitle + "," + dates, marginLeft, yOffset, titleT);
+
+                // Measure the width of the project title
+                float titleWidth = titleT.measureText(formattedTitle);
+
+                // Draw the project title and date range with margin
+                canvas.drawText(formattedTitle, marginLeft, yOffset, titleT);
+                canvas.drawText(dates, marginLeft + titleWidth + titleDateMargin, yOffset, titlePaint);
                 yOffset += lineHeight;
             }
 
@@ -436,6 +440,7 @@ public class M8 extends AppCompatActivity {
         // Return the bottom Y position of this section
         return yOffset;
     }
+
 
 
 
@@ -741,6 +746,7 @@ public class M8 extends AppCompatActivity {
         int lineHeight = 25;
         int bulletMargin = 20;
         int resumeMaxWidth = 300; // Maximum width for resume text
+        int companyDateMargin = 50; // Margin between company name and dates
 
         // Retrieve experience information from database
         ArrayList<InfoExperience> experienceInfo = dbExperienceDeTravaille.getAllInfoExperience();
@@ -768,9 +774,18 @@ public class M8 extends AppCompatActivity {
 
         // Draw each piece of experience information
         for (InfoExperience info : experienceInfo) {
-            // Draw the company name and dates on the first line
-            String companyAndDates = info.getNomEntreprise() + " " + info.getDateDébut() + " - " + info.getDateDeFin();
-            canvas.drawText(companyAndDates, marginLeft, yOffset, bulletPaint);
+            // Draw the company name and dates on the first line with margin
+            String companyName = info.getNomEntreprise();
+            String companyDate = info.getDateDébut() + " - " + info.getDateDeFin();
+
+            // Measure the text width for the company name
+            float companyNameWidth = bulletPaint.measureText(companyName);
+
+            // Draw company name
+            canvas.drawText(companyName, marginLeft, yOffset, bulletPaint);
+
+            // Draw dates with margin
+            canvas.drawText(companyDate, marginLeft + companyNameWidth + companyDateMargin, yOffset, bulletPaint);
             yOffset += lineHeight;
 
             // Draw the job title on the next line
@@ -840,7 +855,7 @@ public class M8 extends AppCompatActivity {
 
         // Create and configure the Paint object for date ranges (small and gray)
         Paint dateRangePaint = new Paint();
-        dateRangePaint.setColor(Color.GRAY); // Change color to gray for date ranges
+        dateRangePaint.setColor(Color.BLACK); // Change color to gray for date ranges
         dateRangePaint.setTextSize(14); // Adjust size as needed
         dateRangePaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
 
@@ -856,6 +871,7 @@ public class M8 extends AppCompatActivity {
         int headingMarginBottom = 10;
         int elementMarginTop = 25;
         int lineHeight = 25;
+        int schoolDateMargin = 50; // Margin between school name and date range
 
         // Get the education information
         ArrayList<InfoEducation> educationInfo = dbInfoEducation.getAllInfoEducation();
@@ -879,11 +895,18 @@ public class M8 extends AppCompatActivity {
         float currentY = headingY + headingMarginBottom + elementMarginTop;
 
         for (InfoEducation education : educationInfo) {
-            // Draw the school name and dates on the first line
-            String schoolNameAndDates = education.getShool() + " " + education.getStartYier() + " - " + education.getEndYier();
-            canvas.drawText(schoolNameAndDates, marginLeft, currentY, schoolNamePaint);
+            // Draw the school name and dates on the first line with margin
+            String schoolName = education.getShool();
+            String dateRange = education.getStartYier() + " - " + education.getEndYier();
 
-            // Move to the next line for the job title
+            // Measure the width of the school name
+            float schoolNameWidth = schoolNamePaint.measureText(schoolName);
+
+            // Draw the school name
+            canvas.drawText(schoolName, marginLeft, currentY, schoolNamePaint);
+
+            // Draw the date range with margin
+            canvas.drawText(dateRange, marginLeft + schoolNameWidth + schoolDateMargin, currentY, dateRangePaint);
             currentY += lineHeight;
 
             // Draw the job title on the next line with additional margin for bullet point
@@ -896,6 +919,7 @@ public class M8 extends AppCompatActivity {
         // Return the bottom Y position of this section
         return (int) currentY;
     }
+
 
 
 
@@ -1201,19 +1225,52 @@ public class M8 extends AppCompatActivity {
 
 
     private void drawCircularImage(Canvas canvas, Bitmap bitmap, int x, int y) {
-        int imageSize = (int) (canvas.getWidth() * IMAGE_SIZE_PERCENT / 100);
+        // Define fixed width for the circular image
+        int imageSize = 150;
+        int borderWidth = 3; // Width of the border in pixels
+
+        // Calculate the aspect ratio of the original image
+        float aspectRatio = (float) bitmap.getWidth() / bitmap.getHeight();
+
+        // Determine new height based on the aspect ratio and fixed width
+        int newHeight = (int) (imageSize / aspectRatio);
+
+        // Create a resized bitmap with fixed width and calculated height
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, imageSize, newHeight, false);
+
+        // Create a circular bitmap with fixed size
         Bitmap circularBitmap = Bitmap.createBitmap(imageSize, imageSize, Bitmap.Config.ARGB_8888);
         Canvas circularCanvas = new Canvas(circularBitmap);
         Paint paint = new Paint();
         paint.setAntiAlias(true);
-        Rect rect = new Rect(0, 0, imageSize, imageSize);
-        RectF rectF = new RectF(rect);
+
+        // Define rectangle and circle for drawing
+        Rect rect = new Rect(0, 0, resizedBitmap.getWidth(), resizedBitmap.getHeight());
+        RectF rectF = new RectF(0, 0, imageSize, imageSize);
+
+        // Draw the circular bitmap
         circularCanvas.drawARGB(0, 0, 0, 0);
         circularCanvas.drawCircle(imageSize / 2, imageSize / 2, imageSize / 2, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        circularCanvas.drawBitmap(bitmap, rect, rect, paint);
-        canvas.drawBitmap(circularBitmap, x, y, null);
+        circularCanvas.drawBitmap(resizedBitmap, rect, rectF, paint);
+
+        // Draw the border around the circular image
+        Paint borderPaint = new Paint();
+        borderPaint.setColor(Color.rgb(53,53,53)); // Border color
+        borderPaint.setStyle(Paint.Style.STROKE); // Set to stroke to draw border
+        borderPaint.setStrokeWidth(borderWidth); // Set border width
+        borderPaint.setAntiAlias(true);
+
+        circularCanvas.drawCircle(imageSize / 2, imageSize / 2, (imageSize / 2) - borderWidth / 2, borderPaint);
+
+        // Draw the circular bitmap on the main canvas
+        canvas.drawBitmap(circularBitmap, x -10, y , null);
+
+        // Recycle bitmaps to free up memory
+        resizedBitmap.recycle();
+        circularBitmap.recycle();
     }
+
 
     private void drawBlueBackground(Canvas canvas) {
         Paint paint = new Paint();
